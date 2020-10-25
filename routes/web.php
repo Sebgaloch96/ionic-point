@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'WebsiteController@home')->name('home');
+Route::get('/membership', 'WebsiteController@membership')->name('membership');
+Route::get('/about-us', 'WebsiteController@aboutUs')->name('aboutUs');
+Route::get('/contact-us', 'WebsiteController@contactUs')->name('contactUs');
+
+Route::prefix('/hub')->name('hub')->namespace('Hub')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('.home');
+});
+

@@ -5,7 +5,12 @@
  */
 
 require('./bootstrap');
+require( 'datatables.net-bs4' );
+require( 'datatables.net-responsive-bs4' );
 
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+window.Swal = Swal;
 window.Vue = require('vue');
 
 /**
@@ -30,3 +35,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+// Custom JS Scripts
+require('./hub/main');
