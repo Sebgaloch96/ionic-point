@@ -18746,6 +18746,11 @@ a {
   margin-left: 1rem;
 }
 
+.navbar .btn-login:hover,
+.navbar .btn-login:focus {
+  border: solid 2px #ffffff;
+}
+
 .navbar-toggler {
   border: solid 2px #ffffff;
 }
