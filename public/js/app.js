@@ -70372,7 +70372,9 @@ __webpack_require__.r(__webpack_exports__);
  * Only include the JS that you want to share between multiple pages in the hub
  */
 $(function () {
-  console.log('Hello from hub/main.js');
+  $('#sidebarCollapse').on('click', function () {
+    $('#sidebar').toggleClass('active');
+  });
 });
 
 /***/ }),

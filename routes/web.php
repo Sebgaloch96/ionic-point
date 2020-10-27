@@ -19,6 +19,6 @@ Route::get('/about-us', 'WebsiteController@aboutUs')->name('aboutUs');
 Route::get('/contact-us', 'WebsiteController@contactUs')->name('contactUs');
 
 Route::prefix('/hub')->name('hub')->namespace('Hub')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('.home');
+    Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
 });
 

@@ -4,5 +4,7 @@
  */
 
 $(function () {
-    console.log('Hello from hub/main.js');
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
 });

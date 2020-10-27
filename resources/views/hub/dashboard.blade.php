@@ -1,11 +1,14 @@
 @extends('hub.layouts.main')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('dashboard') }}
+@endsection
+
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+        <div class="col-md-12">
+            <div class="card border-0 rounded-0 shadow-sm mx-1 mx-md-4">
+                <div class="card-header bg-custom-dark text-white rounded-0">Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -19,5 +22,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

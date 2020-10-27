@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Hub;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,6 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('hub.home');
+        return view('hub.dashboard');
     }
 }
