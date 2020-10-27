@@ -41,12 +41,12 @@ a {
 
 // header
 .navbar {
-    // height: 75px;
     padding-top: $spacer * 1.3;
     padding-bottom: $spacer * 1.3;
+    background-color: $brand-primary;
 
     .navbar-brand {
-        color: $brand-primary;
+        color: $brand-white;
     }
 
     .nav-item {
@@ -56,7 +56,7 @@ a {
         }
 
         a {
-            color: $brand-primary;
+            color: $brand-white;
 
             &:hover, &:focus {
                 color: $brand-secondary;
@@ -70,10 +70,14 @@ a {
 }
 
 .navbar-toggler {
-    border: solid 2px $brand-primary;
+    border: solid 2px $brand-white;
+
+    i {
+        color: $brand-white;
+    }
 
     &:hover, &:focus {
-        border: solid 2px $brand-primary;
+        border: solid 2px $brand-white;
         outline: none;
     }
 }

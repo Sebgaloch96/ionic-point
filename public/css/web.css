@@ -18721,10 +18721,11 @@ a {
 .navbar {
   padding-top: 1.3rem;
   padding-bottom: 1.3rem;
+  background-color: #1b263b;
 }
 
 .navbar .navbar-brand {
-  color: #1b263b;
+  color: #ffffff;
 }
 
 .navbar .nav-item .nav-link {
@@ -18733,7 +18734,7 @@ a {
 }
 
 .navbar .nav-item a {
-  color: #1b263b;
+  color: #ffffff;
 }
 
 .navbar .nav-item a:hover,
@@ -18746,12 +18747,16 @@ a {
 }
 
 .navbar-toggler {
-  border: solid 2px #1b263b;
+  border: solid 2px #ffffff;
+}
+
+.navbar-toggler i {
+  color: #ffffff;
 }
 
 .navbar-toggler:hover,
 .navbar-toggler:focus {
-  border: solid 2px #1b263b;
+  border: solid 2px #ffffff;
   outline: none;
 }
 
