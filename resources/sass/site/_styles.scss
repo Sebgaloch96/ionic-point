@@ -70,7 +70,12 @@ a {
 }
 
 .navbar-toggler {
-    border: solid 2px red;
+    border: solid 2px $brand-primary;
+
+    &:hover, &:focus {
+        border: solid 2px $brand-primary;
+        outline: none;
+    }
 }
 
 // banner
@@ -119,21 +124,19 @@ a {
     background-repeat: no-repeat;
     background-position: center;
     color: $brand-white;
+    overflow: hidden;
+    position: relative;
 
     &:before {
         content: '';
         position: absolute;
         width: 100%;
-        height: 471px;
+        height: 100%;
         background-color: rgba($brand-primary, 0.8);
     }
 
     @include media-breakpoint-down(sm) {
-        height: 270px;
-
-        &:before {
-            height: 270px;
-        }
+        height: auto;
     }
 
     .help-section {
@@ -144,11 +147,24 @@ a {
                 color: $brand-secondary;
             }
         }
+
+        @include media-breakpoint-down(md) {
+            padding-top: $spacer * 7;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding-top: $spacer * 2.5;
+        }
     }
 
     .contact-section {
         padding-top: $spacer * 7;
         color: $brand-primary;
+
+        @include media-breakpoint-down(sm) {
+            padding-top: $spacer;
+            padding-bottom: $spacer * 2.5;
+        }
 
         .card {
             padding: 31px 35px;
@@ -200,6 +216,10 @@ a {
                 }
                 
             }
+
+            @include media-breakpoint-down(md) {
+                padding: 20px 25px;
+            }
         }
     }
 }
@@ -221,6 +241,15 @@ a {
 
         &:hover, &:focus {
             color: rgba($brand-white, 0.8);
+        }
+    }
+
+    .footer-social {
+        text-align: right;
+
+        @include media-breakpoint-down(sm) {
+            text-align: left;
+            margin-top: $spacer;
         }
     }
 }
