@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
+        "@popperjs/core": "^2.5.3",
         "bootstrap": "^4.5.3",
         "datatables.net-bs4": "^1.10.22",
         "datatables.net-responsive-bs4": "^2.2.6",
