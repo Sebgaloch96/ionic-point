@@ -1,8 +1,9 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 // Variables
-@import 'variables';
+@import 'site/variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -17,3 +18,4 @@
 @import 'sweetalert2/src/sweetalert2.scss';
 
 // Custom stylesheets
+@import 'site/styles';

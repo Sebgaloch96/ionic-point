@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -15,8 +15,24 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('membership') }}">Membership</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('aboutUs') }}">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contactUs') }}">Contact us</a>
+                </li>
+                <li>
+                    <a class="btn btn-primary btn-login" href="#">Login</a>
+                </li>
+
                 <!-- Authentication Links -->
-                @guest
+                <!-- @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
@@ -25,7 +41,7 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
-                @endguest
+                @endguest -->
             </ul>
         </div>
     </div>

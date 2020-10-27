@@ -1,0 +1,65 @@
+// standard
+body {
+    color: $brand-primary;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-bold;
+}
+
+.btn-primary {
+    color: $brand-primary;
+    border: solid 2px $brand-primary;
+    background-color: $brand-white;
+
+    &:hover, &:focus {
+        color: $brand-white;
+        border: solid 2px $brand-primary;
+        background-color: $brand-primary;
+    }
+}
+
+// header
+.navbar {
+    height: 75px;
+
+    .navbar-brand {
+        color: $brand-primary;
+    }
+
+    .nav-item {
+        .nav-link {
+            padding-left: $spacer;
+            padding-right: $spacer;
+        }
+
+        a {
+            color: $brand-primary;
+
+            &:hover, &:focus {
+                color: $brand-secondary;
+            }
+        }
+    }
+
+    .btn-login {
+        margin-left: $spacer;
+    }
+}
+
+.navbar-toggler {
+    border: solid 2px red;
+}
+
+// banner
+.banner-section {
+    img {
+        width: 100%;
+    }
+}
+
+// homepage about us
+.homepage-aboutus {
+    padding-top: $spacer * 4;
+    padding-bottom: $spacer *4;
+}
