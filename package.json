@@ -16,7 +16,7 @@
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
-        "popper.js": "^1.12",
+        "popper.js": "^1.12.1",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
+        "@popperjs/core": "^2.5.3",
         "bootstrap": "^4.5.3",
         "datatables.net-bs4": "^1.10.22",
         "datatables.net-responsive-bs4": "^2.2.6",
