@@ -18951,6 +18951,42 @@ a {
   margin-bottom: 3rem;
 }
 
+.contact-us-wrapper {
+  color: #ffffff;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-color: #0b0f18;
+}
+
+.contact-us-wrapper h1 {
+  font-size: 3.75rem;
+}
+
+form input {
+  height: 34px;
+}
+
+form .form-control {
+  background-color: #778DA9;
+  border-radius: 0px;
+  border: none;
+  font-size: 1rem;
+  color: #1b263b;
+}
+
+form .form-control::-webkit-input-placeholder {
+  color: #1b263b;
+}
+
+form textarea.form-control {
+  max-width: 100%;
+}
+
+form .btn-primary:hover,
+form .btn-primary:focus {
+  border: solid 2px #ffffff;
+}
+
 .footer {
   background-color: #1b263b;
   color: #ffffff;
