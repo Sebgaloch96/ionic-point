@@ -13,12 +13,36 @@
         <a class="nav-link text-custom-dark position-relative" href="#" id="notifications" data-toggle="dropdown">
             <i class="fas fa-bell fa-lg"></i> <span class="badge badge-pill badge-danger badge-pill-top-right position-absolute">5</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right shadow rounded-0 border-0" aria-labelledby="notifications">
-            <span class="dropdown-item-text">Notifications <span class="badge badge-pill badge-danger float-right mt-1">5 new</span></span>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Your Profile</a>
-            <a class="dropdown-item" href="#">Your Jobs</a>
-            <a class="dropdown-item" href="#">Manage Subscription</a>
+        <div class="dropdown-menu dropdown-menu-right shadow rounded-0 border-0 p-0" aria-labelledby="notifications">
+            <span class="dropdown-item-text p-3">Notifications <span class="badge badge-pill badge-danger float-right mt-1">5 new</span></span>
+            <div class="dropdown-item p-0">
+                <div class="list-group rounded-0">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small>Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                </div>
+            </div>         
         </div>
     </li>
     <li class="nav-item dropdown">    
