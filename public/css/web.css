@@ -18769,7 +18769,7 @@ a {
   height: 471px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: right center;
 }
 
 @media (max-width: 767.98px) {
@@ -18800,7 +18800,7 @@ a {
   }
 }
 
-.homepage-contact {
+.help-section-wrapper {
   height: 471px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -18810,7 +18810,7 @@ a {
   position: relative;
 }
 
-.homepage-contact:before {
+.help-section-wrapper:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -18819,63 +18819,63 @@ a {
 }
 
 @media (max-width: 767.98px) {
-  .homepage-contact {
+  .help-section-wrapper {
     height: auto;
   }
 }
 
-.homepage-contact .help-section {
+.help-section-wrapper .help-section {
   padding-top: 9rem;
 }
 
-.homepage-contact .help-section p a {
+.help-section-wrapper .help-section p a {
   color: #778DA9;
 }
 
 @media (max-width: 991.98px) {
-  .homepage-contact .help-section {
+  .help-section-wrapper .help-section {
     padding-top: 7rem;
   }
 }
 
 @media (max-width: 767.98px) {
-  .homepage-contact .help-section {
+  .help-section-wrapper .help-section {
     padding-top: 2.5rem;
   }
 }
 
-.homepage-contact .contact-section {
+.help-section-wrapper .contact-section {
   padding-top: 7rem;
   color: #1b263b;
 }
 
 @media (max-width: 767.98px) {
-  .homepage-contact .contact-section {
+  .help-section-wrapper .contact-section {
     padding-top: 1rem;
     padding-bottom: 2.5rem;
   }
 }
 
-.homepage-contact .contact-section .card {
+.help-section-wrapper .contact-section .card {
   padding: 31px 35px;
   border-radius: 10px;
 }
 
-.homepage-contact .contact-section .card a {
+.help-section-wrapper .contact-section .card a {
   color: #1b263b;
 }
 
-.homepage-contact .contact-section .card ul {
+.help-section-wrapper .contact-section .card ul {
   margin-bottom: 0;
 }
 
-.homepage-contact .contact-section .card ul li {
+.help-section-wrapper .contact-section .card ul li {
   margin-bottom: 15px;
   padding-left: 2.5rem;
   position: relative;
 }
 
-.homepage-contact .contact-section .card ul li:before {
+.help-section-wrapper .contact-section .card ul li:before {
   content: "";
   width: 25px;
   height: 25px;
@@ -18887,26 +18887,47 @@ a {
   left: 0;
 }
 
-.homepage-contact .contact-section .card ul li:last-child {
+.help-section-wrapper .contact-section .card ul li:last-child {
   margin-bottom: 0;
 }
 
-.homepage-contact .contact-section .card ul li.phone:before {
+.help-section-wrapper .contact-section .card ul li.phone:before {
   background-image: url("/images/icons/icon-phone.svg");
 }
 
-.homepage-contact .contact-section .card ul li.email:before {
+.help-section-wrapper .contact-section .card ul li.email:before {
   background-image: url("/images/icons/icon-email.svg");
 }
 
-.homepage-contact .contact-section .card ul li.address:before {
+.help-section-wrapper .contact-section .card ul li.address:before {
   background-image: url("/images/icons/icon-address.svg");
 }
 
 @media (max-width: 991.98px) {
-  .homepage-contact .contact-section .card {
+  .help-section-wrapper .contact-section .card {
     padding: 20px 25px;
   }
+}
+
+.membership-section {
+  margin-bottom: 4rem;
+}
+
+.membership-section .membership {
+  padding: 20px;
+  border: solid 2px rgba(27, 38, 59, 0.2);
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.membership-section .membership:hover,
+.membership-section .membership:focus {
+  border: solid 2px #1b263b;
+}
+
+.membership-section .button-wrapper {
+  margin-top: 5rem;
 }
 
 .footer {

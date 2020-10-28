@@ -90,7 +90,7 @@ a {
     height: 471px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: right center;
 
     @include media-breakpoint-down(sm) {
         height: 270px;
@@ -124,8 +124,8 @@ a {
     }
 }
 
-// homepage contact
-.homepage-contact {
+// help section
+.help-section-wrapper {
     height: 471px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -228,6 +228,27 @@ a {
                 padding: 20px 25px;
             }
         }
+    }
+}
+
+// membership page
+.membership-section {
+    margin-bottom: $spacer * 5;
+
+    .membership {
+        padding: 20px;
+        border: solid 2px rgba($brand-primary, 0.2);
+        box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        transition: all 0.5s ease;
+
+        &:hover, &:focus {
+            border: solid 2px rgba($brand-primary, 1);
+        }
+    }
+
+    .button-wrapper {
+        margin-top: $spacer * 5;
     }
 }
 
