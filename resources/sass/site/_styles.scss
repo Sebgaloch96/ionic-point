@@ -245,10 +245,32 @@ a {
         &:hover, &:focus {
             border: solid 2px rgba($brand-primary, 1);
         }
+
+        ul {
+            margin-left: 1rem;
+
+            li {
+                position: relative;
+                padding-left: 1rem;
+
+                &:before {
+                    content: '';
+                    width: 5px;
+                    height: 5px;
+                    display: inline-block;
+                    position: absolute;
+                    background-color: $brand-primary;
+                    top: 10px;
+                    left: 0;
+                    
+                }
+            }
+        }
     }
 
     .button-wrapper {
         margin-top: $spacer * 5;
+        margin-bottom: $spacer * 3;
     }
 }
 

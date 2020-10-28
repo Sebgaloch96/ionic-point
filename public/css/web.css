@@ -18926,8 +18926,29 @@ a {
   border: solid 2px #1b263b;
 }
 
+.membership-section .membership ul {
+  margin-left: 1rem;
+}
+
+.membership-section .membership ul li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.membership-section .membership ul li:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  position: absolute;
+  background-color: #1b263b;
+  top: 10px;
+  left: 0;
+}
+
 .membership-section .button-wrapper {
   margin-top: 5rem;
+  margin-bottom: 3rem;
 }
 
 .footer {
