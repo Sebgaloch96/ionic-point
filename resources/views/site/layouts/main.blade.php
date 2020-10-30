@@ -37,17 +37,18 @@
             </div>
         @endenv
 
-        <header>
-            @include('site.includes.navbar')
-        </header>
+            <header>
+                @include('site.includes.navbar')
+            </header>
 
-        <main>
-            @yield('content')
-        </main>
+            <main>
+                @yield('content')
+            </main>
 
-        <footer>
-            @include('site.includes.footer')
-        </footer>
+            <footer>
+                @include('site.includes.footer')
+            </footer>
+        
     </div>
 
     @yield('scripts')

@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-10 offset-1">
-                <div class="homepage-aboutus">
+                <div class="aboutus-wrapper">
                     <h1 class="text-center">Welcome to Ionic Point</h1>
                     <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>

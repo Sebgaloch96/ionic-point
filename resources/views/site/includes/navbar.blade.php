@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{{ route('contactUs') }}">Contact us</a>
                 </li>
                 <li class="mt-1">
-                    <a class="btn btn-primary btn-login" href="#">Login</a>
+                    <a class="btn btn-primary btn-login" href="{{ route('login') }}">Login</a>
                 </li>
             </ul>
         </div>

@@ -18708,10 +18708,16 @@ a {
 
 .primary-bg {
   background-color: #1b263b;
+  color: #ffffff;
 }
 
 .secondary-bg {
   background-color: #778DA9;
+  color: #ffffff;
+}
+
+.secondary-bg p {
+  color: #ffffff;
 }
 
 .gray-bg {
@@ -18778,7 +18784,7 @@ a {
   }
 }
 
-.homepage-aboutus {
+.aboutus-wrapper {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
@@ -19017,5 +19023,9 @@ form .btn-primary:focus {
     text-align: left;
     margin-top: 1rem;
   }
+}
+
+.partner-section {
+  border-bottom: solid 4px #1b263b;
 }
 

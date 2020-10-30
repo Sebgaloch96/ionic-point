@@ -29,10 +29,16 @@ a {
 
 .primary-bg {
     background-color: $brand-primary;
+    color: $brand-white;
 }
 
 .secondary-bg {
     background-color: $brand-secondary;
+    color: $brand-white;
+
+    p {
+        color: $brand-white;
+    }
 }
 
 .gray-bg {
@@ -97,13 +103,10 @@ a {
     }
 }
 
-// homepage about us
-.homepage-aboutus {
+// homepage about us / about us page
+.aboutus-wrapper {
     padding-top: $spacer * 4;
     padding-bottom: $spacer *4;
-
-
-    
 }
 
 // homepage membership plan
@@ -347,3 +350,7 @@ form {
     }
 }
 
+// partner
+.partner-section {
+    border-bottom: solid 4px $brand-primary;
+}
