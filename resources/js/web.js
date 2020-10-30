@@ -13,3 +13,4 @@ window.Swal = Swal;
 
 // Custom JS Scripts
 require('./site/main');
+require('./site/custom');

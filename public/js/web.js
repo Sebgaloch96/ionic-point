@@ -57790,6 +57790,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/site/custom.js":
+/*!*************************************!*\
+  !*** ./resources/js/site/custom.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./resources/js/site/main.js":
 /*!***********************************!*\
   !*** ./resources/js/site/main.js ***!
@@ -57832,6 +57843,8 @@ __webpack_require__(/*! datatables.net-responsive-bs4 */ "./node_modules/datatab
 window.Swal = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default.a; // Custom JS Scripts
 
 __webpack_require__(/*! ./site/main */ "./resources/js/site/main.js");
+
+__webpack_require__(/*! ./site/custom */ "./resources/js/site/custom.js");
 
 /***/ }),
 

@@ -1,0 +1,356 @@
+// standard
+body {
+    color: $brand-primary;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-bold;
+}
+
+p, span, li, a {
+    line-height: $line-height-base * 1.5;
+}
+
+a {
+    transition: all 0.5s ease;
+}
+
+.btn-primary {
+    color: $brand-primary;
+    border: solid 2px $brand-primary;
+    background-color: $brand-white;
+
+    &:hover, &:focus {
+        color: $brand-white;
+        border: solid 2px $brand-primary;
+        background-color: $brand-primary;
+    }
+}
+
+.primary-bg {
+    background-color: $brand-primary;
+    color: $brand-white;
+}
+
+.secondary-bg {
+    background-color: $brand-secondary;
+    color: $brand-white;
+
+    p {
+        color: $brand-white;
+    }
+}
+
+.gray-bg {
+    background-color: $brand-gray;
+}
+
+// header
+.navbar {
+    padding-top: $spacer * 1.3;
+    padding-bottom: $spacer * 1.3;
+    background-color: $brand-primary;
+
+    .navbar-brand {
+        color: $brand-white;
+    }
+
+    .nav-item {
+        .nav-link {
+            padding-left: $spacer;
+            padding-right: $spacer;
+        }
+
+        a {
+            color: $brand-white;
+
+            &:hover, &:focus {
+                color: $brand-secondary;
+            }
+        }
+    }
+
+    .btn-login {
+        margin-left: $spacer;
+        &:hover, &:focus {
+            border: solid 2px $brand-white;
+        }
+    }
+}
+
+.navbar-toggler {
+    border: solid 2px $brand-white;
+
+    i {
+        color: $brand-white;
+    }
+
+    &:hover, &:focus {
+        border: solid 2px $brand-white;
+        outline: none;
+    }
+}
+
+// banner
+.banner-section {
+    height: 471px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+    @include media-breakpoint-down(sm) {
+        height: 270px;
+    }
+}
+
+// homepage about us / about us page
+.aboutus-wrapper {
+    padding-top: $spacer * 4;
+    padding-bottom: $spacer *4;
+}
+
+// homepage membership plan
+.membership-plan {
+    .plan-wrapper {
+        padding: $spacer *4;
+        text-align: center;
+
+        .plan-icon {
+            width: 115px;
+            height: 115px;
+            margin: 0 auto;
+        }
+
+        @include media-breakpoint-down(md) {
+            padding: $spacer *2;
+        }
+    }
+}
+
+// help section
+.help-section-wrapper {
+    height: 471px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: $brand-white;
+    overflow: hidden;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($brand-primary, 0.8);
+    }
+
+    @include media-breakpoint-down(sm) {
+        height: auto;
+    }
+
+    .help-section {
+        padding-top: $spacer * 9;
+
+        p {
+            a {
+                color: $brand-secondary;
+            }
+        }
+
+        @include media-breakpoint-down(md) {
+            padding-top: $spacer * 7;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding-top: $spacer * 2.5;
+        }
+    }
+
+    .contact-section {
+        padding-top: $spacer * 7;
+        color: $brand-primary;
+
+        @include media-breakpoint-down(sm) {
+            padding-top: $spacer;
+            padding-bottom: $spacer * 2.5;
+        }
+
+        .card {
+            padding: 31px 35px;
+            border-radius: 10px;
+
+            a {
+                color: $brand-primary;
+            }
+
+            ul {
+                margin-bottom: 0;
+                li {
+                    margin-bottom: 15px;
+                    padding-left: $spacer * 2.5;
+                    position: relative;
+                    &:before {
+                        content: '';
+                        width: 25px;
+                        height: 25px;
+                        display: inline-block;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        position: absolute;
+                        top: 2px;
+                        left: 0;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.phone {
+                        &:before {
+                            background-image: url('/images/icons/icon-phone.svg');
+                        }
+                    }
+
+                    &.email {
+                        &:before {
+                            background-image: url('/images/icons/icon-email.svg');
+                        }
+                    }
+
+                    &.address {
+                        &:before {
+                            background-image: url('/images/icons/icon-address.svg');
+                        }
+                    }
+                }
+                
+            }
+
+            @include media-breakpoint-down(md) {
+                padding: 20px 25px;
+            }
+        }
+    }
+}
+
+// membership page
+.membership-section {
+    margin-bottom: $spacer * 5;
+
+    .membership {
+        padding: 20px;
+        border: solid 2px rgba($brand-primary, 0.2);
+        box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        transition: all 0.5s ease;
+
+        &:hover, &:focus {
+            border: solid 2px rgba($brand-primary, 1);
+        }
+
+        ul {
+            margin-left: 1rem;
+
+            li {
+                position: relative;
+                padding-left: 1rem;
+
+                &:before {
+                    content: '';
+                    width: 5px;
+                    height: 5px;
+                    display: inline-block;
+                    position: absolute;
+                    background-color: $brand-primary;
+                    top: 10px;
+                    left: 0;
+                    
+                }
+            }
+        }
+    }
+
+    .button-wrapper {
+        margin-top: $spacer * 5;
+        margin-bottom: $spacer * 3;
+    }
+}
+
+// contact us page
+.contact-us-wrapper {
+    color: $brand-white;
+    padding-top: $spacer * 4;
+    padding-bottom: $spacer * 4;
+    background-color: darken($brand-primary, 10%);
+
+    h1 {
+        font-size: $h1-font-size * 1.5;
+    }
+}
+
+// form
+form {
+    input {
+        height: 34px;
+    }
+
+    .form-control {
+        background-color: $brand-secondary;
+        border-radius: 0px;
+        border: none;
+        font-size: $font-size-base;
+        color: $brand-primary;
+
+        &::-webkit-input-placeholder {
+            color: $brand-primary;
+        }
+    }
+
+    textarea {
+        &.form-control {
+            max-width: 100%;
+        }
+    }
+
+    .btn-primary {
+        &:hover, &:focus {
+            border: solid 2px $brand-white;
+        }
+    }
+}
+
+// footer
+.footer {
+    background-color: $brand-primary;
+    color: $brand-white;
+    padding-top: $spacer * 2;
+    padding-bottom: $spacer * 2;
+
+    p {
+        color: $brand-white;
+        margin: 0;
+    }
+
+    a {
+        color: $brand-white;
+
+        &:hover, &:focus {
+            color: rgba($brand-white, 0.8);
+        }
+    }
+
+    .footer-social {
+        text-align: right;
+
+        @include media-breakpoint-down(sm) {
+            text-align: left;
+            margin-top: $spacer;
+        }
+    }
+}
+
+// partner
+.partner-section {
+    border-bottom: solid 4px $brand-primary;
+}
