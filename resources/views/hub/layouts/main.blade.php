@@ -48,7 +48,7 @@
 
             <div class="container-fluid py-1 py-md-4">
                 @yield('content')
-            </div>                                      
+            </div>    
         </div>
     </div>
 </body>

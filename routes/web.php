@@ -20,5 +20,7 @@ Route::get('/contact-us', 'WebsiteController@contactUs')->name('contactUs');
 
 Route::prefix('/hub')->name('hub')->namespace('Hub')->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
+    Route::get('/jobs', 'JobController@index')->name('.jobs');
+    Route::get('/calendar', 'CalendarController@index')->name('.calendar');
 });
 

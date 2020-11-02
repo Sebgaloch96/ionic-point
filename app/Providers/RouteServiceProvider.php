@@ -30,9 +30,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        // Custom resolution logic
+        Route::bind('user', function ($value) {
+            return App\User::where('uuid', $value)->first() ?? abort(404);
+        });
     }
 
     /**
