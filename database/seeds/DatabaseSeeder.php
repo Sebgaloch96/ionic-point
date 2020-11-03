@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesAndPermissionsSeeder::class); // Must be called before the UsersTableSeeder
         $this->call(UsersTableSeeder::class);
+        $this->call(JobsTableSeeder::class);
     }
 }
