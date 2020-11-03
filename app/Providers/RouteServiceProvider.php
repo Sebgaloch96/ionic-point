@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
 
         // Custom resolution logic
         Route::bind('user', function ($value) {
-            return App\User::where('uuid', $value)->first() ?? abort(404);
+            return User::where('uuid', $value)->first() ?? abort(404);
         });
     }
 
