@@ -16,7 +16,7 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique();
-            $table->string('ref')->nullable();
+            $table->string('ref');
             $table->string('title');
             $table->text('description');
             $table->timestamps();

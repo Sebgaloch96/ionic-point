@@ -19,10 +19,16 @@ class Job extends Model
     {
         parent::boot();
 
-        static::created(function ($model) {    
-            if ($model->id) {
-                $model->ref = 'J'.$model->id;
-                $model->save();
+        static::creating(function ($job) {
+            if ($job->ref === null) {
+                $job->ref = "Job";
+            }
+        });
+
+        static::created(function ($job) {    
+            if ($job->id) {
+                $job->ref = 'J'.$job->id;
+                $job->save();
             }
         });
     }
