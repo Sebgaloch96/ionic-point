@@ -36,19 +36,19 @@
                 </button>
             </div>
         @endenv
-    </div>
 
-    <div class="wrapper">
-        @include('hub.includes.sidebar')
-
-        <div id="content" class="w-100">
-            @include('hub.includes.navbar')
-
-            @yield('breadcrumbs')
-
-            <div class="container-fluid py-1 py-md-4">
-                @yield('content')
-            </div>                                      
+        <div class="wrapper">
+            @include('hub.includes.sidebar')
+    
+            <div id="content" class="w-100">
+                @include('hub.includes.navbar')
+    
+                @yield('breadcrumbs')
+    
+                <div class="container-fluid py-1 py-md-4">
+                    @yield('content')
+                </div>    
+            </div>
         </div>
     </div>
 </body>

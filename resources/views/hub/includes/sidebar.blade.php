@@ -9,19 +9,19 @@
         <li class="mb-4">
             <a href="{{ route('hub.dashboard') }}"><i class="fas fa-columns"></i> <span class="px-1">Dashboard</span></a>
         </li>
-        <li class="">
-            <a href=""><i class="fas fa-briefcase"></i> <span class="px-1">Jobs</span></a>
+        <li>
+            <a href="{{ route('hub.jobs') }}"><i class="fas fa-briefcase"></i> <span class="px-1">Jobs</span></a>
         </li>   
-        <li class="">
-            <a href=""><i class="fas fa-calendar-alt"></i> <span class="px-1">Calendar</span></a>
+        <li>
+            <a href="{{ route('hub.calendar') }}"><i class="fas fa-calendar-alt"></i> <span class="px-1">Calendar</span></a>
         </li>
-        <li class="">
+        <li>
             <a href=""><i class="fas fa-folder"></i> <span class="px-1">Files</span></a>
         </li>
-        <li class="">
+        <li>
             <a href=""><i class="fas fa-cog"></i> <span class="px-1">Settings</span></a>
         </li>
-        <li class="my-4 ">
+        <li class="my-4">
             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i> <span class="px-1">Logout</span></a>
 

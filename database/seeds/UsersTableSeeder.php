@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
@@ -13,17 +14,21 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = factory(App\User::class)->createMany([
-            [
-                'name' => 'Seb Galoch',
-                'email' => 'sg@example.com',
-                'password' => Hash::make('secret')
-            ],
-            [
-                'name' => 'Thanawan Pinlaem',
-                'email' => 'tp@example.com',
-                'password' => Hash::make('secret')
-            ]
+        // Get roles
+        $superAdmin = Role::where('name', 'Super Admin')->first();
+
+        $user = factory(User::class)->create([      
+            'name' => 'Seb Galoch',
+            'email' => 'sg@example.com',
+            'password' => Hash::make('secret')
         ]);
+        $user->assignRole($superAdmin);
+
+        $user = factory(User::class)->create([      
+            'name' => 'Thanawan Pinlaem',
+            'email' => 'tp@example.com',
+            'password' => Hash::make('secret')
+        ]);
+        $user->assignRole($superAdmin);
     }
 }

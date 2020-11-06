@@ -18682,6 +18682,10 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   right: 5px;
 }
 
+.card-job:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
 .wrapper {
   display: flex;
   align-items: stretch;
