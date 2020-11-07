@@ -18,21 +18,26 @@ class JobController extends Controller
         $this->middleware('auth');
     }
     
-    public function listed() 
+    public function listed(Request $request) 
     {
-        $jobs = Job::with('address')->orderBy('created_at', 'desc')->get();
+        $jobs = Job::with('address')->orderBy('created_at', 'desc');
 
-        return response()->json([
-            'jobs' => $jobs
-        ]);
+        if ($keyword = $request->input('search-filter')) {
+            $jobs->search($keyword);
+        }
+
+        return $jobs->paginate(20);
     }
 
-    public function myJobs() 
+    public function myJobs(Request $request) 
     {
-        $jobs = auth()->user()->jobs;
+        $user =  auth()->user();
+        $jobs = $user->jobs()->with('address');
 
-        return response()->json([
-            'jobs' => $jobs
-        ]);
+        if ($keyword = $request->input('search-filter')) {
+            $jobs->search($keyword);
+        }
+
+        return $jobs->paginate(20);
     }
 }

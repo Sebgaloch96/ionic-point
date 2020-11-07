@@ -1,9 +1,15 @@
 .bg-custom-dark {
-    background-color: $bg-custom-dark !important;
+    background-color: $custom-color-dark !important;
+}
+.bg-custom-light {
+    background-color: $custom-color-light !important;
 }
 
 .text-custom-dark {
-    color: $bg-custom-dark !important;
+    color: $custom-color-dark !important;
+}
+.text-custom-light {
+    color: $custom-color-light !important;
 }
 
 .badge-pill-top-right {
@@ -19,7 +25,50 @@
 
 .nav-pills {
     .nav-link.active {
-        background-color: $bg-custom-dark;
+        background-color: $custom-color-dark;
         border-radius: 0%;
+    }
+}
+
+.card-filters {
+    input {
+        background-color: #e9ecef;
+        color: $custom-color-dark;
+        outline: none;
+        border: none;
+
+        &::placeholder {
+            font-weight: 600;
+        }
+
+        &:focus::placeholder {
+            color: transparent;
+        }
+    }
+}
+
+.pagination {
+    .page-item {
+        &.active {
+            .page-link {
+                background-color: $custom-color-dark;
+                border-color: $custom-color-dark; 
+                color: white;
+            }
+        }
+
+        .page-link {
+            color: $custom-color-dark;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        &:first-child, &:last-child {
+            .page-link {
+                border-radius: 0%;
+            }
+        }
     }
 }

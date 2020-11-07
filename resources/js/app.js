@@ -15,6 +15,7 @@ window.Swal = Swal;
 
 import Jobs from "./components/Jobs";
 import Job from "./components/Jobs/Job";
+import Search from "./components/Search";
 window.Vue = require('vue');
 
 /**
@@ -30,7 +31,9 @@ window.Vue = require('vue');
 
 Vue.filter('fromNow', value => moment(value).fromNow());
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+Vue.component('search', Search);
 Vue.component('jobs', Jobs);
 Vue.component('job', Job);
 

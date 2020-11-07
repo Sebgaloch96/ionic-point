@@ -33,6 +33,18 @@ class Job extends Model
         });
     }
 
+    public function scopeSearch($query, $keyword)
+    {
+        return $query
+            ->where('title', 'LIKE', '%'.$keyword.'%')
+            ->orWhere('description', 'LIKE', '%'.$keyword.'%')
+            ->orWhereHas('address', function ($subquery) use ($keyword) {
+                $subquery->where('city', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('postcode', 'LIKE', '%'.$keyword.'%');
+            });
+            
+    }
+
     public function users() 
     {
         return $this->belongsToMany('App\User', 'job_user', 'job_id', 'user_id');

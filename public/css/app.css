@@ -18673,8 +18673,16 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   background-color: #1b263b !important;
 }
 
+.bg-custom-light {
+  background-color: #e9ecef !important;
+}
+
 .text-custom-dark {
   color: #1b263b !important;
+}
+
+.text-custom-light {
+  color: #e9ecef !important;
 }
 
 .badge-pill-top-right {
@@ -18688,6 +18696,56 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 
 .nav-pills .nav-link.active {
   background-color: #1b263b;
+  border-radius: 0%;
+}
+
+.card-filters input {
+  background-color: #e9ecef;
+  color: #1b263b;
+  outline: none;
+  border: none;
+}
+
+.card-filters input::-moz-placeholder {
+  font-weight: 600;
+}
+
+.card-filters input:-ms-input-placeholder {
+  font-weight: 600;
+}
+
+.card-filters input::placeholder {
+  font-weight: 600;
+}
+
+.card-filters input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.card-filters input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.card-filters input:focus::placeholder {
+  color: transparent;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #1b263b;
+  border-color: #1b263b;
+  color: white;
+}
+
+.pagination .page-item .page-link {
+  color: #1b263b;
+}
+
+.pagination .page-item .page-link:focus {
+  box-shadow: none;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
   border-radius: 0%;
 }
 
