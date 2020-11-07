@@ -17,8 +17,8 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="all-jobs-tab" data-toggle="pill" href="#all-jobs" role="tab" aria-controls="all-jobs" aria-selected="false">
-                            <strong>All Jobs</strong>
+                        <a class="nav-link" id="job-map-tab" data-toggle="pill" href="#job-map" role="tab" aria-controls="job-map" aria-selected="false">
+                            <strong>Job Map</strong>
                         </a>
                     </li>
                 </ul>
@@ -66,7 +66,7 @@
                             <span class="sr-only">Loading...</span>
                         </div>                       
                     </div>
-                    <div class="tab-pane fade" id="all-jobs" role="tabpanel" aria-labelledby="all-jobs-tab">
+                    <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
                         
                     </div>                   
                 </div>

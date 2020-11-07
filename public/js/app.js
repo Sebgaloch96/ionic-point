@@ -80529,9 +80529,9 @@ var render = function() {
               _c("div", {
                 staticClass: "tab-pane fade",
                 attrs: {
-                  id: "all-jobs",
+                  id: "job-map",
                   role: "tabpanel",
-                  "aria-labelledby": "all-jobs-tab"
+                  "aria-labelledby": "job-map-tab"
                 }
               })
             ]
@@ -80562,15 +80562,15 @@ var staticRenderFns = [
           {
             staticClass: "nav-link",
             attrs: {
-              id: "all-jobs-tab",
+              id: "job-map-tab",
               "data-toggle": "pill",
-              href: "#all-jobs",
+              href: "#job-map",
               role: "tab",
-              "aria-controls": "all-jobs",
+              "aria-controls": "job-map",
               "aria-selected": "false"
             }
           },
-          [_c("strong", [_vm._v("All Jobs")])]
+          [_c("strong", [_vm._v("Job Map")])]
         )
       ]
     )
@@ -80644,7 +80644,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "col-md-4" }, [
                 _vm._v(
                   "\n                    " +
                     _vm._s(_vm.title) +
@@ -80696,7 +80696,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 text-right" }, [
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
       _c(
         "a",
         { staticClass: "btn btn-link text-custom-dark", attrs: { href: "#" } },
@@ -80712,7 +80712,7 @@ var staticRenderFns = [
       _c(
         "a",
         { staticClass: "btn btn-link text-custom-dark", attrs: { href: "#" } },
-        [_c("i", { staticClass: "fas fa-trash fa-lg" })]
+        [_c("i", { staticClass: "far fa-bookmark fa-lg" })]
       )
     ])
   }
