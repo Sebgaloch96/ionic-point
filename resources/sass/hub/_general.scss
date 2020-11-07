@@ -16,3 +16,10 @@
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     }
 }
+
+.nav-pills {
+    .nav-link.active {
+        background-color: $bg-custom-dark;
+        border-radius: 0%;
+    }
+}

@@ -12,7 +12,7 @@ class Job extends Model
     protected $table = 'jobs';
 
     protected $fillable = [
-        'title', 'description'
+        'reference', 'title', 'description', 'status'
     ];
 
     protected static function boot()
@@ -20,16 +20,26 @@ class Job extends Model
         parent::boot();
 
         static::creating(function ($job) {
-            if ($job->ref === null) {
-                $job->ref = "Job";
+            if ($job->reference === null) {
+                $job->reference = "Job";
             }
         });
 
         static::created(function ($job) {    
             if ($job->id) {
-                $job->ref = 'J'.$job->id;
+                $job->reference = 'J'.$job->id;
                 $job->save();
             }
         });
+    }
+
+    public function users() 
+    {
+        return $this->belongsToMany('App\User', 'job_user', 'job_id', 'user_id');
+    }
+
+    public function address()
+    {
+        return $this->morphOne('App\Address', 'addressable');
     }
 }

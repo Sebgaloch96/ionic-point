@@ -16,10 +16,16 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->unique();
-            $table->string('ref');
+            $table->string('reference');
             $table->string('title');
             $table->text('description');
+            $table->string('status')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('job_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('job_id');
         });
     }
 
@@ -31,5 +37,6 @@ class CreateJobsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('jobs');
+        Schema::dropIfExists('job_user');
     }
 }

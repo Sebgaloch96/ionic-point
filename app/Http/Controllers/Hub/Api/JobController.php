@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Hub;
+namespace App\Http\Controllers\Hub\Api;
 
 use App\Job;
 use Illuminate\Http\Request;
@@ -17,18 +17,22 @@ class JobController extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function index()
+    
+    public function listed() 
     {
-        $jobs = Job::all();
-        
-        return view('hub.jobs.index')->with([
+        $jobs = Job::with('address')->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
             'jobs' => $jobs
         ]);
     }
 
-    public function create() 
-    {        
-        return view('hub.jobs.form');
+    public function myJobs() 
+    {
+        $jobs = auth()->user()->jobs;
+
+        return response()->json([
+            'jobs' => $jobs
+        ]);
     }
 }

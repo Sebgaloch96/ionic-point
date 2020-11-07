@@ -20,7 +20,13 @@ Route::get('/contact-us', 'WebsiteController@contactUs')->name('contactUs');
 
 Route::prefix('/hub')->name('hub')->namespace('Hub')->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('.dashboard');
-    Route::get('/jobs', 'JobController@index')->name('.jobs');
+
+    Route::prefix('/jobs')->name('.jobs')->group(function () {
+        Route::get('/', 'JobController@index');
+        Route::get('/create', 'JobController@create')->name('.create');
+        Route::get('{job}/edit', 'JobController@edit')->name('.edit');
+    });
+
     Route::get('/calendar', 'CalendarController@index')->name('.calendar');
 });
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Job;
 use App\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -23,6 +24,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('secret')
         ]);
         $user->assignRole($superAdmin);
+        $job = Job::inRandomOrder()->first();
+        $user->jobs()->attach($job);
 
         $user = factory(User::class)->create([      
             'name' => 'Thanawan Pinlaem',
@@ -30,5 +33,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('secret')
         ]);
         $user->assignRole($superAdmin);
+        $job = Job::inRandomOrder()->first();
+        $user->jobs()->attach($job);
     }
 }

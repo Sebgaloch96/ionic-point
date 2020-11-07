@@ -5,14 +5,16 @@
  */
 
 require('./bootstrap');
-require( 'datatables.net-bs4' );
-require( 'datatables.net-responsive-bs4' );
+require('datatables.net-bs4');
+require('datatables.net-responsive-bs4');
 
+import moment from "moment";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 window.Swal = Swal;
 
 import Jobs from "./components/Jobs";
+import Job from "./components/Jobs/Job";
 window.Vue = require('vue');
 
 /**
@@ -26,8 +28,11 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.filter('fromNow', value => moment(value).fromNow());
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('jobs', Jobs);
+Vue.component('job', Job);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

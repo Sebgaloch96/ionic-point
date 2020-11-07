@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/hub')->name('.hub')->namespace('Hub')->middleware(['ajax'])->group(function () {
+    Route::prefix('/jobs')->name('.jobs')->group(function () {
+        Route::get('/listed', 'Api\JobController@listed')->name('.listed');
+        Route::get('/myJobs', 'Api\JobController@myJobs')->name('.myJobs');
+    });
 });
+
