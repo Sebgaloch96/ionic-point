@@ -3,7 +3,7 @@
         <div class="row justify-content-center px-1 px-md-4">
             <div class="col-md-12">
                 <!-- Tabs -->
-                <ul class="nav nav-pills nav-fill" id="jobs-tab-menu" role="tablist">
+                <ul class="nav nav-tabs" id="jobs-tab-menu" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="job-listings-tab" data-toggle="pill" href="#job-listings" role="tab" aria-controls="job-listings" aria-selected="true"
                         @click="getJobs" data-url="/api/hub/jobs/listed">
@@ -27,51 +27,68 @@
                 <div class="card card-filters m-0 p-0 border-0">
                     <div class="card-body bg-custom-dark">
                         <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h3 class="text-white"><strong class="mr-2">Jobs</strong> <span class="badge badge-light rounded-0">{{ jobs.total }}</span></h3>
+                            <div class="col-md-6 align-middle">
+                                <h4 class="text-light font-weight-bolder mb-0">Total Jobs: {{ jobs.meta.total }}</h4>
+                                <small class="text-light">Showing page {{ jobs.meta.current_page }} out of {{ jobs.meta.last_page }}</small>
                             </div>
-                            <div class="col-md-6 d-flex justify-content-end">
+                            <div class="col-md-6">                               
                                 <search class="mx-2" v-on:search="onJobSearch"></search>
-                                <a href="#" class="btn btn-light rounded-0 mx-2"><i class="fas fa-filter fa-lg"></i></a>
-                                <a href="#" class="btn btn-light rounded-0 mx-2"><i class="fas fa-plus fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row align-items-center pt-4">
-                    <div class="col-md-8">
-                        <h4 class="text-muted font-weight-bold">Applied Filters: </h4> 
-                    </div>
-                    <div class="col-md-4 justify-content-end">
-                        
-                    </div>
-                </div>
-                
-                <!-- Tab Content -->
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="job-listings" role="tabpanel" aria-labelledby="job-listings-tab">
-                        <div v-if="!loading">
-                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>
-                        </div>
-                        <div v-else class="spinner-border text-info" role="status">
+                <div v-if="loading" class="row align-items-center">
+                    <div class="col-md-12 justify-content-center">
+                        <div class="d-block spinner-border text-color-dark" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="your-jobs" role="tabpanel" aria-labelledby="your-jobs-tab">
-                        <div v-if="!loading">
-                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>
-                        </div>
-                        <div v-else class="spinner-border text-info" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>                       
-                    </div>
-                    <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
-                        
-                    </div>                   
                 </div>
+                <div v-if="!loading && jobs.meta.total > 0">
+                    <!-- Applied Filters -->
+                    <div class="row align-items-center pt-4">
+                        <div class="col-md-10">
+                            <h4 class="text-muted font-weight-bold d-inline">Applied Filters: </h4> 
+                            <v-select multiple v-model="filters" :options="['Active','Inactive']" class="d-inline-block w-25"></v-select>
+                        </div>
+                        <div class="col-md-2 justify-content-end">
+                            <div class="dropdown text-right">
+                                Sort:
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span v-html="sort.markup"></span>
+                                </a>
 
-                <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
+                                <div class="dropdown-menu rounded-0 shadow" aria-labelledby="dropdownSort">
+                                    <a class="dropdown-item" href="#" data-sort="newest" @click="onSort">Newest First</a>
+                                    <a class="dropdown-item" href="#" data-sort="oldest" @click="onSort">Oldest First</a>
+                                    <a class="dropdown-item" href="#" data-sort="asc" @click="onSort"><i class="fas fa-sort-alpha-up"></i> Ascending</a>
+                                    <a class="dropdown-item" href="#" data-sort="desc" @click="onSort"><i class="fas fa-sort-alpha-down-alt"></i> Descending</a>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Tab Content -->
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="job-listings" role="tabpanel" aria-labelledby="job-listings-tab">                           
+                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>                          
+                            <!-- Pagination -->
+                            <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
+                        </div>
+                        <div class="tab-pane fade" id="your-jobs" role="tabpanel" aria-labelledby="your-jobs-tab">
+                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>
+                            <!-- Pagination -->
+                            <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>                            
+                        </div>
+                        <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
+                            
+                        </div>                   
+                    </div>
+                </div>  
+                <div v-if="!loading && jobs.meta.total == 0" class="text-center mt-4">
+                    <h5 class="text-muted font-weight-bolder">No Results Found</h5>
+                </div>           
             </div>
         </div>
     </div>
@@ -79,12 +96,20 @@
 
 <script>
 export default {
+    props: {
+        auth: Object,
+    },
+
     data () {
         return {
             jobs: {},
-            jobCount: 0,
             currentUrl: '/api/hub/jobs/listed',
             searchFilter: null,
+            filters: [],
+            sort: {
+                value: 'newest',
+                markup: 'Newest First'
+            },
             loading: false
         }
     },
@@ -101,6 +126,13 @@ export default {
     watch: {
         searchFilter(newSearchFilter, oldSearchFilter) {
             this.debouncedGetJobs();
+        },
+        
+        sort: {
+            handler(value) {
+                this.getJobs();
+            },
+            deep: true
         }
     },
 
@@ -114,14 +146,14 @@ export default {
             
             axios.get(this.currentUrl+'?page=' + page, {
                 params: {
-                    'search-filter': this.searchFilter
+                    'search-filter': this.searchFilter,
+                    'sort': this.sort.value
                 }
             })
             .then(response => {
                 this.jobs = response.data
             })
             .then(() => {
-                console.log(this.jobs);
                 this.loading = false;
             });
         },
@@ -130,6 +162,13 @@ export default {
             this.loading = true;
 
             this.searchFilter = keyword;
+        },
+
+        onSort() {
+            this.loading = true;
+            
+            this.sort.value = event.currentTarget.getAttribute('data-sort');
+            this.sort.markup = event.target.innerHTML;
         }
     },
 }

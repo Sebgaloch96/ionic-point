@@ -45,13 +45,36 @@ class Job extends Model
             
     }
 
+    public function scopeSort($query, $sort) 
+    {
+        switch ($sort) {
+            case 'desc': 
+                $query->orderBy('title', 'desc');
+                break;
+            case 'asc': 
+                $query->orderBy('title', 'asc');
+                break;
+            case 'newest': 
+                $query->latest();
+                break;
+            case 'oldest': 
+                $query->oldest();
+                break;
+        }
+    }
+
     public function users() 
     {
-        return $this->belongsToMany('App\User', 'job_user', 'job_id', 'user_id');
+        return $this->belongsToMany(User::class, 'job_user', 'job_id', 'user_id');
     }
 
     public function address()
     {
-        return $this->morphOne('App\Address', 'addressable');
+        return $this->morphOne(Address::class, 'addressable');
+    }
+
+    public function bookmarks()
+    {
+        return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
 }

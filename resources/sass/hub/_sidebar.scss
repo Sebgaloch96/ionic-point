@@ -47,7 +47,6 @@ a, a:hover, a:focus {
     }
 
     .sidebar-header {
-        padding: 20px;
         background: $custom-color-dark;
     }
 
@@ -83,7 +82,7 @@ a, a:hover, a:focus {
 
             &.active > a, a[aria-expanded="true"] {
                 color: #000;
-                background: #fafafa;
+                background: #e9ecef;
             }
         }
 

@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
+use App\Bookmark;
+use App\Traits\HasUuid;
 use Spatie\Permission\Traits\HasRoles;
 
-use App\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -41,8 +43,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function bookmark(Model $model)
+    {   
+        if ($this->isBookmarked($model)) {
+            return $this->bookmarks()->where([
+                ['bookmarks.bookmarkable_type', get_class($model)],
+                ['bookmarks.bookmarkable_id', $model->id]
+            ])->delete();
+        }
+    
+        return $this->bookmarks()->create([
+            'bookmarkable_id' => $model->id, 
+            'bookmarkable_type' => get_class($model),
+        ]);
+    }
+
+    public function isBookmarked(Model $model)
+    {
+        return $this->bookmarks()->where([
+            ['bookmarks.bookmarkable_type', get_class($model)],
+            ['bookmarks.bookmarkable_id', $model->id]
+        ])->exists();
+    }
+
     public function jobs() 
     {
         return $this->belongsToMany('App\Job', 'job_user', 'user_id', 'job_id');
+    }
+
+    public function bookmarks() 
+    {
+        return $this->hasMany(Bookmark::class);
     }
 }

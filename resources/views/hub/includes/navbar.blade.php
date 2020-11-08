@@ -1,4 +1,4 @@
-<ul class="nav px-4 pt-3 pb-4 align-items-center">
+<ul class="nav px-4 pt-3 pb-3 align-items-center">
     <li class="nav-item">
         <button type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0">
             <i class="fas fa-align-left"></i>

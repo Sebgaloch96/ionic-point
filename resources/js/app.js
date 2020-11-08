@@ -18,6 +18,8 @@ import Job from "./components/Jobs/Job";
 import Search from "./components/Search";
 window.Vue = require('vue');
 
+import vSelect from 'vue-select'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -31,6 +33,7 @@ window.Vue = require('vue');
 
 Vue.filter('fromNow', value => moment(value).fromNow());
 
+Vue.component('v-select', vSelect);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.component('search', Search);

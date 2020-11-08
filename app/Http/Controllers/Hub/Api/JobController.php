@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hub\Api;
 use App\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JobIndexResource;
 
 class JobController extends Controller
 {
@@ -20,24 +21,37 @@ class JobController extends Controller
     
     public function listed(Request $request) 
     {
-        $jobs = Job::with('address')->orderBy('created_at', 'desc');
-
+        $user = auth()->user();
+        $jobs = Job::with(['address', 'bookmarks']);
+        
+        // Filters
         if ($keyword = $request->input('search-filter')) {
             $jobs->search($keyword);
         }
 
-        return $jobs->paginate(20);
+        // Sorting
+        if ($sort = $request->input('sort')) {
+            $jobs->sort($sort);
+        }
+
+        return JobIndexResource::collection($jobs->paginate(20), $user);
     }
 
     public function myJobs(Request $request) 
     {
-        $user =  auth()->user();
-        $jobs = $user->jobs()->with('address');
+        $user = auth()->user();
+        $jobs = $user->jobs()->with(['address', 'bookmarks']);
 
+        // Filters
         if ($keyword = $request->input('search-filter')) {
             $jobs->search($keyword);
         }
 
-        return $jobs->paginate(20);
+        // Sorting
+        if ($sort = $request->input('sort')) {
+            $jobs->sort($sort);
+        }
+
+        return JobIndexResource::collection($jobs->paginate(20), $user);
     }
 }

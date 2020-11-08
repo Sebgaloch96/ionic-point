@@ -26,6 +26,7 @@ class UsersTableSeeder extends Seeder
         $user->assignRole($superAdmin);
         $job = Job::inRandomOrder()->first();
         $user->jobs()->attach($job);
+        $user->bookmark($job);
 
         $user = factory(User::class)->create([      
             'name' => 'Thanawan Pinlaem',
@@ -35,5 +36,6 @@ class UsersTableSeeder extends Seeder
         $user->assignRole($superAdmin);
         $job = Job::inRandomOrder()->first();
         $user->jobs()->attach($job);
+        $user->bookmark($job);
     }
 }

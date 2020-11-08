@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <nav id="sidebar">
-    <div class="sidebar-header">
+    <div class="sidebar-header py-4 px-4">
         <h3>Ionic Point</h3>
     </div>
 

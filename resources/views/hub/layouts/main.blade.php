@@ -45,7 +45,7 @@
     
                 @yield('breadcrumbs')
     
-                <div class="container-fluid py-1 py-md-4">
+                <div class="container-fluid py-1 py-md-4 bg-custom-light">
                     @yield('content')
                 </div>    
             </div>
