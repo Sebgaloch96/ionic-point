@@ -16,8 +16,8 @@
                     <div class="col-md-3 text-right">
                         <a href="#" class="btn btn-link text-custom-dark"><i class="fas fa-eye fa-lg"></i></a>
                         <a href="#" class="btn btn-link text-custom-dark"><i class="fas fa-check fa-lg"></i></a>
-                        <a href="#" class="btn btn-link text-custom-dark">
-                            <i :class="{ fas: typeof bookmark !== null, far: bookmark === null }" class="fa-bookmark fa-lg"></i>
+                        <a href="#" class="btn btn-link text-custom-dark" @click="setBookmark">
+                            <i :class="{ fas: isBookmarked, far: !isBookmarked }" class="fa-bookmark fa-lg"></i>
                         </a>
                     </div>
                 </div>            
@@ -31,13 +31,42 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 export default {
     props: {
+        uuid: String,
         title: String,
         description: String,
         created_at: String,
         address: Object,
         bookmark: Object
-    }
+    },
+
+    data () {
+        return {
+            isBookmarked: false
+        }
+    },
+
+    mounted () {
+        this.isBookmarked = this.bookmark !== null;
+    },
+
+    methods: {
+        setBookmark () {
+            axios.post(`/api/hub/jobs/${this.uuid}/bookmark`)
+            .then(response => {
+                this.isBookmarked = !this.isBookmarked; 
+            })
+            .then(() => {
+                if (this.isBookmarked) {
+                    Vue.$toast.success('Bookmark Added');
+                } else {
+                    Vue.$toast.success('Bookmark Removed');
+                }
+            });
+        }
+    },
 }
 </script>

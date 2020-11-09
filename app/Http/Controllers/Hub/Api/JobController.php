@@ -54,4 +54,15 @@ class JobController extends Controller
 
         return JobIndexResource::collection($jobs->paginate(20), $user);
     }
+
+    public function bookmark(Job $job)  
+    {
+        $user = auth()->user();
+        $user->bookmark($job);
+
+        return response()->json([
+            'type' => 'success',
+            'title' => 'Action Successful!'
+        ]);
+    }
 }

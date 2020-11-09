@@ -13,12 +13,16 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 window.Swal = Swal;
 
+import Vue from 'vue';
 import Jobs from "./components/Jobs";
 import Job from "./components/Jobs/Job";
 import Search from "./components/Search";
-window.Vue = require('vue');
 
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+import Pagination from 'laravel-vue-pagination';
+import VueSwal from 'vue-swal';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,8 +37,13 @@ import vSelect from 'vue-select'
 
 Vue.filter('fromNow', value => moment(value).fromNow());
 
+Vue.use(VueSwal);
+Vue.use(VueToast, {
+    position: 'top-right',
+});
+
 Vue.component('v-select', vSelect);
-Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('pagination', Pagination);
 
 Vue.component('search', Search);
 Vue.component('jobs', Jobs);
