@@ -2004,6 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     auth: Object
@@ -2011,7 +2012,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       jobs: {},
-      currentUrl: '/api/hub/jobs/listed',
+      tabInfo: {
+        currentUrl: '/api/hub/jobs/listed',
+        currentTab: 'job-listings'
+      },
       searchFilter: null,
       filters: [],
       sort: {
@@ -2029,6 +2033,12 @@ __webpack_require__.r(__webpack_exports__);
     this.debouncedGetJobs = _.debounce(this.getJobs, 500);
   },
   watch: {
+    tabInfo: {
+      handler: function handler(value) {
+        this.getJobs();
+      },
+      deep: true
+    },
     searchFilter: function searchFilter(newSearchFilter, oldSearchFilter) {
       this.debouncedGetJobs();
     },
@@ -2045,12 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.loading = true;
-
-      if (event && event.currentTarget.getAttribute('data-url')) {
-        this.currentUrl = event.currentTarget.getAttribute('data-url');
-      }
-
-      axios.get(this.currentUrl + '?page=' + page, {
+      axios.get(this.tabInfo.currentUrl + '?page=' + page, {
         params: {
           'search-filter': this.searchFilter,
           'sort': this.sort.value
@@ -2061,14 +2066,22 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
       });
     },
+    onSwitchTabs: function onSwitchTabs() {
+      this.tabInfo.currentUrl = event.currentTarget.getAttribute('data-url');
+      this.tabInfo.currentTab = event.currentTarget.getAttribute('aria-controls');
+    },
     onJobSearch: function onJobSearch(keyword) {
       this.loading = true;
       this.searchFilter = keyword;
     },
     onSort: function onSort() {
-      this.loading = true;
-      this.sort.value = event.currentTarget.getAttribute('data-sort');
-      this.sort.markup = event.target.innerHTML;
+      var sortValue = event.currentTarget.getAttribute('data-sort');
+
+      if (this.sort.value != sortValue) {
+        this.loading = true;
+        this.sort.value = sortValue;
+        this.sort.markup = event.target.innerHTML;
+      }
     }
   }
 });
@@ -2086,8 +2099,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
 //
 //
 //
@@ -2148,6 +2159,8 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           vue__WEBPACK_IMPORTED_MODULE_0___default.a.$toast.success('Bookmark Removed');
         }
+
+        _this.$emit('bookmark-changed');
       });
     }
   }
@@ -81056,9 +81069,33 @@ var render = function() {
                       "aria-selected": "true",
                       "data-url": "/api/hub/jobs/listed"
                     },
-                    on: { click: _vm.getJobs }
+                    on: { click: _vm.onSwitchTabs }
                   },
                   [_c("strong", [_vm._v("Job Listings")])]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              { staticClass: "nav-item", attrs: { role: "presentation" } },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: {
+                      id: "bookmarks-tab",
+                      "data-toggle": "pill",
+                      href: "#bookmarks",
+                      role: "tab",
+                      "aria-controls": "bookmarks",
+                      "aria-selected": "false",
+                      "data-url": "/api/hub/jobs/myBookmarks"
+                    },
+                    on: { click: _vm.onSwitchTabs }
+                  },
+                  [_c("strong", [_vm._v("Your Bookmarks")])]
                 )
               ]
             ),
@@ -81080,7 +81117,7 @@ var render = function() {
                       "aria-selected": "false",
                       "data-url": "/api/hub/jobs/myJobs"
                     },
-                    on: { click: _vm.getJobs }
+                    on: { click: _vm.onSwitchTabs }
                   },
                   [_c("strong", [_vm._v("Your Jobs")])]
                 )
@@ -81255,48 +81292,24 @@ var render = function() {
                     {
                       staticClass: "tab-pane fade show active",
                       attrs: {
-                        id: "job-listings",
+                        id: _vm.tabInfo.currentTab,
                         role: "tabpanel",
-                        "aria-labelledby": "job-listings-tab"
+                        "aria-labelledby": _vm.tabInfo.currentTab + "-tab"
                       }
                     },
                     [
                       _vm._l(_vm.jobs.data, function(job) {
                         return _c(
                           "job",
-                          _vm._b({ key: job.reference }, "job", job, false)
-                        )
-                      }),
-                      _vm._v(" "),
-                      _c("pagination", {
-                        staticClass: "mt-5",
-                        attrs: {
-                          data: _vm.jobs,
-                          limit: 4,
-                          align: "center",
-                          size: "large"
-                        },
-                        on: { "pagination-change-page": _vm.getJobs }
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane fade",
-                      attrs: {
-                        id: "your-jobs",
-                        role: "tabpanel",
-                        "aria-labelledby": "your-jobs-tab"
-                      }
-                    },
-                    [
-                      _vm._l(_vm.jobs.data, function(job) {
-                        return _c(
-                          "job",
-                          _vm._b({ key: job.reference }, "job", job, false)
+                          _vm._b(
+                            {
+                              key: job.reference,
+                              on: { "bookmark-changed": _vm.getJobs }
+                            },
+                            "job",
+                            job,
+                            false
+                          )
                         )
                       }),
                       _vm._v(" "),
@@ -81437,26 +81450,21 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-3 text-right" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-link text-custom-dark",
-                    attrs: { href: "#" },
+              _c(
+                "div",
+                { staticClass: "col-md-3 text-right text-custom-dark" },
+                [
+                  _c("i", { staticClass: "fas fa-eye fa-lg mx-2" }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fas fa-check fa-lg mx-2" }),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fa-bookmark fa-lg mx-2",
+                    class: { fas: _vm.isBookmarked, far: !_vm.isBookmarked },
                     on: { click: _vm.setBookmark }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fa-bookmark fa-lg",
-                      class: { fas: _vm.isBookmarked, far: !_vm.isBookmarked }
-                    })
-                  ]
-                )
-              ])
+                  })
+                ]
+              )
             ])
           ]
         ),
@@ -81478,26 +81486,6 @@ var staticRenderFns = [
         _c("span", { staticClass: "badge badge-secondary" }, [_vm._v("Active")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-link text-custom-dark", attrs: { href: "#" } },
-      [_c("i", { staticClass: "fas fa-eye fa-lg" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-link text-custom-dark", attrs: { href: "#" } },
-      [_c("i", { staticClass: "fas fa-check fa-lg" })]
-    )
   }
 ]
 render._withStripped = true

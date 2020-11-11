@@ -13,12 +13,10 @@
                     <div class="col-md-3">
                         <h6 class="text-muted"><strong>{{ address.city }} - {{ address.postcode }}</strong></h6>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <a href="#" class="btn btn-link text-custom-dark"><i class="fas fa-eye fa-lg"></i></a>
-                        <a href="#" class="btn btn-link text-custom-dark"><i class="fas fa-check fa-lg"></i></a>
-                        <a href="#" class="btn btn-link text-custom-dark" @click="setBookmark">
-                            <i :class="{ fas: isBookmarked, far: !isBookmarked }" class="fa-bookmark fa-lg"></i>
-                        </a>
+                    <div class="col-md-3 text-right text-custom-dark">
+                        <i class="fas fa-eye fa-lg mx-2"></i>
+                        <i class="fas fa-check fa-lg mx-2"></i>
+                        <i :class="{ fas: isBookmarked, far: !isBookmarked }" @click="setBookmark" class="fa-bookmark fa-lg mx-2"></i>
                     </div>
                 </div>            
             </div>
@@ -65,6 +63,8 @@ export default {
                 } else {
                     Vue.$toast.success('Bookmark Removed');
                 }
+
+                this.$emit('bookmark-changed');
             });
         }
     },

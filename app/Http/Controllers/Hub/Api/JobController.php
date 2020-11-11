@@ -55,12 +55,31 @@ class JobController extends Controller
         return JobIndexResource::collection($jobs->paginate(20), $user);
     }
 
+    public function myBookmarks(Request $request) 
+    {
+        $user = auth()->user();
+        $jobs = $user->jobs()->with(['address', 'bookmarks']);
+
+        // Filters
+        if ($keyword = $request->input('search-filter')) {
+            $jobs->search($keyword);
+        }
+
+        // Sorting
+        if ($sort = $request->input('sort')) {
+            $jobs->sort($sort);
+        }
+
+        return JobIndexResource::collection($jobs->paginate(20));
+    }
+
     public function bookmark(Job $job)  
     {
         $user = auth()->user();
-        $user->bookmark($job);
+        $bookmark = $user->bookmark($job);
 
         return response()->json([
+            'bookmark' => $bookmark,
             'type' => 'success',
             'title' => 'Action Successful!'
         ]);

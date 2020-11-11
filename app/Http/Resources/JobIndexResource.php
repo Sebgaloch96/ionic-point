@@ -36,9 +36,10 @@ class JobIndexResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'title' => $this->title,
-            'description' => substr($this->description, 0, 50) . '...',
+            'description' => substr($this->description, 0, 100) . '...',
             'address' => new AddressShowResource($this->address),
             'bookmark' => $this->bookmarks()
+                ->where('bookmarkable_type', get_class($this))
                 ->where('bookmarkable_id', $this->id)
                 ->where('user_id', $this->user)
                 ->first(),

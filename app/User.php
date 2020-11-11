@@ -48,15 +48,13 @@ class User extends Authenticatable
         if ($this->isBookmarked($model)) {
             return $this->bookmarks()->where([
                 ['bookmarks.bookmarkable_type', get_class($model)],
-                ['bookmarks.bookmarkable_id', $model->id],
-                ['bookmarks.user_id', $this->id]
+                ['bookmarks.bookmarkable_id', $model->id]
             ])->delete();
         }
     
         return $this->bookmarks()->create([
             'bookmarkable_id' => $model->id, 
-            'bookmarkable_type' => get_class($model),
-            'user_id' => $this->id
+            'bookmarkable_type' => get_class($model)   
         ]);
     }
 
@@ -64,8 +62,7 @@ class User extends Authenticatable
     {
         return $this->bookmarks()->where([
             ['bookmarks.bookmarkable_type', get_class($model)],
-            ['bookmarks.bookmarkable_id', $model->id],
-            ['bookmarks.user_id', $this->id]
+            ['bookmarks.bookmarkable_id', $model->id]
         ])->exists();
     }
 

@@ -6,13 +6,19 @@
                 <ul class="nav nav-tabs" id="jobs-tab-menu" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="job-listings-tab" data-toggle="pill" href="#job-listings" role="tab" aria-controls="job-listings" aria-selected="true"
-                        @click="getJobs" data-url="/api/hub/jobs/listed">
+                        @click="onSwitchTabs" data-url="/api/hub/jobs/listed">
                             <strong>Job Listings</strong>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="bookmarks-tab" data-toggle="pill" href="#bookmarks" role="tab" aria-controls="bookmarks" aria-selected="false"
+                        @click="onSwitchTabs" data-url="/api/hub/jobs/myBookmarks">
+                            <strong>Your Bookmarks</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="your-jobs-tab" data-toggle="pill" href="#your-jobs" role="tab" aria-controls="your-jobs" aria-selected="false"
-                        @click="getJobs" data-url="/api/hub/jobs/myJobs">
+                        @click="onSwitchTabs" data-url="/api/hub/jobs/myJobs">
                             <strong>Your Jobs</strong>
                         </a>
                     </li>
@@ -69,17 +75,12 @@
                         </div>
                     </div>
 
-                     <!-- Tab Content -->
+                    <!-- Tab Content -->
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="job-listings" role="tabpanel" aria-labelledby="job-listings-tab">                           
-                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>                          
+                        <div class="tab-pane fade show active" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
+                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job>                          
                             <!-- Pagination -->
                             <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
-                        </div>
-                        <div class="tab-pane fade" id="your-jobs" role="tabpanel" aria-labelledby="your-jobs-tab">
-                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job"></job>
-                            <!-- Pagination -->
-                            <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>                            
                         </div>
                         <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
                             
@@ -103,7 +104,10 @@ export default {
     data () {
         return {
             jobs: {},
-            currentUrl: '/api/hub/jobs/listed',
+            tabInfo: {
+                currentUrl: '/api/hub/jobs/listed',
+                currentTab: 'job-listings',
+            },           
             searchFilter: null,
             filters: [],
             sort: {
@@ -124,6 +128,13 @@ export default {
     },
 
     watch: {
+        tabInfo: {
+            handler(value) {
+                this.getJobs();
+            },
+            deep: true
+        },
+
         searchFilter(newSearchFilter, oldSearchFilter) {
             this.debouncedGetJobs();
         },
@@ -133,18 +144,14 @@ export default {
                 this.getJobs();
             },
             deep: true
-        }
+        },
     },
 
     methods: {
         getJobs(page = 1) {
             this.loading = true;
-
-            if (event && event.currentTarget.getAttribute('data-url')) {
-                this.currentUrl = event.currentTarget.getAttribute('data-url');
-            }
             
-            axios.get(this.currentUrl+'?page=' + page, {
+            axios.get(this.tabInfo.currentUrl+'?page=' + page, {
                 params: {
                     'search-filter': this.searchFilter,
                     'sort': this.sort.value
@@ -158,6 +165,11 @@ export default {
             });
         },
 
+        onSwitchTabs() {
+            this.tabInfo.currentUrl = event.currentTarget.getAttribute('data-url');
+            this.tabInfo.currentTab = event.currentTarget.getAttribute('aria-controls');
+        },
+
         onJobSearch(keyword) {
             this.loading = true;
 
@@ -165,11 +177,13 @@ export default {
         },
 
         onSort() {
-            this.loading = true;
-            
-            this.sort.value = event.currentTarget.getAttribute('data-sort');
-            this.sort.markup = event.target.innerHTML;
-        }
+            let sortValue = event.currentTarget.getAttribute('data-sort');
+            if (this.sort.value != sortValue) {
+                this.loading = true;
+                this.sort.value = sortValue;
+                this.sort.markup = event.target.innerHTML;
+            }    
+        },
     },
 }
 </script>
