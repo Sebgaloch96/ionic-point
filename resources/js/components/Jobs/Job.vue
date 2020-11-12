@@ -8,7 +8,7 @@
                         <small class="text-muted d-block">Listed {{ created_at|fromNow }}</small>
                     </div>
                     <div class="col-md-2">
-                        <h6><span class="badge badge-secondary">Active</span></h6>
+                        <h6><span class="badge badge-success">Active</span></h6>
                     </div>
                     <div class="col-md-3">
                         <h6 class="text-muted"><strong>{{ address.city }} - {{ address.postcode }}</strong></h6>
@@ -38,32 +38,16 @@ export default {
         description: String,
         created_at: String,
         address: Object,
-        bookmark: Object
-    },
-
-    data () {
-        return {
-            isBookmarked: false
-        }
-    },
-
-    mounted () {
-        this.isBookmarked = this.bookmark !== null;
+        isBookmarked: Boolean
     },
 
     methods: {
         setBookmark () {
             axios.post(`/api/hub/jobs/${this.uuid}/bookmark`)
-            .then(response => {
-                this.isBookmarked = !this.isBookmarked; 
+            .then(response => {          
+                Vue.$toast.success(response.data.title);            
             })
             .then(() => {
-                if (this.isBookmarked) {
-                    Vue.$toast.success('Bookmark Added');
-                } else {
-                    Vue.$toast.success('Bookmark Removed');
-                }
-
                 this.$emit('bookmark-changed');
             });
         }

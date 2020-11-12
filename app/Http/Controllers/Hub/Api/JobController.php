@@ -22,7 +22,7 @@ class JobController extends Controller
     public function listed(Request $request) 
     {
         $user = auth()->user();
-        $jobs = Job::with(['address', 'bookmarks']);
+        $jobs = Job::with(['address']);
         
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -34,13 +34,13 @@ class JobController extends Controller
             $jobs->sort($sort);
         }
 
-        return JobIndexResource::collection($jobs->paginate(20), $user);
+        return JobIndexResource::collection($jobs->paginate(20));
     }
 
     public function myJobs(Request $request) 
     {
         $user = auth()->user();
-        $jobs = $user->jobs()->with(['address', 'bookmarks']);
+        $jobs = $user->jobs()->with(['address']);
 
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -52,13 +52,12 @@ class JobController extends Controller
             $jobs->sort($sort);
         }
 
-        return JobIndexResource::collection($jobs->paginate(20), $user);
+        return JobIndexResource::collection($jobs->paginate(20));
     }
 
     public function myBookmarks(Request $request) 
     {
-        $user = auth()->user();
-        $jobs = $user->jobs()->with(['address', 'bookmarks']);
+        $jobs = Job::query()->bookmarkedByUser()->with(['address']);
 
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -76,12 +75,17 @@ class JobController extends Controller
     public function bookmark(Job $job)  
     {
         $user = auth()->user();
-        $bookmark = $user->bookmark($job);
 
-        return response()->json([
-            'bookmark' => $bookmark,
-            'type' => 'success',
-            'title' => 'Action Successful!'
-        ]);
+        if ($job->isBookmarked()) {
+            $job->removeBookmark();
+
+            $alert = ['title' => 'Bookmark Removed'];
+        } else {
+            $job->bookmark();
+
+            $alert = ['title' => 'Bookmark Added'];
+        }
+        
+        return response()->json($alert);
     }
 }

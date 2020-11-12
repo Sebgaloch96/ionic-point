@@ -75,17 +75,25 @@
                         </div>
                     </div>
 
-                    <!-- Tab Content -->
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
-                            <job v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job>                          
-                            <!-- Pagination -->
-                            <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <custom-map :jobs="jobs"></custom-map>
                         </div>
-                        <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
-                            
-                        </div>                   
+                        <div class="col-12 col-md-8">
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
+                                    <job v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job>                          
+                                    <!-- Pagination -->
+                                    <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
+                                </div>
+                                <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
+                                    
+                                </div>                   
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>  
                 <div v-if="!loading && jobs.meta.total == 0" class="text-center mt-4">
                     <h5 class="text-muted font-weight-bolder">No Results Found</h5>
@@ -96,7 +104,9 @@
 </template>
 
 <script>
+import CustomMap from './CustomMap.vue';
 export default {
+  components: { CustomMap },
     props: {
         auth: Object,
     },
@@ -148,9 +158,7 @@ export default {
     },
 
     methods: {
-        getJobs(page = 1) {
-            this.loading = true;
-            
+        getJobs(page = 1) {         
             axios.get(this.tabInfo.currentUrl+'?page=' + page, {
                 params: {
                     'search-filter': this.searchFilter,
@@ -166,8 +174,15 @@ export default {
         },
 
         onSwitchTabs() {
-            this.tabInfo.currentUrl = event.currentTarget.getAttribute('data-url');
-            this.tabInfo.currentTab = event.currentTarget.getAttribute('aria-controls');
+            let tab = event.currentTarget.getAttribute('aria-controls');
+            let url = event.currentTarget.getAttribute('data-url');
+
+            if (this.tabInfo.currentTab != tab) {
+                this.loading = true;
+                this.tabInfo.currentUrl = url;
+                this.tabInfo.currentTab = tab;
+            }
+            
         },
 
         onJobSearch(keyword) {

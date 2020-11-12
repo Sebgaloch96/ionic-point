@@ -3,17 +3,25 @@
 namespace App;
 
 use App\Traits\HasUuid;
+use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    use HasUuid;
+    use HasUuid, Bookmarkable;
 
     protected $table = 'jobs';
 
     protected $fillable = [
         'reference', 'title', 'description', 'status'
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['bookmarksCount', 'isBookmarked'];
 
     protected static function boot()
     {
@@ -49,18 +57,30 @@ class Job extends Model
     {
         switch ($sort) {
             case 'desc': 
-                $query->orderBy('title', 'desc');
+                return $query->orderBy('title', 'desc');
                 break;
             case 'asc': 
-                $query->orderBy('title', 'asc');
+                return $query->orderBy('title', 'asc');
                 break;
             case 'newest': 
-                $query->latest();
+                return $query->latest();
                 break;
             case 'oldest': 
-                $query->oldest();
+                return $query->oldest();
                 break;
         }
+    }
+
+    public function scopeBookmarkedByUser($query, $user = null) 
+    {
+        // If no user was passed in, use the currently authenticated user
+        if ($user === null) {
+            $user = auth()->user();
+        }
+
+        return $query->whereHas('bookmarks', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        });
     }
 
     public function users() 
@@ -71,10 +91,5 @@ class Job extends Model
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
-    }
-
-    public function bookmarks()
-    {
-        return $this->morphMany(Bookmark::class, 'bookmarkable');
     }
 }

@@ -17,12 +17,26 @@ import Vue from 'vue';
 import Jobs from "./components/Jobs";
 import Job from "./components/Jobs/Job";
 import Search from "./components/Search";
+import CustomMap from "./components/CustomMap";
 
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
 import VueSwal from 'vue-swal';
+
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
+
+import { Icon } from 'leaflet';
+
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -35,6 +49,7 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+// Global filters
 Vue.filter('fromNow', value => moment(value).fromNow());
 
 Vue.use(VueSwal);
@@ -42,10 +57,18 @@ Vue.use(VueToast, {
     position: 'top-right',
 });
 
+// Installed vue packages
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
 Vue.component('v-select', vSelect);
 Vue.component('pagination', Pagination);
 
+// Components required across the app
+Vue.component('custom-map', CustomMap);
 Vue.component('search', Search);
+
+// Jobs
 Vue.component('jobs', Jobs);
 Vue.component('job', Job);
 
