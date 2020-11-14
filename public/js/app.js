@@ -1933,6 +1933,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -1944,16 +1948,24 @@ __webpack_require__.r(__webpack_exports__);
       map: null,
       mapOptions: {
         zoom: 7,
-        center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(51.509865, -0.118092),
+        center: [],
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }
     };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    if (this.jobs.meta.total == 1) {
+      var jobAddress = this.jobs.data[0].address;
+      var lat = jobAddress.lat;
+      var lon = jobAddress.lon;
+      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(lat, lon);
+    } else {
+      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(51.509865, -0.118092); // London
+    }
+  },
   methods: {
     onReady: function onReady() {
-      console.log('Map Ready');
       this.map = this.$refs.myMap.mapObject;
     }
   }

@@ -18,22 +18,36 @@ class UsersTableSeeder extends Seeder
         // Get roles
         $roles = Role::all()->pluck('name');
 
-        $user = factory(User::class)->create([      
+        // Super Admins
+        $superAdmin = factory(User::class)->create([      
             'name' => 'Seb Galoch',
             'email' => 'sg@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($roles);
+        $superAdmin->assignRole($roles);
         $job = Job::inRandomOrder()->first();
-        $user->jobs()->attach($job);
+        $superAdmin->jobs()->attach($job);
 
-        $user = factory(User::class)->create([      
+        $superAdmin = factory(User::class)->create([      
             'name' => 'Thanawan Pinlaem',
             'email' => 'tp@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($roles);
+        $superAdmin->assignRole($roles);
         $job = Job::inRandomOrder()->first();
-        $user->jobs()->attach($job);
+        $superAdmin->jobs()->attach($job);
+
+        // Other users
+        $users = factory(User::class, 20)->create();
+        $roles = Role::where('name', '!=', 'Super Admin')->pluck('name');
+        foreach ($users as $user) {
+            // Assign a role
+            $randomRoles = $roles[rand(0, count($roles) - 1)];
+            $user->assignRole($randomRoles);
+
+            // Attach a job
+            $job = Job::inRandomOrder()->first();
+            $user->jobs()->attach($job);
+        }
     }
 }
