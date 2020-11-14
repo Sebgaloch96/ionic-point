@@ -16,6 +16,10 @@ class Job extends Model
         'reference', 'title', 'description', 'status'
     ];
 
+    protected $dates = [
+        'created_at', 'start_date'
+    ];
+
     /**
      * The accessors to append to the model's array form.
      *
@@ -43,14 +47,19 @@ class Job extends Model
 
     public function scopeSearch($query, $keyword)
     {
-        return $query
+        $query = $query
             ->where('title', 'LIKE', '%'.$keyword.'%')
             ->orWhere('description', 'LIKE', '%'.$keyword.'%')
             ->orWhereHas('address', function ($subquery) use ($keyword) {
                 $subquery->where('city', 'LIKE', '%'.$keyword.'%')
                     ->orWhere('postcode', 'LIKE', '%'.$keyword.'%');
             });
-            
+
+        if (\Ramsey\Uuid\Uuid::isValid($keyword)) {
+            $query->orWhere('uuid', $keyword);
+        }
+
+        return $query;
     }
 
     public function scopeSort($query, $sort) 
@@ -81,6 +90,11 @@ class Job extends Model
         return $query->whereHas('bookmarks', function ($q) use ($user) {
             $q->where('user_id', $user->id);
         });
+    }
+
+    public function getEndDateAttribute()
+    {
+        return $this->start_date->addDays($this->length_of_job);
     }
 
     public function users() 

@@ -10,21 +10,22 @@
                             <strong>Job Listings</strong>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li v-if="userHasRoles(['Engineer', 'Project Manager'])" class="nav-item" role="presentation">
                         <a class="nav-link" id="bookmarks-tab" data-toggle="pill" href="#bookmarks" role="tab" aria-controls="bookmarks" aria-selected="false"
                         @click="onSwitchTabs" data-url="/api/hub/jobs/myBookmarks">
                             <strong>Your Bookmarks</strong>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li v-if="userHasRoles(['Engineer', 'Project Manager'])" class="nav-item" role="presentation">
                         <a class="nav-link" id="your-jobs-tab" data-toggle="pill" href="#your-jobs" role="tab" aria-controls="your-jobs" aria-selected="false"
                         @click="onSwitchTabs" data-url="/api/hub/jobs/myJobs">
                             <strong>Your Jobs</strong>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="job-map-tab" data-toggle="pill" href="#job-map" role="tab" aria-controls="job-map" aria-selected="false">
-                            <strong>Job Map</strong>
+                    <li v-if="userHasRoles(['Project Manager'])" class="nav-item" role="presentation">
+                        <a class="nav-link" id="your-job-listings-tab" data-toggle="pill" href="#your-job-listings" role="tab" aria-controls="your-job-listings" aria-selected="false"
+                        @click="onSwitchTabs" data-url="/api/hub/jobs/myJobs">
+                            <strong>Your Job Listings</strong>
                         </a>
                     </li>
                 </ul>
@@ -38,7 +39,7 @@
                                 <small class="text-light">Showing page {{ jobs.meta.current_page }} out of {{ jobs.meta.last_page }}</small>
                             </div>
                             <div class="col-md-6">                               
-                                <search class="mx-2" v-on:search="onJobSearch"></search>
+                                <search ref="search" class="mx-2" @search="onJobSearch"></search>
                             </div>
                         </div>
                     </div>
@@ -53,12 +54,18 @@
                 </div>
                 <div v-if="!loading && jobs.meta.total > 0">
                     <!-- Applied Filters -->
-                    <div class="row align-items-center pt-4">
-                        <div class="col-md-10">
-                            <h4 class="text-muted font-weight-bold d-inline">Applied Filters: </h4> 
-                            <v-select multiple v-model="filters" :options="['Active','Inactive']" class="d-inline-block w-25"></v-select>
+                    <div class="row align-items-center pt-3">
+                        <div class="col-md-4">
+                            <button type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onRefresh">
+                                <i class="fas fa-sync mr-1"></i>
+                                Refresh
+                            </button>
+                            <button v-if="dirtyFilters" type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onClearFilters">
+                                <i class="fas fa-backspace mr-1"></i>
+                                Clear Filters
+                            </button>
                         </div>
-                        <div class="col-md-2 justify-content-end">
+                        <div class="col-md-8 justify-content-end">
                             <div class="dropdown text-right">
                                 Sort:
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,8 +84,19 @@
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <custom-map :jobs="jobs"></custom-map>
+                            <custom-map :jobs="jobs" @job-marker-clicked="onJobSearch"></custom-map>
+
+                            <div class="card rounded-0 border-0">
+                                <div class="card-header bg-custom-dark rounded-0">
+                                    <h4 class="font-weight-bold text-white m-0">Filters</h4>
+                                </div>
+                                <div class="card-body">
+                                    <label class="font-weight-bolder" for="">Status</label>
+                                    <v-select multiple v-model="selectedFilter" class="w-100"></v-select>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="col-12 col-md-8">
                             <!-- Tab Content -->
                             <div class="tab-content" id="pills-tabContent">
@@ -86,10 +104,7 @@
                                     <job v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job>                          
                                     <!-- Pagination -->
                                     <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
-                                </div>
-                                <div class="tab-pane fade" id="job-map" role="tabpanel" aria-labelledby="job-map-tab">
-                                    
-                                </div>                   
+                                </div>                 
                             </div>
                         </div>
                     </div>
@@ -105,6 +120,7 @@
 
 <script>
 import CustomMap from './CustomMap.vue';
+
 export default {
   components: { CustomMap },
     props: {
@@ -119,7 +135,7 @@ export default {
                 currentTab: 'job-listings',
             },           
             searchFilter: null,
-            filters: [],
+            selectedFilter: null,
             sort: {
                 value: 'newest',
                 markup: 'Newest First'
@@ -145,7 +161,7 @@ export default {
             deep: true
         },
 
-        searchFilter(newSearchFilter, oldSearchFilter) {
+        searchFilter() {
             this.debouncedGetJobs();
         },
         
@@ -173,32 +189,60 @@ export default {
             });
         },
 
+        onRefresh() {
+            this.loading = true;
+            this.getJobs();
+        },
+
         onSwitchTabs() {
             let tab = event.currentTarget.getAttribute('aria-controls');
             let url = event.currentTarget.getAttribute('data-url');
 
+            // If clicking on the same tab, don't do anything
             if (this.tabInfo.currentTab != tab) {
                 this.loading = true;
                 this.tabInfo.currentUrl = url;
                 this.tabInfo.currentTab = tab;
             }
-            
         },
 
         onJobSearch(keyword) {
             this.loading = true;
-
             this.searchFilter = keyword;
         },
 
         onSort() {
             let sortValue = event.currentTarget.getAttribute('data-sort');
+
+            // If clicking on the current sort option, don't do anything
             if (this.sort.value != sortValue) {
                 this.loading = true;
                 this.sort.value = sortValue;
                 this.sort.markup = event.target.innerHTML;
             }    
         },
+
+        onClearFilters() {
+            if (this.searchFilter !== null) {
+                this.loading = true;
+                this.searchFilter = null;
+                this.$refs.search.resetInput();
+            }
+        },
+
+        userHasRoles(roles) {
+            const authRoles = this.auth.roles.map(role => {
+                return role.name;
+            });
+            
+            return roles.every(role => authRoles.includes(role));
+        }
     },
+
+    computed: {
+        dirtyFilters() {
+            return this.searchFilter !== null && this.searchFilter !== '';
+        }
+    }
 }
 </script>

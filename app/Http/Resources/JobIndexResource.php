@@ -18,7 +18,11 @@ class JobIndexResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'title' => $this->title,
-            'description' => substr($this->description, 0, 100) . '...',
+            'description' => $this->description,
+            'status' => $this->status,
+            'length_of_job' => $this->length_of_job,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
             'address' => new AddressShowResource($this->address),
             'isBookmarked' => $this->isBookmarked(),
             'created_at' => $this->created_at

@@ -1,5 +1,5 @@
 <template>
-    <div class="my-3" style="height: 100%; width: 100%">
+    <div class="my-3" style="height: 400px; width: 100%">
         <l-map
             ref="myMap"
             :zoom="mapOptions.zoom"
@@ -11,7 +11,12 @@
                 :attribution="mapOptions.attribution"
             />
 
-            <l-marker v-for="job in jobs.data" :key="job.reference" :lat-lng="[job.address.lat, job.address.lon]" > </l-marker>
+            <l-marker v-for="job in jobs.data" :key="job.reference" :lat-lng="[job.address.lat, job.address.lon]" @click="$emit('job-marker-clicked', job.uuid)"> 
+                <l-tooltip style="width: 200px;">
+                    <h6 class="font-weight-bolder">{{ job.address.city }}<br>{{ job.address.postcode }}</h6>
+                    <p class="text-muted text-wrap">{{ job.description }}</p> 
+                </l-tooltip>
+            </l-marker>
         </l-map>
     </div>  
 </template>
@@ -29,8 +34,8 @@ export default {
             show: false,
             map: null,
             mapOptions: {
-                zoom: 5,
-                center: latLng(47.41322, -1.219482),
+                zoom: 7,
+                center: latLng(51.509865, -0.118092),
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             }

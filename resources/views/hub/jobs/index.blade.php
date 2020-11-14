@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    <jobs :auth="{{ Auth::user() }}"></jobs>
+    <jobs :auth="{{ $authedUser }}"></jobs>
 @endsection

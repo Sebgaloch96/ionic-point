@@ -1928,6 +1928,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -1938,8 +1943,8 @@ __webpack_require__.r(__webpack_exports__);
       show: false,
       map: null,
       mapOptions: {
-        zoom: 5,
-        center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(47.41322, -1.219482),
+        zoom: 7,
+        center: Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(51.509865, -0.118092),
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }
@@ -2071,6 +2076,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2087,7 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
         currentTab: 'job-listings'
       },
       searchFilter: null,
-      filters: [],
+      selectedFilter: null,
       sort: {
         value: 'newest',
         markup: 'Newest First'
@@ -2109,7 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       deep: true
     },
-    searchFilter: function searchFilter(newSearchFilter, oldSearchFilter) {
+    searchFilter: function searchFilter() {
       this.debouncedGetJobs();
     },
     sort: {
@@ -2135,9 +2155,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
       });
     },
+    onRefresh: function onRefresh() {
+      this.loading = true;
+      this.getJobs();
+    },
     onSwitchTabs: function onSwitchTabs() {
       var tab = event.currentTarget.getAttribute('aria-controls');
-      var url = event.currentTarget.getAttribute('data-url');
+      var url = event.currentTarget.getAttribute('data-url'); // If clicking on the same tab, don't do anything
 
       if (this.tabInfo.currentTab != tab) {
         this.loading = true;
@@ -2150,13 +2174,33 @@ __webpack_require__.r(__webpack_exports__);
       this.searchFilter = keyword;
     },
     onSort: function onSort() {
-      var sortValue = event.currentTarget.getAttribute('data-sort');
+      var sortValue = event.currentTarget.getAttribute('data-sort'); // If clicking on the current sort option, don't do anything
 
       if (this.sort.value != sortValue) {
         this.loading = true;
         this.sort.value = sortValue;
         this.sort.markup = event.target.innerHTML;
       }
+    },
+    onClearFilters: function onClearFilters() {
+      if (this.searchFilter !== null) {
+        this.loading = true;
+        this.searchFilter = null;
+        this.$refs.search.resetInput();
+      }
+    },
+    userHasRoles: function userHasRoles(roles) {
+      var authRoles = this.auth.roles.map(function (role) {
+        return role.name;
+      });
+      return roles.every(function (role) {
+        return authRoles.includes(role);
+      });
+    }
+  },
+  computed: {
+    dirtyFilters: function dirtyFilters() {
+      return this.searchFilter !== null && this.searchFilter !== '';
     }
   }
 });
@@ -2204,12 +2248,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     uuid: String,
     title: String,
     description: String,
+    status: String,
+    length_of_job: Number,
+    start_date: String,
+    end_date: String,
     created_at: String,
     address: Object,
     isBookmarked: Boolean
@@ -2249,6 +2302,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       keyword: ''
     };
+  },
+  methods: {
+    resetInput: function resetInput() {
+      this.keyword = '';
+    }
   }
 });
 
@@ -95309,7 +95367,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "my-3", staticStyle: { height: "100%", width: "100%" } },
+    { staticClass: "my-3", staticStyle: { height: "400px", width: "100%" } },
     [
       _c(
         "l-map",
@@ -95327,10 +95385,32 @@ var render = function() {
           }),
           _vm._v(" "),
           _vm._l(_vm.jobs.data, function(job) {
-            return _c("l-marker", {
-              key: job.reference,
-              attrs: { "lat-lng": [job.address.lat, job.address.lon] }
-            })
+            return _c(
+              "l-marker",
+              {
+                key: job.reference,
+                attrs: { "lat-lng": [job.address.lat, job.address.lon] },
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("job-marker-clicked", job.uuid)
+                  }
+                }
+              },
+              [
+                _c("l-tooltip", { staticStyle: { width: "200px" } }, [
+                  _c("h6", { staticClass: "font-weight-bolder" }, [
+                    _vm._v(_vm._s(job.address.city)),
+                    _c("br"),
+                    _vm._v(_vm._s(job.address.postcode))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted text-wrap" }, [
+                    _vm._v(_vm._s(job.description))
+                  ])
+                ])
+              ],
+              1
+            )
           })
         ],
         2
@@ -95395,55 +95475,83 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav-item", attrs: { role: "presentation" } },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "bookmarks-tab",
-                      "data-toggle": "pill",
-                      href: "#bookmarks",
-                      role: "tab",
-                      "aria-controls": "bookmarks",
-                      "aria-selected": "false",
-                      "data-url": "/api/hub/jobs/myBookmarks"
-                    },
-                    on: { click: _vm.onSwitchTabs }
-                  },
-                  [_c("strong", [_vm._v("Your Bookmarks")])]
+            _vm.userHasRoles(["Engineer", "Project Manager"])
+              ? _c(
+                  "li",
+                  { staticClass: "nav-item", attrs: { role: "presentation" } },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          id: "bookmarks-tab",
+                          "data-toggle": "pill",
+                          href: "#bookmarks",
+                          role: "tab",
+                          "aria-controls": "bookmarks",
+                          "aria-selected": "false",
+                          "data-url": "/api/hub/jobs/myBookmarks"
+                        },
+                        on: { click: _vm.onSwitchTabs }
+                      },
+                      [_c("strong", [_vm._v("Your Bookmarks")])]
+                    )
+                  ]
                 )
-              ]
-            ),
+              : _vm._e(),
             _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav-item", attrs: { role: "presentation" } },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "your-jobs-tab",
-                      "data-toggle": "pill",
-                      href: "#your-jobs",
-                      role: "tab",
-                      "aria-controls": "your-jobs",
-                      "aria-selected": "false",
-                      "data-url": "/api/hub/jobs/myJobs"
-                    },
-                    on: { click: _vm.onSwitchTabs }
-                  },
-                  [_c("strong", [_vm._v("Your Jobs")])]
+            _vm.userHasRoles(["Engineer", "Project Manager"])
+              ? _c(
+                  "li",
+                  { staticClass: "nav-item", attrs: { role: "presentation" } },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          id: "your-jobs-tab",
+                          "data-toggle": "pill",
+                          href: "#your-jobs",
+                          role: "tab",
+                          "aria-controls": "your-jobs",
+                          "aria-selected": "false",
+                          "data-url": "/api/hub/jobs/myJobs"
+                        },
+                        on: { click: _vm.onSwitchTabs }
+                      },
+                      [_c("strong", [_vm._v("Your Jobs")])]
+                    )
+                  ]
                 )
-              ]
-            ),
+              : _vm._e(),
             _vm._v(" "),
-            _vm._m(0)
+            _vm.userHasRoles(["Project Manager"])
+              ? _c(
+                  "li",
+                  { staticClass: "nav-item", attrs: { role: "presentation" } },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          id: "your-job-listings-tab",
+                          "data-toggle": "pill",
+                          href: "#your-job-listings",
+                          role: "tab",
+                          "aria-controls": "your-job-listings",
+                          "aria-selected": "false",
+                          "data-url": "/api/hub/jobs/myJobs"
+                        },
+                        on: { click: _vm.onSwitchTabs }
+                      },
+                      [_c("strong", [_vm._v("Your Job Listings")])]
+                    )
+                  ]
+                )
+              : _vm._e()
           ]
         ),
         _vm._v(" "),
@@ -95472,6 +95580,7 @@ var render = function() {
                 { staticClass: "col-md-6" },
                 [
                   _c("search", {
+                    ref: "search",
                     staticClass: "mx-2",
                     on: { search: _vm.onJobSearch }
                   })
@@ -95483,38 +95592,48 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm.loading
-          ? _c("div", { staticClass: "row align-items-center" }, [_vm._m(1)])
+          ? _c("div", { staticClass: "row align-items-center" }, [_vm._m(0)])
           : _vm._e(),
         _vm._v(" "),
         !_vm.loading && _vm.jobs.meta.total > 0
           ? _c("div", [
-              _c("div", { staticClass: "row align-items-center pt-4" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-md-10" },
-                  [
-                    _c(
-                      "h4",
-                      { staticClass: "text-muted font-weight-bold d-inline" },
-                      [_vm._v("Applied Filters: ")]
-                    ),
-                    _vm._v(" "),
-                    _c("v-select", {
-                      staticClass: "d-inline-block w-25",
-                      attrs: { multiple: "", options: ["Active", "Inactive"] },
-                      model: {
-                        value: _vm.filters,
-                        callback: function($$v) {
-                          _vm.filters = $$v
+              _c("div", { staticClass: "row align-items-center pt-3" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn bg-custom-dark text-white rounded-0",
+                      attrs: { type: "button", id: "sidebarCollapse" },
+                      on: { click: _vm.onRefresh }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-sync mr-1" }),
+                      _vm._v(
+                        "\n                            Refresh\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.dirtyFilters
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn bg-custom-dark text-white rounded-0",
+                          attrs: { type: "button", id: "sidebarCollapse" },
+                          on: { click: _vm.onClearFilters }
                         },
-                        expression: "filters"
-                      }
-                    })
-                  ],
-                  1
-                ),
+                        [
+                          _c("i", { staticClass: "fas fa-backspace mr-1" }),
+                          _vm._v(
+                            "\n                            Clear Filters\n                        "
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-2 justify-content-end" }, [
+                _c("div", { staticClass: "col-md-8 justify-content-end" }, [
                   _c("div", { staticClass: "dropdown text-right" }, [
                     _vm._v(
                       "\n                            Sort:\n                            "
@@ -95603,7 +95722,44 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "col-12 col-md-4" },
-                  [_c("custom-map", { attrs: { jobs: _vm.jobs } })],
+                  [
+                    _c("custom-map", {
+                      attrs: { jobs: _vm.jobs },
+                      on: { "job-marker-clicked": _vm.onJobSearch }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card rounded-0 border-0" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "font-weight-bolder",
+                              attrs: { for: "" }
+                            },
+                            [_vm._v("Status")]
+                          ),
+                          _vm._v(" "),
+                          _c("v-select", {
+                            staticClass: "w-100",
+                            attrs: { multiple: "" },
+                            model: {
+                              value: _vm.selectedFilter,
+                              callback: function($$v) {
+                                _vm.selectedFilter = $$v
+                              },
+                              expression: "selectedFilter"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ],
                   1
                 ),
                 _vm._v(" "),
@@ -95653,16 +95809,7 @@ var render = function() {
                           })
                         ],
                         2
-                      ),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: "tab-pane fade",
-                        attrs: {
-                          id: "job-map",
-                          role: "tabpanel",
-                          "aria-labelledby": "job-map-tab"
-                        }
-                      })
+                      )
                     ]
                   )
                 ])
@@ -95686,32 +95833,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "li",
-      { staticClass: "nav-item", attrs: { role: "presentation" } },
-      [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            attrs: {
-              id: "job-map-tab",
-              "data-toggle": "pill",
-              href: "#job-map",
-              role: "tab",
-              "aria-controls": "job-map",
-              "aria-selected": "false"
-            }
-          },
-          [_c("strong", [_vm._v("Job Map")])]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12 justify-content-center" }, [
       _c(
         "div",
@@ -95721,6 +95842,16 @@ var staticRenderFns = [
         },
         [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-custom-dark rounded-0" }, [
+      _c("h4", { staticClass: "font-weight-bold text-white m-0" }, [
+        _vm._v("Filters")
+      ])
     ])
   }
 ]
@@ -95754,35 +95885,57 @@ var render = function() {
           "div",
           { staticClass: "card-header bg-white font-weight-bolder rounded-0" },
           [
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col-md-4" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.title) +
-                    "\n                    "
-                ),
-                _c("small", { staticClass: "text-muted d-block" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("h6", { staticClass: "m-0" }, [
+                  _c("strong", [_vm._v(_vm._s(_vm.title))])
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "text-muted d-block mr-2" }, [
                   _vm._v("Listed " + _vm._s(_vm._f("fromNow")(_vm.created_at)))
+                ]),
+                _vm._v(" "),
+                _c("h6", { staticClass: "d-block" }, [
+                  _c("span", { staticClass: "badge badge-success" }, [
+                    _vm._v(_vm._s(_vm.status))
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("small", { staticClass: "d-block" }, [
+                  _vm._v(_vm._s(_vm.address.city))
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "d-block" }, [
+                  _vm._v(_vm._s(_vm.address.postcode))
+                ])
+              ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c("h6", { staticClass: "text-muted" }, [
-                  _c("strong", [
-                    _vm._v(
-                      _vm._s(_vm.address.city) +
-                        " - " +
-                        _vm._s(_vm.address.postcode)
-                    )
-                  ])
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("small", { staticClass: "d-block" }, [
+                  _vm._v(_vm._s(_vm.length_of_job) + " days")
+                ]),
+                _vm._v(" "),
+                _c("small", { staticClass: "d-block" }, [
+                  _vm._v(
+                    _vm._s(_vm._f("standardFormat")(_vm.start_date)) +
+                      " - " +
+                      _vm._s(_vm._f("standardFormat")(_vm.end_date))
+                  )
                 ])
               ]),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-md-3 text-right text-custom-dark" },
+                {
+                  staticClass:
+                    "col-md-3 text-right text-custom-dark align-self-center"
+                },
                 [
                   _c("i", { staticClass: "fas fa-eye fa-lg mx-2" }),
                   _vm._v(" "),
@@ -95800,7 +95953,11 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _vm._v("\n            " + _vm._s(_vm.description) + "\n        ")
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.description.substr(0, 120) + "...") +
+              "\n        "
+          )
         ])
       ]
     )
@@ -95811,10 +95968,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("h6", [
-        _c("span", { staticClass: "badge badge-success" }, [_vm._v("Active")])
-      ])
+    return _c("h6", { staticClass: "m-0" }, [
+      _c("strong", [_vm._v("Location")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "m-0" }, [
+      _c("strong", [_vm._v("Duration")])
     ])
   }
 ]
@@ -121355,6 +121518,9 @@ leaflet__WEBPACK_IMPORTED_MODULE_14__["Icon"].Default.mergeOptions({
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('fromNow', function (value) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).fromNow();
 });
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('standardFormat', function (value) {
+  return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).format('DD/MM/YYYY');
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_10___default.a, {
   position: 'top-right'
@@ -121363,6 +121529,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_I
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LMap"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTileLayer"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LMarker"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTooltip"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-popup', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LPopup"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_7___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8___default.a); // Components required across the app
 

@@ -10,6 +10,12 @@ export default {
         return {
             keyword: '',
         }
+    },
+
+    methods: {
+        resetInput() {
+            this.keyword = '';
+        }
     }
 }
 </script>

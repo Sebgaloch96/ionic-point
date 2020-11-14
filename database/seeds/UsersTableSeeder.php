@@ -16,14 +16,14 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Get roles
-        $superAdmin = Role::where('name', 'Super Admin')->first();
+        $roles = Role::all()->pluck('name');
 
         $user = factory(User::class)->create([      
             'name' => 'Seb Galoch',
             'email' => 'sg@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($superAdmin);
+        $user->assignRole($roles);
         $job = Job::inRandomOrder()->first();
         $user->jobs()->attach($job);
 
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'tp@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($superAdmin);
+        $user->assignRole($roles);
         $job = Job::inRandomOrder()->first();
         $user->jobs()->attach($job);
     }

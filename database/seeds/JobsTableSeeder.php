@@ -13,7 +13,7 @@ class JobsTableSeeder extends Seeder
      */
     public function run()
     {
-        $jobs = factory(Job::class, 5)->create();
+        $jobs = factory(Job::class, 100)->create();
 
         foreach ($jobs as $job) {
             $address = factory(Address::class)->create([

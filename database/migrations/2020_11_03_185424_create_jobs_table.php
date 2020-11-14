@@ -20,6 +20,8 @@ class CreateJobsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('status')->nullable();
+            $table->integer('length_of_job')->nullable();
+            $table->timestamp('start_date')->nullable();
             $table->timestamps();
         });
 
