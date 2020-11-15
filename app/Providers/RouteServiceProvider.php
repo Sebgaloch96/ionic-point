@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Job;
 use App\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -36,6 +37,10 @@ class RouteServiceProvider extends ServiceProvider
         // Custom resolution logic
         Route::bind('user', function ($value) {
             return User::where('uuid', $value)->first() ?? abort(404);
+        });
+
+        Route::bind('job', function ($value) {
+            return Job::where('uuid', $value)->first() ?? abort(404);
         });
     }
 
@@ -77,7 +82,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
+             ->middleware('web')
+             ->name('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }

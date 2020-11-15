@@ -1,9 +1,9 @@
 @extends('hub.layouts.main')
 
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('jobs') }}
+    {{ Breadcrumbs::render('jobs.create') }}
 @endsection
 
 @section('content')
-    <jobs :auth="{{ $authedUser }}"></jobs>
+    
 @endsection

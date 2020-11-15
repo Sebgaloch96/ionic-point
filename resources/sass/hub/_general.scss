@@ -1,9 +1,15 @@
 .bg-custom-dark {
-    background-color: $bg-custom-dark !important;
+    background-color: $custom-color-dark !important;
+}
+.bg-custom-light {
+    background-color: $custom-color-light !important;
 }
 
 .text-custom-dark {
-    color: $bg-custom-dark !important;
+    color: $custom-color-dark !important;
+}
+.text-custom-light {
+    color: $custom-color-light !important;
 }
 
 .badge-pill-top-right {
@@ -13,6 +19,74 @@
 
 .card-job {
     &:hover {
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+.nav-tabs {
+    .nav-link {
+        border-radius: 0%;
+        border: 0;
+
+        &.active {
+            background-color: $custom-color-dark;
+            color: #f8f9fa;
+        }
+    }
+}
+
+.card-filters {
+    input {
+        background-color: #e9ecef;
+        color: $custom-color-dark;
+        outline: none;
+        border: none;
+        font-weight: 500;
+        font-size: 1.2rem;
+
+        &::placeholder {
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        &:focus::placeholder {
+            color: transparent;
+        }
+    }
+}
+
+.pagination {
+    .page-item {
+        &.active {
+            .page-link {
+                background-color: $custom-color-dark;
+                border-color: $custom-color-dark; 
+                color: white;
+            }
+        }
+
+        .page-link {
+            color: $custom-color-dark;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        &:first-child, &:last-child {
+            .page-link {
+                border-radius: 0%;
+            }
+        }
+    }
+}
+
+#dropdownSort {
+    &.dropdown-toggle {
+        &::after {
+            display: inline-block !important;
+            position: static !important;
+            transform: translateY(30%) !important;
+        }
     }
 }

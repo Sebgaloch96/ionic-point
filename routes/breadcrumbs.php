@@ -14,6 +14,9 @@ Breadcrumbs::for('dashboard', function ($trail) {
 Breadcrumbs::for('jobs', function ($trail) {
     $trail->push('Jobs', route('hub.jobs'));
 });
+Breadcrumbs::for('jobs.create', function ($trail) {
+    $trail->push('Create', route('hub.jobs.create'));
+});
 
 // Calendar
 Breadcrumbs::for('calendar', function ($trail) {

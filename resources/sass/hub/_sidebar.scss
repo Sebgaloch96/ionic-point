@@ -40,19 +40,18 @@ a, a:hover, a:focus {
     min-height: 100vh;
     color: #fff;
     transition: all 0.3s;
-    background-color: $bg-custom-dark;
+    background-color: $custom-color-dark;
 
     &.active {
         margin-left: -250px;
     }
 
     .sidebar-header {
-        padding: 20px;
-        background: $bg-custom-dark;
+        background: $custom-color-dark;
     }
 
     ul {
-        background-color: $bg-custom-dark;
+        background-color: $custom-color-dark;
 
         .components {
             padding: 20px 0;
@@ -83,7 +82,7 @@ a, a:hover, a:focus {
 
             &.active > a, a[aria-expanded="true"] {
                 color: #000;
-                background: #fafafa;
+                background: #e9ecef;
             }
         }
 
@@ -91,7 +90,7 @@ a, a:hover, a:focus {
             a {
                 font-size: 0.9em !important;
                 padding-left: 30px !important;
-                background: $bg-custom-dark;
+                background: $custom-color-dark;
             }
         }
     }

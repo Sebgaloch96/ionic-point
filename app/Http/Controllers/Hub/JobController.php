@@ -18,17 +18,17 @@ class JobController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        $jobs = Job::all();
+        $user = auth()->user()->with(['roles', 'address'])->first();
         
         return view('hub.jobs.index')->with([
-            'jobs' => $jobs
+            'authedUser' => $user
         ]);
+    }
+
+    public function create() 
+    {        
+        return view('hub.jobs.form');
     }
 }

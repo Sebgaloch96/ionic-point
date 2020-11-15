@@ -1,6 +1,8 @@
 <?php
 
+use App\Job;
 use App\User;
+use App\Address;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -15,20 +17,58 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Get roles
-        $superAdmin = Role::where('name', 'Super Admin')->first();
+        $roles = Role::all()->pluck('name');
 
-        $user = factory(User::class)->create([      
+        // Super Admins
+        $superAdmin = factory(User::class)->create([      
             'name' => 'Seb Galoch',
             'email' => 'sg@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($superAdmin);
+        // Add roles
+        $superAdmin->assignRole($roles);
+        // Add an address
+        $address = factory(Address::class)->create([
+            'addressable_id' => $superAdmin->id,
+            'addressable_type' => User::class
+        ]);
+        // Add a job
+        $job = Job::inRandomOrder()->first();
+        $superAdmin->jobs()->attach($job);
 
-        $user = factory(User::class)->create([      
+        $superAdmin = factory(User::class)->create([      
             'name' => 'Thanawan Pinlaem',
             'email' => 'tp@example.com',
             'password' => Hash::make('secret')
         ]);
-        $user->assignRole($superAdmin);
+        // Add roles
+        $superAdmin->assignRole($roles);
+        // Add an address
+        $address = factory(Address::class)->create([
+            'addressable_id' => $superAdmin->id,
+            'addressable_type' => User::class
+        ]);
+        // Add a job
+        $job = Job::inRandomOrder()->first();
+        $superAdmin->jobs()->attach($job);
+
+        // Other users
+        $users = factory(User::class, 20)->create();
+        $roles = Role::where('name', '!=', 'Super Admin')->pluck('name');
+        foreach ($users as $user) {
+            // Assign a role
+            $randomRoles = $roles[rand(0, count($roles) - 1)];
+            $user->assignRole($randomRoles);
+
+            // Link to an address
+            $address = factory(Address::class)->create([
+                'addressable_id' => $user->id,
+                'addressable_type' => User::class
+            ]);
+
+            // Attach a job
+            $job = Job::inRandomOrder()->first();
+            $user->jobs()->attach($job);
+        }
     }
 }

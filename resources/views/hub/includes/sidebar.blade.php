@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <nav id="sidebar">
-    <div class="sidebar-header">
+    <div class="sidebar-header py-4 px-4">
         <h3>Ionic Point</h3>
     </div>
 
@@ -9,7 +9,7 @@
         <li class="mb-4">
             <a href="{{ route('hub.dashboard') }}"><i class="fas fa-columns"></i> <span class="px-1">Dashboard</span></a>
         </li>
-        <li>
+        <li class="{{ Request::segment(2) == "jobs" ? "active" : "" }}">
             <a href="{{ route('hub.jobs') }}"><i class="fas fa-briefcase"></i> <span class="px-1">Jobs</span></a>
         </li>   
         <li>

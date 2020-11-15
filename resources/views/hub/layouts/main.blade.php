@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        @env('local')
+        {{-- @env('local')
             <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
                 <i class="fas fa-cog"></i> You are currently in the development environment
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +35,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        @endenv
+        @endenv --}}
 
         <div class="wrapper">
             @include('hub.includes.sidebar')
@@ -45,7 +45,7 @@
     
                 @yield('breadcrumbs')
     
-                <div class="container-fluid py-1 py-md-4">
+                <div class="container-fluid py-1 py-md-4 bg-custom-light">
                     @yield('content')
                 </div>    
             </div>
