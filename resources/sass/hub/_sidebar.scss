@@ -47,7 +47,12 @@ a, a:hover, a:focus {
     }
 
     .sidebar-header {
-        background: $custom-color-dark;
+        background: rgba($custom-color-light, 0.2);
+        max-height: 78px;
+
+        h3 {
+            margin-bottom: 0;
+        }
     }
 
     ul {
@@ -59,16 +64,16 @@ a, a:hover, a:focus {
 
         p {
             color: #fff;
-            padding: 20px;
         }
 
         li {
-            a {
-                padding: 20px;
+            p, a {
+                padding: $spacer * 1.5;
                 padding-top: 10px;
                 padding-bottom: 10px;
                 font-size: 1.1em;
                 display: block;
+                margin-bottom: 0;
 
                 i {
                     width: 20px;
@@ -84,12 +89,37 @@ a, a:hover, a:focus {
                 color: #000;
                 background: #e9ecef;
             }
+
+            hr {
+                border-top: 1px solid rgba($custom-color-light, 0.5);
+                width: 80%;
+            }
         }
 
         ul {
+            li {
+                position: relative;
+
+                &:before {
+                    content: "";
+                    width: 5px;
+                    height: 5px;
+                    display: inline-block;
+                    position: absolute;
+                    background-color: $custom-color-light;
+                    top: 18px;
+                    left: $spacer * 3;
+                }
+
+                &:hover, &:focus {
+                    &:before {
+                        background-color: $custom-color-dark;
+                    }
+                }
+            }
             a {
-                font-size: 0.9em !important;
-                padding-left: 30px !important;
+                font-size: $font-size-base * 0.9;
+                padding-left: $spacer * 4;
                 background: $custom-color-dark;
             }
         }

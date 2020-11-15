@@ -19191,7 +19191,12 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-  background: #1b263b;
+  background: rgba(233, 236, 239, 0.2);
+  max-height: 78px;
+}
+
+#sidebar .sidebar-header h3 {
+  margin-bottom: 0;
 }
 
 #sidebar ul {
@@ -19204,17 +19209,19 @@ a:focus {
 
 #sidebar ul p {
   color: #fff;
-  padding: 20px;
 }
 
+#sidebar ul li p,
 #sidebar ul li a {
-  padding: 20px;
+  padding: 1.5rem;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 1.1em;
   display: block;
+  margin-bottom: 0;
 }
 
+#sidebar ul li p i,
 #sidebar ul li a i {
   width: 20px;
 }
@@ -19230,9 +19237,34 @@ a:focus {
   background: #e9ecef;
 }
 
+#sidebar ul li hr {
+  border-top: 1px solid rgba(233, 236, 239, 0.5);
+  width: 80%;
+}
+
+#sidebar ul ul li {
+  position: relative;
+}
+
+#sidebar ul ul li:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  position: absolute;
+  background-color: #e9ecef;
+  top: 18px;
+  left: 3rem;
+}
+
+#sidebar ul ul li:hover:before,
+#sidebar ul ul li:focus:before {
+  background-color: #1b263b;
+}
+
 #sidebar ul ul a {
-  font-size: 0.9em !important;
-  padding-left: 30px !important;
+  font-size: 0.9rem;
+  padding-left: 4rem;
   background: #1b263b;
 }
 

@@ -5,12 +5,23 @@
     </div>
 
     <ul class="list-unstyled components">
-        <p>Welcome {{ Auth::user()->name }}!</p>
-        <li class="mb-4">
+        <div class="px-4 py-4">
+            <p class="mb-0">Welcome {{ Auth::user()->name }}!</p>
+        </div>
+        <li>
             <a href="{{ route('hub.dashboard') }}"><i class="fas fa-columns"></i> <span class="px-1">Dashboard</span></a>
         </li>
         <li class="{{ Request::segment(2) == "jobs" ? "active" : "" }}">
-            <a href="{{ route('hub.jobs') }}"><i class="fas fa-briefcase"></i> <span class="px-1">Jobs</span></a>
+            <hr>
+            <p><i class="fas fa-briefcase"></i> <span class="px-1">Jobs</span></p>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{{ route('hub.jobs') }}">Find jobs</a>
+                </li>
+                <li>
+                    <a href="#">Manage jobs</a>
+                </li>
+            </ul>
         </li>   
         <li>
             <a href="{{ route('hub.calendar') }}"><i class="fas fa-calendar-alt"></i> <span class="px-1">Calendar</span></a>
@@ -21,7 +32,8 @@
         <li>
             <a href=""><i class="fas fa-cog"></i> <span class="px-1">Settings</span></a>
         </li>
-        <li class="my-4">
+        <li>
+            <hr>
             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i> <span class="px-1">Logout</span></a>
 
