@@ -18968,7 +18968,9 @@ a {
   font-size: 3.75rem;
 }
 
-form input {
+form input[type=text],
+form input[type=email],
+form input[type=password] {
   height: 34px;
 }
 
@@ -18988,9 +18990,14 @@ form textarea.form-control {
   max-width: 100%;
 }
 
-form .btn-primary:hover,
-form .btn-primary:focus {
-  border: solid 2px #ffffff;
+form .btn-login {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+form .btn-login:hover,
+form .btn-login:focus {
+  border: solid 2px #1b263b;
 }
 
 .footer {

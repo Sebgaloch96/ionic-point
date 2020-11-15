@@ -21,21 +21,21 @@
 </head>
 <body>
     <div id="app">
-        @env('local')
-            <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
-                <i class="fas fa-cogs"></i> You are currently in the development environment
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @elseenv('testing')
-            <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
-                <i class="fas fa-cogs"></i> You are currently in the staging environment
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endenv
+            @env('local')
+                <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                    <i class="fas fa-cogs"></i> You are currently in the development environment
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseenv('testing')
+                <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                    <i class="fas fa-cogs"></i> You are currently in the staging environment
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endenv
 
             <header>
                 @include('site.includes.navbar')
