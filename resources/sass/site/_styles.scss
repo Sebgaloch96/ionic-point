@@ -291,7 +291,7 @@ a {
 
 // form
 form {
-    input {
+    input[type='text'], input[type='email'], input[type='password'] {
         height: 34px;
     }
 
@@ -314,8 +314,14 @@ form {
     }
 
     .btn-primary {
+        
+    }
+
+    .btn-login {
+        padding-top: 10px;
+        padding-bottom: 10px;
         &:hover, &:focus {
-            border: solid 2px $brand-white;
+            border: solid 2px $brand-primary;
         }
     }
 }
