@@ -20,7 +20,7 @@ class JobController extends Controller
 
     public function index()
     {
-        $user = auth()->user()->with('roles')->first();
+        $user = auth()->user()->with(['roles', 'address'])->first();
         
         return view('hub.jobs.index')->with([
             'authedUser' => $user

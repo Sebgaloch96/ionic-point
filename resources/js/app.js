@@ -26,7 +26,7 @@ import VueSwal from 'vue-swal';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
-import { LMap, LTileLayer, LMarker, LTooltip, LPopup } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LTooltip, LCircle } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { Icon } from 'leaflet';
@@ -52,6 +52,9 @@ Icon.Default.mergeOptions({
 // Global filters
 Vue.filter('fromNow', value => moment(value).fromNow());
 Vue.filter('standardFormat', value => moment(value).format('DD/MM/YYYY'));
+Vue.filter('toMiles', value => {
+    return parseInt(Math.round(value / 1609.344));
+});
 
 Vue.use(VueSwal);
 Vue.use(VueToast, {
@@ -63,7 +66,7 @@ Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-tooltip', LTooltip);
-Vue.component('l-popup', LPopup);
+Vue.component('l-circle', LCircle);
 Vue.component('v-select', vSelect);
 Vue.component('pagination', Pagination);
 

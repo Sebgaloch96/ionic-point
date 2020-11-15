@@ -2103,6 +2103,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2120,6 +2133,12 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchFilter: null,
       selectedFilter: null,
+      rangeFilter: {
+        value: 0,
+        min: 0,
+        max: this.getMilesAsMeters(2000),
+        step: this.getMilesAsMeters(1)
+      },
       sort: {
         value: 'newest',
         markup: 'Newest First'
@@ -2147,6 +2166,22 @@ __webpack_require__.r(__webpack_exports__);
     sort: {
       handler: function handler(value) {
         this.getJobs();
+      },
+      deep: true
+    },
+    rangeFilter: {
+      handler: function handler(filterProps) {
+        if (filterProps.value <= this.getMilesAsMeters(100)) {
+          this.rangeFilter.step = this.getMilesAsMeters(1);
+        }
+
+        if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(1000)) {
+          this.rangeFilter.step = this.getMilesAsMeters(25);
+        }
+
+        if (filterProps.value >= this.getMilesAsMeters(1000) && filterProps.value <= this.getMilesAsMeters(2000)) {
+          this.rangeFilter.step = this.getMilesAsMeters(50);
+        }
       },
       deep: true
     }
@@ -2201,6 +2236,12 @@ __webpack_require__.r(__webpack_exports__);
         this.$refs.search.resetInput();
       }
     },
+    onRangeChange: function onRangeChange() {
+      var currentLat = this.auth.address.lat;
+      var currentLon = this.auth.address.lon;
+      var latLng = this.calculateLatLng(this.rangeFilter.value, currentLat, currentLon);
+      console.log(latLng);
+    },
     userHasRoles: function userHasRoles(roles) {
       var authRoles = this.auth.roles.map(function (role) {
         return role.name;
@@ -2208,6 +2249,23 @@ __webpack_require__.r(__webpack_exports__);
       return roles.every(function (role) {
         return authRoles.includes(role);
       });
+    },
+    getMilesAsMeters: function getMilesAsMeters(miles) {
+      return 1609.344 * miles;
+    },
+    calculateLatLng: function calculateLatLng(meters, lat, lon) {
+      // number of km per degree = ~111km (111.32 in google maps, but range varies
+      // between 110.567km at the equator and 111.699km at the poles)
+      // 1km in degree = 1 / 111.32km = 0.0089
+      // 1m in degree = 0.0089 / 1000 = 0.0000089
+      var coef = parseFloat(meters * 0.0000089);
+      var new_lat = parseFloat(lat + coef); // pi / 180 = 0.018
+
+      var new_long = parseFloat(lon + coef / Math.cos(lat * 0.018));
+      return {
+        lat: new_lat,
+        lon: new_long
+      };
     }
   },
   computed: {
@@ -95743,33 +95801,79 @@ var render = function() {
                     _c("div", { staticClass: "card rounded-0 border-0" }, [
                       _vm._m(1),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "card-body" },
-                        [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "font-weight-bolder",
-                              attrs: { for: "" }
-                            },
-                            [_vm._v("Status")]
-                          ),
-                          _vm._v(" "),
-                          _c("v-select", {
-                            staticClass: "w-100",
-                            attrs: { multiple: "" },
-                            model: {
-                              value: _vm.selectedFilter,
-                              callback: function($$v) {
-                                _vm.selectedFilter = $$v
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-12" }, [
+                            _c("label", { attrs: { for: "radius_filter" } }, [
+                              _vm._v(
+                                "Show jobs within " +
+                                  _vm._s(
+                                    _vm._f("toMiles")(_vm.rangeFilter.value)
+                                  ) +
+                                  " miles"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.rangeFilter.value,
+                                  expression: "rangeFilter.value"
+                                }
+                              ],
+                              staticClass: "form-control-range",
+                              attrs: {
+                                type: "range",
+                                id: "radius_filter",
+                                min: _vm.rangeFilter.min,
+                                max: _vm.rangeFilter.max,
+                                step: _vm.rangeFilter.step
                               },
-                              expression: "selectedFilter"
-                            }
-                          })
-                        ],
-                        1
-                      )
+                              domProps: { value: _vm.rangeFilter.value },
+                              on: {
+                                change: _vm.onRangeChange,
+                                __r: function($event) {
+                                  return _vm.$set(
+                                    _vm.rangeFilter,
+                                    "value",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-12" },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "font-weight-bolder",
+                                  attrs: { for: "status_filter" }
+                                },
+                                [_vm._v("Status")]
+                              ),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                staticClass: "w-100",
+                                attrs: { id: "status_filter", multiple: "" },
+                                model: {
+                                  value: _vm.selectedFilter,
+                                  callback: function($$v) {
+                                    _vm.selectedFilter = $$v
+                                  },
+                                  expression: "selectedFilter"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ])
                     ])
                   ],
                   1
@@ -121533,6 +121637,9 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('fromNow', function (value) {
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('standardFormat', function (value) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(value).format('DD/MM/YYYY');
 });
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('toMiles', function (value) {
+  return parseInt(Math.round(value / 1609.344));
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_10___default.a, {
   position: 'top-right'
@@ -121542,7 +121649,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBP
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTileLayer"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LMarker"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTooltip"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-popup', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LPopup"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LCircle"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_7___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8___default.a); // Components required across the app
 

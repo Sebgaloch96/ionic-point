@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Job', 'job_user', 'user_id', 'job_id');
     }
+
+    public function address()
+    {
+        return $this->morphOne(Address::class, 'addressable');
+    }
 }

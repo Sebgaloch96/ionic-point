@@ -2,6 +2,7 @@
 
 use App\Job;
 use App\User;
+use App\Address;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +25,14 @@ class UsersTableSeeder extends Seeder
             'email' => 'sg@example.com',
             'password' => Hash::make('secret')
         ]);
+        // Add roles
         $superAdmin->assignRole($roles);
+        // Add an address
+        $address = factory(Address::class)->create([
+            'addressable_id' => $superAdmin->id,
+            'addressable_type' => User::class
+        ]);
+        // Add a job
         $job = Job::inRandomOrder()->first();
         $superAdmin->jobs()->attach($job);
 
@@ -33,7 +41,14 @@ class UsersTableSeeder extends Seeder
             'email' => 'tp@example.com',
             'password' => Hash::make('secret')
         ]);
+        // Add roles
         $superAdmin->assignRole($roles);
+        // Add an address
+        $address = factory(Address::class)->create([
+            'addressable_id' => $superAdmin->id,
+            'addressable_type' => User::class
+        ]);
+        // Add a job
         $job = Job::inRandomOrder()->first();
         $superAdmin->jobs()->attach($job);
 
@@ -44,6 +59,12 @@ class UsersTableSeeder extends Seeder
             // Assign a role
             $randomRoles = $roles[rand(0, count($roles) - 1)];
             $user->assignRole($randomRoles);
+
+            // Link to an address
+            $address = factory(Address::class)->create([
+                'addressable_id' => $user->id,
+                'addressable_type' => User::class
+            ]);
 
             // Attach a job
             $job = Job::inRandomOrder()->first();
