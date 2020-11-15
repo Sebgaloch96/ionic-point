@@ -62,6 +62,17 @@ class Job extends Model
         return $query;
     }
 
+    public function scopeWithinLatLngBounds($query, $bounds) 
+    {
+        $query->whereHas('address', function ($subquery) use ($bounds) {
+            $subquery
+                ->where('lat', '<', $bounds->north_east->lat)
+                ->where('lat', '>', $bounds->south_west->lat)
+                ->where('lon', '<', $bounds->north_east->lng)
+                ->where('lon', '>', $bounds->south_west->lng);
+        });
+    }
+
     public function scopeSort($query, $sort) 
     {
         switch ($sort) {

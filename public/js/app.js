@@ -1982,10 +1982,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CustomMap_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomMap.vue */ "./resources/js/components/CustomMap.vue");
-//
-//
-//
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2118,9 +2116,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    CustomMap: _CustomMap_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   props: {
     auth: Object
   },
@@ -2133,12 +2128,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchFilter: null,
       selectedFilter: null,
-      rangeFilter: {
-        value: 0,
-        min: 0,
-        max: this.getMilesAsMeters(2000),
-        step: this.getMilesAsMeters(1)
-      },
+      rangeFilter: null,
       sort: {
         value: 'newest',
         markup: 'Newest First'
@@ -2163,25 +2153,12 @@ __webpack_require__.r(__webpack_exports__);
     searchFilter: function searchFilter() {
       this.debouncedGetJobs();
     },
+    rangeFilter: function rangeFilter() {
+      this.getJobs();
+    },
     sort: {
       handler: function handler(value) {
         this.getJobs();
-      },
-      deep: true
-    },
-    rangeFilter: {
-      handler: function handler(filterProps) {
-        if (filterProps.value <= this.getMilesAsMeters(100)) {
-          this.rangeFilter.step = this.getMilesAsMeters(1);
-        }
-
-        if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(1000)) {
-          this.rangeFilter.step = this.getMilesAsMeters(25);
-        }
-
-        if (filterProps.value >= this.getMilesAsMeters(1000) && filterProps.value <= this.getMilesAsMeters(2000)) {
-          this.rangeFilter.step = this.getMilesAsMeters(50);
-        }
       },
       deep: true
     }
@@ -2194,6 +2171,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.tabInfo.currentUrl + '?page=' + page, {
         params: {
           'search-filter': this.searchFilter,
+          'range-filter': this.rangeFilter,
           'sort': this.sort.value
         }
       }).then(function (response) {
@@ -2231,16 +2209,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     onClearFilters: function onClearFilters() {
       if (this.searchFilter !== null) {
-        this.loading = true;
+        this.loading = true; // Clear search filter
+
         this.searchFilter = null;
-        this.$refs.search.resetInput();
+        this.$refs.search.reset();
+      }
+
+      if (this.rangeFilter !== null) {
+        this.loading = true; // Clear range filter
+
+        this.rangeFilter = null;
+        this.$refs.rangeFilter.reset();
       }
     },
-    onRangeChange: function onRangeChange() {
-      var currentLat = this.auth.address.lat;
-      var currentLon = this.auth.address.lon;
-      var latLng = this.calculateLatLng(this.rangeFilter.value, currentLat, currentLon);
-      console.log(latLng);
+    onRangeChange: function onRangeChange(bounds) {
+      this.rangeFilter = bounds;
     },
     userHasRoles: function userHasRoles(roles) {
       var authRoles = this.auth.roles.map(function (role) {
@@ -2249,28 +2232,11 @@ __webpack_require__.r(__webpack_exports__);
       return roles.every(function (role) {
         return authRoles.includes(role);
       });
-    },
-    getMilesAsMeters: function getMilesAsMeters(miles) {
-      return 1609.344 * miles;
-    },
-    calculateLatLng: function calculateLatLng(meters, lat, lon) {
-      // number of km per degree = ~111km (111.32 in google maps, but range varies
-      // between 110.567km at the equator and 111.699km at the poles)
-      // 1km in degree = 1 / 111.32km = 0.0089
-      // 1m in degree = 0.0089 / 1000 = 0.0000089
-      var coef = parseFloat(meters * 0.0000089);
-      var new_lat = parseFloat(lat + coef); // pi / 180 = 0.018
-
-      var new_long = parseFloat(lon + coef / Math.cos(lat * 0.018));
-      return {
-        lat: new_lat,
-        lon: new_long
-      };
     }
   },
   computed: {
     dirtyFilters: function dirtyFilters() {
-      return this.searchFilter !== null && this.searchFilter !== '';
+      return this.searchFilter !== null && this.searchFilter !== '' || this.rangeFilter !== null;
     }
   }
 });
@@ -2352,6 +2318,89 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RangeFilter.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RangeFilter.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['lat', 'lng'],
+  data: function data() {
+    return {
+      rangeFilter: {
+        value: 0,
+        min: 0,
+        max: this.getMilesAsMeters(1000),
+        step: this.getMilesAsMeters(1),
+        bounds: null
+      }
+    };
+  },
+  rangeFilter: {
+    handler: function handler(filterProps) {
+      if (filterProps.value <= this.getMilesAsMeters(100)) {
+        this.rangeFilter.step = this.getMilesAsMeters(1);
+      }
+
+      if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(500)) {
+        this.rangeFilter.step = this.getMilesAsMeters(25);
+      }
+
+      if (filterProps.value >= this.getMilesAsMeters(500) && filterProps.value <= this.getMilesAsMeters(1000)) {
+        this.rangeFilter.step = this.getMilesAsMeters(50);
+      }
+    },
+    deep: true
+  },
+  methods: {
+    onChange: function onChange() {
+      var bounds = this.calculateBounds(this.rangeFilter.value, this.lat, this.lng);
+      this.rangeFilter.bounds = bounds;
+
+      if (this.rangeFilter.value <= 0) {
+        this.rangeFilter.bounds = null;
+      }
+
+      this.$emit('range-changed', bounds);
+    },
+    getMilesAsMeters: function getMilesAsMeters(miles) {
+      return 1609.344 * miles;
+    },
+    calculateBounds: function calculateBounds(meters, lat, lng) {
+      var center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(lat, lng);
+      var bounds = center.toBounds(meters);
+      return {
+        north_east: bounds._northEast,
+        south_west: bounds._southWest
+      };
+    },
+    reset: function reset() {
+      this.rangeFilter.value = 0;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Search.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Search.vue?vue&type=script&lang=js& ***!
@@ -2374,7 +2423,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    resetInput: function resetInput() {
+    reset: function reset() {
       this.keyword = '';
     }
   }
@@ -95661,225 +95710,198 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm.loading
-          ? _c("div", { staticClass: "row align-items-center" }, [_vm._m(0)])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.loading && _vm.jobs.meta.total > 0
-          ? _c("div", [
-              _c("div", { staticClass: "row align-items-center pt-3" }, [
-                _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "row align-items-center pt-3" }, [
+          _c("div", { staticClass: "col-md-4" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn bg-custom-dark text-white rounded-0",
+                attrs: { type: "button", id: "sidebarCollapse" },
+                on: { click: _vm.onRefresh }
+              },
+              [
+                _c("i", { staticClass: "fas fa-sync mr-1" }),
+                _vm._v(
+                  "\n                        Refresh\n                    "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.dirtyFilters
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn bg-custom-dark text-white rounded-0",
+                    attrs: { type: "button", id: "sidebarCollapse" },
+                    on: { click: _vm.onClearFilters }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-backspace mr-1" }),
+                    _vm._v(
+                      "\n                        Clear Filters\n                    "
+                    )
+                  ]
+                )
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-8 justify-content-end" }, [
+            _c("div", { staticClass: "dropdown text-right" }, [
+              _vm._v(
+                "\n                        Sort:\n                        "
+              ),
+              _c(
+                "a",
+                {
+                  staticClass: "dropdown-toggle",
+                  attrs: {
+                    href: "#",
+                    role: "button",
+                    id: "dropdownSort",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [
+                  _c("span", {
+                    domProps: { innerHTML: _vm._s(_vm.sort.markup) }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu rounded-0 shadow",
+                  attrs: { "aria-labelledby": "dropdownSort" }
+                },
+                [
                   _c(
-                    "button",
+                    "a",
                     {
-                      staticClass: "btn bg-custom-dark text-white rounded-0",
-                      attrs: { type: "button", id: "sidebarCollapse" },
-                      on: { click: _vm.onRefresh }
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#", "data-sort": "newest" },
+                      on: { click: _vm.onSort }
+                    },
+                    [_vm._v("Newest First")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#", "data-sort": "oldest" },
+                      on: { click: _vm.onSort }
+                    },
+                    [_vm._v("Oldest First")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#", "data-sort": "asc" },
+                      on: { click: _vm.onSort }
                     },
                     [
-                      _c("i", { staticClass: "fas fa-sync mr-1" }),
-                      _vm._v(
-                        "\n                            Refresh\n                        "
-                      )
+                      _c("i", { staticClass: "fas fa-sort-alpha-up" }),
+                      _vm._v(" Ascending")
                     ]
                   ),
                   _vm._v(" "),
-                  _vm.dirtyFilters
-                    ? _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn bg-custom-dark text-white rounded-0",
-                          attrs: { type: "button", id: "sidebarCollapse" },
-                          on: { click: _vm.onClearFilters }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-backspace mr-1" }),
-                          _vm._v(
-                            "\n                            Clear Filters\n                        "
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ]),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#", "data-sort": "desc" },
+                      on: { click: _vm.onSort }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-sort-alpha-down-alt" }),
+                      _vm._v(" Descending")
+                    ]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 col-md-4" },
+            [
+              _c("custom-map", {
+                attrs: { jobs: _vm.jobs },
+                on: { "job-marker-clicked": _vm.onJobSearch }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card rounded-0 border-0" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-8 justify-content-end" }, [
-                  _c("div", { staticClass: "dropdown text-right" }, [
-                    _vm._v(
-                      "\n                            Sort:\n                            "
-                    ),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
                     _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-toggle",
-                        attrs: {
-                          href: "#",
-                          role: "button",
-                          id: "dropdownSort",
-                          "data-toggle": "dropdown",
-                          "aria-haspopup": "true",
-                          "aria-expanded": "false"
-                        }
-                      },
+                      "div",
+                      { staticClass: "col-12" },
                       [
-                        _c("span", {
-                          domProps: { innerHTML: _vm._s(_vm.sort.markup) }
+                        _c("range-filter", {
+                          ref: "rangeFilter",
+                          attrs: {
+                            lat: _vm.auth.address.lat,
+                            lng: _vm.auth.address.lon
+                          },
+                          on: { "range-changed": _vm.onRangeChange }
                         })
-                      ]
+                      ],
+                      1
                     ),
                     _vm._v(" "),
                     _c(
                       "div",
-                      {
-                        staticClass: "dropdown-menu rounded-0 shadow",
-                        attrs: { "aria-labelledby": "dropdownSort" }
-                      },
+                      { staticClass: "col-12" },
                       [
                         _c(
-                          "a",
+                          "label",
                           {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#", "data-sort": "newest" },
-                            on: { click: _vm.onSort }
+                            staticClass: "font-weight-bolder",
+                            attrs: { for: "status_filter" }
                           },
-                          [_vm._v("Newest First")]
+                          [_vm._v("Status")]
                         ),
                         _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#", "data-sort": "oldest" },
-                            on: { click: _vm.onSort }
-                          },
-                          [_vm._v("Oldest First")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#", "data-sort": "asc" },
-                            on: { click: _vm.onSort }
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-sort-alpha-up" }),
-                            _vm._v(" Ascending")
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#", "data-sort": "desc" },
-                            on: { click: _vm.onSort }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fas fa-sort-alpha-down-alt"
-                            }),
-                            _vm._v(" Descending")
-                          ]
-                        )
-                      ]
+                        _c("v-select", {
+                          staticClass: "w-100",
+                          attrs: { id: "status_filter", multiple: "" },
+                          model: {
+                            value: _vm.selectedFilter,
+                            callback: function($$v) {
+                              _vm.selectedFilter = $$v
+                            },
+                            expression: "selectedFilter"
+                          }
+                        })
+                      ],
+                      1
                     )
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-12 col-md-4" },
-                  [
-                    _c("custom-map", {
-                      attrs: { jobs: _vm.jobs },
-                      on: { "job-marker-clicked": _vm.onJobSearch }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card rounded-0 border-0" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-12" }, [
-                            _c("label", { attrs: { for: "radius_filter" } }, [
-                              _vm._v(
-                                "Show jobs within " +
-                                  _vm._s(
-                                    _vm._f("toMiles")(_vm.rangeFilter.value)
-                                  ) +
-                                  " miles"
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.rangeFilter.value,
-                                  expression: "rangeFilter.value"
-                                }
-                              ],
-                              staticClass: "form-control-range",
-                              attrs: {
-                                type: "range",
-                                id: "radius_filter",
-                                min: _vm.rangeFilter.min,
-                                max: _vm.rangeFilter.max,
-                                step: _vm.rangeFilter.step
-                              },
-                              domProps: { value: _vm.rangeFilter.value },
-                              on: {
-                                change: _vm.onRangeChange,
-                                __r: function($event) {
-                                  return _vm.$set(
-                                    _vm.rangeFilter,
-                                    "value",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "col-12" },
-                            [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "font-weight-bolder",
-                                  attrs: { for: "status_filter" }
-                                },
-                                [_vm._v("Status")]
-                              ),
-                              _vm._v(" "),
-                              _c("v-select", {
-                                staticClass: "w-100",
-                                attrs: { id: "status_filter", multiple: "" },
-                                model: {
-                                  value: _vm.selectedFilter,
-                                  callback: function($$v) {
-                                    _vm.selectedFilter = $$v
-                                  },
-                                  expression: "selectedFilter"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ])
-                      ])
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12 col-md-8" }, [
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-8" }, [
+            _vm.loading
+              ? _c("div", { staticClass: "row align-items-center" }, [
+                  _vm._m(1)
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.loading && _vm.jobs.meta.total > 0
+              ? _c("div", [
                   _c(
                     "div",
                     {
@@ -95929,22 +95951,32 @@ var render = function() {
                     ]
                   )
                 ])
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.loading && _vm.jobs.meta.total == 0
-          ? _c("div", { staticClass: "text-center mt-4" }, [
-              _c("h5", { staticClass: "text-muted font-weight-bolder" }, [
-                _vm._v("No Results Found")
-              ])
-            ])
-          : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.loading && _vm.jobs.meta.total == 0
+              ? _c("div", { staticClass: "text-center mt-4" }, [
+                  _c("h5", { staticClass: "text-muted font-weight-bolder" }, [
+                    _vm._v("No Results Found")
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ])
       ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-custom-dark rounded-0" }, [
+      _c("h4", { staticClass: "font-weight-bold text-white m-0" }, [
+        _vm._v("Filters")
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -95958,16 +95990,6 @@ var staticRenderFns = [
         },
         [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header bg-custom-dark rounded-0" }, [
-      _c("h4", { staticClass: "font-weight-bold text-white m-0" }, [
-        _vm._v("Filters")
-      ])
     ])
   }
 ]
@@ -96097,6 +96119,64 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("label", { attrs: { for: "radius_filter" } }, [
+      _vm._v(
+        "Show jobs within " +
+          _vm._s(_vm._f("toMiles")(_vm.rangeFilter.value)) +
+          " miles"
+      )
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.rangeFilter.value,
+          expression: "rangeFilter.value"
+        }
+      ],
+      staticClass: "form-control-range",
+      attrs: {
+        type: "range",
+        id: "radius_filter",
+        min: _vm.rangeFilter.min,
+        max: _vm.rangeFilter.max,
+        step: _vm.rangeFilter.step
+      },
+      domProps: { value: _vm.rangeFilter.value },
+      on: {
+        change: _vm.onChange,
+        __r: function($event) {
+          return _vm.$set(_vm.rangeFilter, "value", $event.target.value)
+        }
+      }
+    })
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -121571,22 +121651,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Jobs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Jobs */ "./resources/js/components/Jobs.vue");
 /* harmony import */ var _components_Jobs_Job__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Jobs/Job */ "./resources/js/components/Jobs/Job.vue");
 /* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Search */ "./resources/js/components/Search.vue");
-/* harmony import */ var _components_CustomMap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/CustomMap */ "./resources/js/components/CustomMap.vue");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_RangeFilter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/RangeFilter */ "./resources/js/components/RangeFilter.vue");
+/* harmony import */ var _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/CustomMap */ "./resources/js/components/CustomMap.vue");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_15__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -121614,8 +121695,9 @@ window.Swal = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___defau
 
 
 
-delete leaflet__WEBPACK_IMPORTED_MODULE_14__["Icon"].Default.prototype._getIconUrl;
-leaflet__WEBPACK_IMPORTED_MODULE_14__["Icon"].Default.mergeOptions({
+
+delete leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.prototype._getIconUrl;
+leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.mergeOptions({
   iconRetinaUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon-2x.png */ "./node_modules/leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png"),
   shadowUrl: __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png")
@@ -121640,21 +121722,22 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('standardFormat', function (va
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('toMiles', function (value) {
   return parseInt(Math.round(value / 1609.344));
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_9___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_10___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_10___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default.a, {
   position: 'top-right'
 }); // Installed vue packages
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LMap"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTileLayer"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LMarker"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LTooltip"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_12__["LCircle"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_7___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_8___default.a); // Components required across the app
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMap"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTileLayer"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMarker"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTooltip"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LCircle"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_8___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default.a); // Components required across the app
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('custom-map', _components_CustomMap__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('search', _components_Search__WEBPACK_IMPORTED_MODULE_5__["default"]); // Jobs
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('custom-map', _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('search', _components_Search__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('range-filter', _components_RangeFilter__WEBPACK_IMPORTED_MODULE_6__["default"]); // Jobs
 
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('jobs', _components_Jobs__WEBPACK_IMPORTED_MODULE_3__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('job', _components_Jobs_Job__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -121932,6 +122015,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/RangeFilter.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/RangeFilter.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RangeFilter.vue?vue&type=template&id=1eca910c& */ "./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c&");
+/* harmony import */ var _RangeFilter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RangeFilter.vue?vue&type=script&lang=js& */ "./resources/js/components/RangeFilter.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RangeFilter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/RangeFilter.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/RangeFilter.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/RangeFilter.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeFilter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RangeFilter.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RangeFilter.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeFilter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RangeFilter.vue?vue&type=template&id=1eca910c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RangeFilter.vue?vue&type=template&id=1eca910c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeFilter_vue_vue_type_template_id_1eca910c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -23,8 +23,8 @@ class CreateAddressesTable extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('postcode');
-            $table->string('lat')->nullable();
-            $table->string('lon')->nullable();
+            $table->double('lat')->nullable();
+            $table->double('lon')->nullable();
             $table->timestamps();
         });
     }

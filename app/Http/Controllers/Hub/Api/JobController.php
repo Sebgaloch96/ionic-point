@@ -28,6 +28,10 @@ class JobController extends Controller
         if ($keyword = $request->input('search-filter')) {
             $jobs->search($keyword);
         }
+        if ($bounds = $request->input('range-filter')) {
+            $decodedBounds = json_decode($bounds);
+            $jobs->withinLatLngBounds($decodedBounds);
+        }
 
         // Sorting
         if ($sort = $request->input('sort')) {

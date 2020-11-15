@@ -17,6 +17,7 @@ import Vue from 'vue';
 import Jobs from "./components/Jobs";
 import Job from "./components/Jobs/Job";
 import Search from "./components/Search";
+import RangeFilter from "./components/RangeFilter";
 import CustomMap from "./components/CustomMap";
 
 import vSelect from 'vue-select';
@@ -73,6 +74,7 @@ Vue.component('pagination', Pagination);
 // Components required across the app
 Vue.component('custom-map', CustomMap);
 Vue.component('search', Search);
+Vue.component('range-filter', RangeFilter);
 
 // Jobs
 Vue.component('jobs', Jobs);

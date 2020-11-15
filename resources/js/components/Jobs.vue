@@ -45,72 +45,70 @@
                     </div>
                 </div>
 
-                <div v-if="loading" class="row align-items-center">
-                    <div class="col-md-12 justify-content-center">
-                        <div class="d-block spinner-border text-color-dark" role="status">
-                            <span class="sr-only">Loading...</span>
+                <!-- Applied Filters -->
+                <div class="row align-items-center pt-3">
+                    <div class="col-md-4">
+                        <button type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onRefresh">
+                            <i class="fas fa-sync mr-1"></i>
+                            Refresh
+                        </button>
+                        <button v-if="dirtyFilters" type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onClearFilters">
+                            <i class="fas fa-backspace mr-1"></i>
+                            Clear Filters
+                        </button>
+                    </div>
+                    <div class="col-md-8 justify-content-end">
+                        <div class="dropdown text-right">
+                            Sort:
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span v-html="sort.markup"></span>
+                            </a>
+
+                            <div class="dropdown-menu rounded-0 shadow" aria-labelledby="dropdownSort">
+                                <a class="dropdown-item" href="#" data-sort="newest" @click="onSort">Newest First</a>
+                                <a class="dropdown-item" href="#" data-sort="oldest" @click="onSort">Oldest First</a>
+                                <a class="dropdown-item" href="#" data-sort="asc" @click="onSort"><i class="fas fa-sort-alpha-up"></i> Ascending</a>
+                                <a class="dropdown-item" href="#" data-sort="desc" @click="onSort"><i class="fas fa-sort-alpha-down-alt"></i> Descending</a>                                    
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div v-if="!loading && jobs.meta.total > 0">
-                    <!-- Applied Filters -->
-                    <div class="row align-items-center pt-3">
-                        <div class="col-md-4">
-                            <button type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onRefresh">
-                                <i class="fas fa-sync mr-1"></i>
-                                Refresh
-                            </button>
-                            <button v-if="dirtyFilters" type="button" id="sidebarCollapse" class="btn bg-custom-dark text-white rounded-0" @click="onClearFilters">
-                                <i class="fas fa-backspace mr-1"></i>
-                                Clear Filters
-                            </button>
-                        </div>
-                        <div class="col-md-8 justify-content-end">
-                            <div class="dropdown text-right">
-                                Sort:
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span v-html="sort.markup"></span>
-                                </a>
 
-                                <div class="dropdown-menu rounded-0 shadow" aria-labelledby="dropdownSort">
-                                    <a class="dropdown-item" href="#" data-sort="newest" @click="onSort">Newest First</a>
-                                    <a class="dropdown-item" href="#" data-sort="oldest" @click="onSort">Oldest First</a>
-                                    <a class="dropdown-item" href="#" data-sort="asc" @click="onSort"><i class="fas fa-sort-alpha-up"></i> Ascending</a>
-                                    <a class="dropdown-item" href="#" data-sort="desc" @click="onSort"><i class="fas fa-sort-alpha-down-alt"></i> Descending</a>                                    
-                                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <custom-map :jobs="jobs" @job-marker-clicked="onJobSearch"></custom-map>
+
+                        <div class="card rounded-0 border-0">
+                            <div class="card-header bg-custom-dark rounded-0">
+                                <h4 class="font-weight-bold text-white m-0">Filters</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <range-filter ref="rangeFilter"
+                                            :lat="auth.address.lat" 
+                                            :lng="auth.address.lon" 
+                                            @range-changed="onRangeChange">
+                                        </range-filter>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="font-weight-bolder" for="status_filter">Status</label>
+                                        <v-select id="status_filter" multiple v-model="selectedFilter" class="w-100"></v-select>
+                                    </div> 
+                                </div>                                   
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <custom-map :jobs="jobs" @job-marker-clicked="onJobSearch"></custom-map>
-
-                            <div class="card rounded-0 border-0">
-                                <div class="card-header bg-custom-dark rounded-0">
-                                    <h4 class="font-weight-bold text-white m-0">Filters</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label for="radius_filter">Show jobs within {{ rangeFilter.value|toMiles }} miles</label>
-                                            <input type="range" class="form-control-range" id="radius_filter"
-                                                :min="rangeFilter.min"
-                                                :max="rangeFilter.max"
-                                                :step="rangeFilter.step" 
-                                                v-model="rangeFilter.value"
-                                                @change="onRangeChange">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="font-weight-bolder" for="status_filter">Status</label>
-                                            <v-select id="status_filter" multiple v-model="selectedFilter" class="w-100"></v-select>
-                                        </div> 
-                                    </div>                                   
+                    <div class="col-12 col-md-8">
+                        <div v-if="loading" class="row align-items-center">
+                            <div class="col-md-12 justify-content-center">
+                                <div class="d-block spinner-border text-color-dark" role="status">
+                                    <span class="sr-only">Loading...</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-12 col-md-8">
+                        <div v-if="!loading && jobs.meta.total > 0">
                             <!-- Tab Content -->
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
@@ -120,22 +118,20 @@
                                 </div>                 
                             </div>
                         </div>
+                        <div v-if="!loading && jobs.meta.total == 0" class="text-center mt-4">
+                            <h5 class="text-muted font-weight-bolder">No Results Found</h5>
+                        </div>  
                     </div>
-                    
-                </div>  
-                <div v-if="!loading && jobs.meta.total == 0" class="text-center mt-4">
-                    <h5 class="text-muted font-weight-bolder">No Results Found</h5>
-                </div>           
+                </div>               
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import CustomMap from './CustomMap.vue';
+import { latLng } from "leaflet";
 
 export default {
-  components: { CustomMap },
     props: {
         auth: Object,
     },
@@ -149,12 +145,7 @@ export default {
             },           
             searchFilter: null,
             selectedFilter: null,
-            rangeFilter: {
-                value: 0,
-                min: 0,
-                max: this.getMilesAsMeters(2000),
-                step: this.getMilesAsMeters(1)
-            },
+            rangeFilter: null,
             sort: {
                 value: 'newest',
                 markup: 'Newest First'
@@ -183,6 +174,10 @@ export default {
         searchFilter() {
             this.debouncedGetJobs();
         },
+
+        rangeFilter() {
+            this.getJobs();
+        },
         
         sort: {
             handler(value) {
@@ -190,21 +185,6 @@ export default {
             },
             deep: true
         },
-
-        rangeFilter: {
-            handler(filterProps) {
-                if (filterProps.value <= this.getMilesAsMeters(100)) {
-                    this.rangeFilter.step = this.getMilesAsMeters(1);
-                }
-                if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(1000)) {
-                    this.rangeFilter.step = this.getMilesAsMeters(25);
-                }
-                if (filterProps.value >= this.getMilesAsMeters(1000) && filterProps.value <= this.getMilesAsMeters(2000)) {
-                    this.rangeFilter.step = this.getMilesAsMeters(50);
-                }
-            },
-            deep: true
-        }
     },
 
     methods: {
@@ -212,6 +192,7 @@ export default {
             axios.get(this.tabInfo.currentUrl+'?page=' + page, {
                 params: {
                     'search-filter': this.searchFilter,
+                    'range-filter': this.rangeFilter,
                     'sort': this.sort.value
                 }
             })
@@ -259,16 +240,21 @@ export default {
         onClearFilters() {
             if (this.searchFilter !== null) {
                 this.loading = true;
+                // Clear search filter
                 this.searchFilter = null;
-                this.$refs.search.resetInput();
+                this.$refs.search.reset();
+            }
+
+            if (this.rangeFilter !== null) {
+                this.loading = true;
+                // Clear range filter
+                this.rangeFilter = null;
+                this.$refs.rangeFilter.reset();
             }
         },
 
-        onRangeChange() {
-            let currentLat = this.auth.address.lat;
-            let currentLon = this.auth.address.lon;
-            let latLng = this.calculateLatLng(this.rangeFilter.value, currentLat, currentLon);
-            console.log(latLng);
+        onRangeChange(bounds) {
+            this.rangeFilter = bounds;
         },
 
         userHasRoles(roles) {
@@ -278,30 +264,12 @@ export default {
             
             return roles.every(role => authRoles.includes(role));
         },
-
-        getMilesAsMeters(miles) {
-            return 1609.344 * miles;
-        },
-
-        calculateLatLng(meters, lat, lon) {
-            // number of km per degree = ~111km (111.32 in google maps, but range varies
-            // between 110.567km at the equator and 111.699km at the poles)
-            // 1km in degree = 1 / 111.32km = 0.0089
-            // 1m in degree = 0.0089 / 1000 = 0.0000089
-            let coef = parseFloat(meters * 0.0000089);
-
-            let new_lat = parseFloat(lat + coef);
-
-            // pi / 180 = 0.018
-            let new_long = parseFloat(lon + coef / Math.cos(lat * 0.018));
-
-            return {lat: new_lat, lon: new_long};
-        },
     },
 
     computed: {
         dirtyFilters() {
-            return this.searchFilter !== null && this.searchFilter !== '';
+            return (this.searchFilter !== null && this.searchFilter !== '')
+                || this.rangeFilter !== null;
         }
     }
 }
