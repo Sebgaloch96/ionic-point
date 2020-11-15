@@ -4,6 +4,9 @@
 .bg-custom-light {
     background-color: $custom-color-light !important;
 }
+.bg-white {
+    background-color: #fafafa;
+}
 
 .text-custom-dark {
     color: $custom-color-dark !important;
@@ -21,13 +24,6 @@
     &:hover {
         box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) !important;
     }
-}
-
-// ul.nav {
-//     background-color: #fafafa;
-// }
-ul.header-nav {
-    background-color: #fafafa;
 }
 
 .nav-tabs {

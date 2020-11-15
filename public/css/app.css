@@ -19051,6 +19051,10 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   background-color: #e9ecef !important;
 }
 
+.bg-white {
+  background-color: #fafafa;
+}
+
 .text-custom-dark {
   color: #1b263b !important;
 }
@@ -19066,10 +19070,6 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 
 .card-job:hover {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) !important;
-}
-
-ul.header-nav {
-  background-color: #fafafa;
 }
 
 .nav-tabs .nav-link {
