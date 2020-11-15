@@ -30,7 +30,9 @@ class UsersTableSeeder extends Seeder
         // Add an address
         $address = factory(Address::class)->create([
             'addressable_id' => $superAdmin->id,
-            'addressable_type' => User::class
+            'addressable_type' => User::class,
+            'lat' => 53.247635,
+            'lng' => -0.538604
         ]);
         // Add a job
         $job = Job::inRandomOrder()->first();

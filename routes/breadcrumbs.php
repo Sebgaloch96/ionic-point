@@ -12,10 +12,13 @@ Breadcrumbs::for('dashboard', function ($trail) {
 
 // Jobs
 Breadcrumbs::for('jobs', function ($trail) {
-    $trail->push('Jobs', route('hub.jobs'));
+    $trail->push('Find Jobs', route('hub.jobs'));
 });
 Breadcrumbs::for('jobs.create', function ($trail) {
-    $trail->push('Create', route('hub.jobs.create'));
+    $trail->push('Create Job', route('hub.jobs.create'));
+});
+Breadcrumbs::for('jobs.manage', function ($trail) {
+    $trail->push('Manage Jobs', route('hub.jobs.manage'));
 });
 
 // Calendar

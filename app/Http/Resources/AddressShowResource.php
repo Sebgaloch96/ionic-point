@@ -22,7 +22,7 @@ class AddressShowResource extends JsonResource
             'city' => $this->city,
             'postcode' => $this->postcode,
             'lat' => $this->lat,
-            'lon' => $this->lon
+            'lng' => $this->lng
         ];
     }
 }

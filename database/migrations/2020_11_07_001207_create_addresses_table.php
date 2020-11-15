@@ -24,7 +24,7 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('postcode');
             $table->double('lat')->nullable();
-            $table->double('lon')->nullable();
+            $table->double('lng')->nullable();
             $table->timestamps();
         });
     }

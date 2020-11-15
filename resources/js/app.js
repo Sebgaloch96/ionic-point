@@ -15,10 +15,13 @@ window.Swal = Swal;
 
 import Vue from 'vue';
 import Jobs from "./components/Jobs";
-import Job from "./components/Jobs/Job";
+import JobItem from "./components/Jobs/JobItem";
+import JobMap from "./components/Jobs/JobMap";
+import JobForm from "./components/Jobs/JobForm";
+
 import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
-import CustomMap from "./components/CustomMap";
+
 
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
@@ -27,7 +30,11 @@ import VueSwal from 'vue-swal';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
-import { LMap, LTileLayer, LMarker, LTooltip, LCircle } from 'vue2-leaflet';
+import { 
+    LMap, LTileLayer, LMarker, 
+    LTooltip, LCircle, LIcon,
+    LPopup
+} from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { Icon } from 'leaflet';
@@ -68,17 +75,20 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-tooltip', LTooltip);
 Vue.component('l-circle', LCircle);
+Vue.component('l-icon', LIcon);
+Vue.component('l-popup', LPopup);
 Vue.component('v-select', vSelect);
 Vue.component('pagination', Pagination);
 
 // Components required across the app
-Vue.component('custom-map', CustomMap);
 Vue.component('search', Search);
 Vue.component('range-filter', RangeFilter);
 
 // Jobs
 Vue.component('jobs', Jobs);
-Vue.component('job', Job);
+Vue.component('job-item', JobItem);
+Vue.component('job-map', JobMap);
+Vue.component('job-form', JobForm);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

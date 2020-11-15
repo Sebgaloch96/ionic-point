@@ -1899,80 +1899,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CustomMap.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CustomMap.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    jobs: Object
-  },
-  data: function data() {
-    return {
-      show: false,
-      map: null,
-      mapOptions: {
-        zoom: 7,
-        center: [],
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      }
-    };
-  },
-  created: function created() {
-    if (this.jobs.meta.total == 1) {
-      var jobAddress = this.jobs.data[0].address;
-      var lat = jobAddress.lat;
-      var lon = jobAddress.lon;
-      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(lat, lon);
-    } else {
-      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(51.509865, -0.118092); // London
-    }
-  },
-  methods: {
-    onReady: function onReady() {
-      this.map = this.$refs.myMap.mapObject;
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs.vue?vue&type=script&lang=js& ***!
@@ -2243,10 +2169,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      title: null,
+      description: null,
+      start_date: null,
+      length_of_job: null,
+      address: {
+        address_line_1: null,
+        address_line_2: null,
+        address_line_3: null,
+        city: null,
+        postcode: null,
+        lat: null,
+        lng: null
+      }
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2318,6 +2281,92 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    jobs: Object,
+    auth: Object
+  },
+  data: function data() {
+    return {
+      show: false,
+      map: null,
+      mapOptions: {
+        zoom: 7,
+        center: [],
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }
+    };
+  },
+  created: function created() {
+    if (this.jobs.meta.total == 1) {
+      var jobAddress = this.jobs.data[0].address;
+      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(jobAddress.lat, jobAddress.lng);
+    } else {
+      var authAddress = this.auth.address;
+      this.mapOptions.center = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(authAddress.lat, authAddress.lng); // London
+    }
+  },
+  methods: {
+    onReady: function onReady() {
+      this.map = this.$refs.myMap.mapObject;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RangeFilter.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RangeFilter.vue?vue&type=script&lang=js& ***!
@@ -2355,21 +2404,23 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  rangeFilter: {
-    handler: function handler(filterProps) {
-      if (filterProps.value <= this.getMilesAsMeters(100)) {
-        this.rangeFilter.step = this.getMilesAsMeters(1);
-      }
+  watch: {
+    rangeFilter: {
+      handler: function handler(filterProps) {
+        if (filterProps.value < this.getMilesAsMeters(100)) {
+          this.rangeFilter.step = this.getMilesAsMeters(1);
+        }
 
-      if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(500)) {
-        this.rangeFilter.step = this.getMilesAsMeters(25);
-      }
+        if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(500)) {
+          this.rangeFilter.step = this.getMilesAsMeters(25);
+        }
 
-      if (filterProps.value >= this.getMilesAsMeters(500) && filterProps.value <= this.getMilesAsMeters(1000)) {
-        this.rangeFilter.step = this.getMilesAsMeters(50);
-      }
-    },
-    deep: true
+        if (filterProps.value >= this.getMilesAsMeters(500) && filterProps.value <= this.getMilesAsMeters(1000)) {
+          this.rangeFilter.step = this.getMilesAsMeters(50);
+        }
+      },
+      deep: true
+    }
   },
   methods: {
     onChange: function onChange() {
@@ -95469,82 +95520,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660& ***!
-  \************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "my-3", staticStyle: { height: "400px", width: "100%" } },
-    [
-      _c(
-        "l-map",
-        {
-          ref: "myMap",
-          attrs: { zoom: _vm.mapOptions.zoom, center: _vm.mapOptions.center },
-          on: { ready: _vm.onReady }
-        },
-        [
-          _c("l-tile-layer", {
-            attrs: {
-              url: _vm.mapOptions.url,
-              attribution: _vm.mapOptions.attribution
-            }
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.jobs.data, function(job) {
-            return _c(
-              "l-marker",
-              {
-                key: job.reference,
-                attrs: { "lat-lng": [job.address.lat, job.address.lon] },
-                on: {
-                  click: function($event) {
-                    return _vm.$emit("job-marker-clicked", job.uuid)
-                  }
-                }
-              },
-              [
-                _c("l-tooltip", { staticStyle: { width: "200px" } }, [
-                  _c("h6", { staticClass: "font-weight-bolder" }, [
-                    _vm._v(_vm._s(job.address.city)),
-                    _c("br"),
-                    _vm._v(_vm._s(job.address.postcode))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-muted text-wrap" }, [
-                    _vm._v(_vm._s(job.description))
-                  ])
-                ])
-              ],
-              1
-            )
-          })
-        ],
-        2
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs.vue?vue&type=template&id=44673841&":
 /*!*******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs.vue?vue&type=template&id=44673841& ***!
@@ -95833,8 +95808,8 @@ var render = function() {
             "div",
             { staticClass: "col-12 col-md-4" },
             [
-              _c("custom-map", {
-                attrs: { jobs: _vm.jobs },
+              _c("job-map", {
+                attrs: { auth: _vm.auth, jobs: _vm.jobs },
                 on: { "job-marker-clicked": _vm.onJobSearch }
               }),
               _vm._v(" "),
@@ -95851,7 +95826,7 @@ var render = function() {
                           ref: "rangeFilter",
                           attrs: {
                             lat: _vm.auth.address.lat,
-                            lng: _vm.auth.address.lon
+                            lng: _vm.auth.address.lng
                           },
                           on: { "range-changed": _vm.onRangeChange }
                         })
@@ -95922,13 +95897,13 @@ var render = function() {
                         [
                           _vm._l(_vm.jobs.data, function(job) {
                             return _c(
-                              "job",
+                              "job-item",
                               _vm._b(
                                 {
                                   key: job.reference,
                                   on: { "bookmark-changed": _vm.getJobs }
                                 },
-                                "job",
+                                "job-item",
                                 job,
                                 false
                               )
@@ -95999,10 +95974,34 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc& ***!
+  \***************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96119,6 +96118,107 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "my-3", staticStyle: { height: "400px", width: "100%" } },
+    [
+      _c(
+        "l-map",
+        {
+          ref: "myMap",
+          attrs: { zoom: _vm.mapOptions.zoom, center: _vm.mapOptions.center },
+          on: { ready: _vm.onReady }
+        },
+        [
+          _c("l-tile-layer", {
+            attrs: {
+              url: _vm.mapOptions.url,
+              attribution: _vm.mapOptions.attribution
+            }
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.jobs.data, function(job) {
+            return _c(
+              "l-marker",
+              {
+                key: job.reference,
+                attrs: { "lat-lng": [job.address.lat, job.address.lng] },
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("job-marker-clicked", job.uuid)
+                  }
+                }
+              },
+              [
+                _c("l-icon", {
+                  attrs: {
+                    "icon-url": "/images/markers/map-pin-primary.png",
+                    "tooltip-anchor": [10, -25]
+                  }
+                }),
+                _vm._v(" "),
+                _c("l-tooltip", { staticStyle: { width: "200px" } }, [
+                  _c("h6", { staticClass: "font-weight-bolder" }, [
+                    _vm._v(_vm._s(job.address.city)),
+                    _c("br"),
+                    _vm._v(_vm._s(job.address.postcode))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-muted text-wrap" }, [
+                    _vm._v(_vm._s(job.description))
+                  ])
+                ])
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "l-marker",
+            {
+              attrs: { "lat-lng": [_vm.auth.address.lat, _vm.auth.address.lng] }
+            },
+            [
+              _c("l-icon", {
+                attrs: {
+                  "icon-url": "/images/markers/map-pin-success.png",
+                  "popup-anchor": [0, -30]
+                }
+              }),
+              _vm._v(" "),
+              _c("l-popup", [_vm._v("Your Current Location")])
+            ],
+            1
+          )
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -121649,25 +121749,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_Jobs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Jobs */ "./resources/js/components/Jobs.vue");
-/* harmony import */ var _components_Jobs_Job__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Jobs/Job */ "./resources/js/components/Jobs/Job.vue");
-/* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Search */ "./resources/js/components/Search.vue");
-/* harmony import */ var _components_RangeFilter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/RangeFilter */ "./resources/js/components/RangeFilter.vue");
-/* harmony import */ var _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/CustomMap */ "./resources/js/components/CustomMap.vue");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_Jobs_JobItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Jobs/JobItem */ "./resources/js/components/Jobs/JobItem.vue");
+/* harmony import */ var _components_Jobs_JobMap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Jobs/JobMap */ "./resources/js/components/Jobs/JobMap.vue");
+/* harmony import */ var _components_Jobs_JobForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Jobs/JobForm */ "./resources/js/components/Jobs/JobForm.vue");
+/* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Search */ "./resources/js/components/Search.vue");
+/* harmony import */ var _components_RangeFilter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/RangeFilter */ "./resources/js/components/RangeFilter.vue");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_16__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -121696,8 +121797,9 @@ window.Swal = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___defau
 
 
 
-delete leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.prototype._getIconUrl;
-leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.mergeOptions({
+
+delete leaflet__WEBPACK_IMPORTED_MODULE_16__["Icon"].Default.prototype._getIconUrl;
+leaflet__WEBPACK_IMPORTED_MODULE_16__["Icon"].Default.mergeOptions({
   iconRetinaUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon-2x.png */ "./node_modules/leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png"),
   shadowUrl: __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png")
@@ -121722,25 +121824,28 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('standardFormat', function (va
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('toMiles', function (value) {
   return parseInt(Math.round(value / 1609.344));
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_10___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_11___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_12___default.a, {
   position: 'top-right'
 }); // Installed vue packages
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMap"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTileLayer"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMarker"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTooltip"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LCircle"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_8___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default.a); // Components required across the app
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LMap"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LTileLayer"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LMarker"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LTooltip"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LCircle"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-icon', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LIcon"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-popup', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LPopup"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_9___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10___default.a); // Components required across the app
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('custom-map', _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('search', _components_Search__WEBPACK_IMPORTED_MODULE_5__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('range-filter', _components_RangeFilter__WEBPACK_IMPORTED_MODULE_6__["default"]); // Jobs
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('search', _components_Search__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('range-filter', _components_RangeFilter__WEBPACK_IMPORTED_MODULE_8__["default"]); // Jobs
 
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('jobs', _components_Jobs__WEBPACK_IMPORTED_MODULE_3__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('job', _components_Jobs_Job__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('job-item', _components_Jobs_JobItem__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('job-map', _components_Jobs_JobMap__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('job-form', _components_Jobs_JobForm__WEBPACK_IMPORTED_MODULE_6__["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -121813,75 +121918,6 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/CustomMap.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/components/CustomMap.vue ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomMap.vue?vue&type=template&id=c7828660& */ "./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660&");
-/* harmony import */ var _CustomMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomMap.vue?vue&type=script&lang=js& */ "./resources/js/components/CustomMap.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CustomMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/CustomMap.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/CustomMap.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/CustomMap.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CustomMap.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CustomMap.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660& ***!
-  \******************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CustomMap.vue?vue&type=template&id=c7828660& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomMap_vue_vue_type_template_id_c7828660___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/Jobs.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/Jobs.vue ***!
@@ -121951,17 +121987,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Jobs/Job.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/components/Jobs/Job.vue ***!
-  \**********************************************/
+/***/ "./resources/js/components/Jobs/JobForm.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Jobs/JobForm.vue ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Job.vue?vue&type=template&id=179d85cf& */ "./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf&");
-/* harmony import */ var _Job_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Job.vue?vue&type=script&lang=js& */ "./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js&");
+/* harmony import */ var _JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./JobForm.vue?vue&type=template&id=b61cfd9a& */ "./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a&");
+/* harmony import */ var _JobForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JobForm.vue?vue&type=script&lang=js& */ "./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -121971,9 +122007,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Job_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _JobForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -121983,38 +122019,176 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Jobs/Job.vue"
+component.options.__file = "resources/js/components/Jobs/JobForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
+/***/ "./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Job.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/Job.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a& ***!
+  \*********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Job.vue?vue&type=template&id=179d85cf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/Job.vue?vue&type=template&id=179d85cf&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobForm.vue?vue&type=template&id=b61cfd9a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobForm.vue?vue&type=template&id=b61cfd9a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Job_vue_vue_type_template_id_179d85cf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobForm_vue_vue_type_template_id_b61cfd9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobItem.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Jobs/JobItem.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./JobItem.vue?vue&type=template&id=62359ffc& */ "./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc&");
+/* harmony import */ var _JobItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JobItem.vue?vue&type=script&lang=js& */ "./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _JobItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Jobs/JobItem.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobItem.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobItem.vue?vue&type=template&id=62359ffc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobItem.vue?vue&type=template&id=62359ffc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobItem_vue_vue_type_template_id_62359ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobMap.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/Jobs/JobMap.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./JobMap.vue?vue&type=template&id=67c42f3d& */ "./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d&");
+/* harmony import */ var _JobMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./JobMap.vue?vue&type=script&lang=js& */ "./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _JobMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Jobs/JobMap.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobMap.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobMap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_JobMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./JobMap.vue?vue&type=template&id=67c42f3d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Jobs/JobMap.vue?vue&type=template&id=67c42f3d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_JobMap_vue_vue_type_template_id_67c42f3d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

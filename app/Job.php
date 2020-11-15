@@ -68,8 +68,8 @@ class Job extends Model
             $subquery
                 ->where('lat', '<', $bounds->north_east->lat)
                 ->where('lat', '>', $bounds->south_west->lat)
-                ->where('lon', '<', $bounds->north_east->lng)
-                ->where('lon', '>', $bounds->south_west->lng);
+                ->where('lng', '<', $bounds->north_east->lng)
+                ->where('lng', '>', $bounds->south_west->lng);
         });
     }
 

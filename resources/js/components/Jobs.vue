@@ -76,7 +76,7 @@
 
                 <div class="row">
                     <div class="col-12 col-md-4">
-                        <custom-map :jobs="jobs" @job-marker-clicked="onJobSearch"></custom-map>
+                        <job-map :auth="auth" :jobs="jobs" @job-marker-clicked="onJobSearch"></job-map>
 
                         <div class="card rounded-0 border-0">
                             <div class="card-header bg-custom-dark rounded-0">
@@ -87,7 +87,7 @@
                                     <div class="col-12">
                                         <range-filter ref="rangeFilter"
                                             :lat="auth.address.lat" 
-                                            :lng="auth.address.lon" 
+                                            :lng="auth.address.lng" 
                                             @range-changed="onRangeChange">
                                         </range-filter>
                                     </div>
@@ -112,7 +112,7 @@
                             <!-- Tab Content -->
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
-                                    <job v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job>                          
+                                    <job-item v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job-item>                          
                                     <!-- Pagination -->
                                     <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
                                 </div>                 
