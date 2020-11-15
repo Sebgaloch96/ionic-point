@@ -17,7 +17,8 @@ a[data-toggle="collapse"] {
 
 body {
     font-family: $font-family-sans-serif;
-    background: #fafafa;
+    // background: #fafafa;
+    background-color: $custom-color-light;
 }
 
 p {

@@ -19068,6 +19068,10 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) !important;
 }
 
+ul.header-nav {
+  background-color: #fafafa;
+}
+
 .nav-tabs .nav-link {
   border-radius: 0%;
   border: 0;
@@ -19158,7 +19162,7 @@ a[data-toggle=collapse] {
 
 body {
   font-family: "Roboto", sans-serif;
-  background: #fafafa;
+  background-color: #e9ecef;
 }
 
 p {

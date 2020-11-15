@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <fragment>
         <div class="row justify-content-center px-1 px-md-4">
             <div class="col-md-12">
                 <!-- Tabs -->
@@ -125,7 +125,7 @@
                 </div>               
             </div>
         </div>
-    </div>
+    </fragment>
 </template>
 
 <script>

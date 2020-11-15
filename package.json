@@ -34,6 +34,7 @@
         "leaflet": "^1.7.1",
         "moment": "^2.29.1",
         "sweetalert2": "^10.7.0",
+        "vue-fragment": "^1.5.1",
         "vue-select": "^3.10.8",
         "vue-swal": "^1.0.0",
         "vue-toast-notification": "^0.6.0",

@@ -95469,6 +95469,23 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-fragment/dist/vue-fragment.esm.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vue-fragment/dist/vue-fragment.esm.js ***!
+  \************************************************************/
+/*! exports provided: default, Fragment, SSR, Plugin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Fragment", function() { return Fragment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SSR", function() { return SSR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Plugin", function() { return Plugin; });
+function _defineProperty(e,n,t){return n in e?Object.defineProperty(e,n,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[n]=t,e}function _objectSpread(e){for(var n=1;n<arguments.length;n++){var t=null!=arguments[n]?arguments[n]:{},r=Object.keys(t);"function"==typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(t).filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),r.forEach(function(n){_defineProperty(e,n,t[n])})}return e}var freeze=function(e,n,t){Object.defineProperty(e,n,{configurable:!0,get:function(){return t},set:function(e){console.warn("tried to set frozen property ".concat(n," with ").concat(e))}})},unfreeze=function(e,n){var t=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;Object.defineProperty(e,n,{configurable:!0,writable:!0,value:t})},component={abstract:!0,name:"Fragment",props:{name:{type:String,default:function(){return Math.floor(Date.now()*Math.random()).toString(16)}}},mounted:function(){var e=this.$el,n=e.parentNode,t=document.createComment("fragment#".concat(this.name,"#head")),r=document.createComment("fragment#".concat(this.name,"#tail"));n.insertBefore(t,e),n.insertBefore(r,e),e.appendChild=function(t){n.insertBefore(t,r),freeze(t,"parentNode",e)},e.insertBefore=function(t,r){n.insertBefore(t,r),freeze(t,"parentNode",e)},e.removeChild=function(e){n.removeChild(e),unfreeze(e,"parentNode")},Array.from(e.childNodes).forEach(function(n){return e.appendChild(n)}),n.removeChild(e),freeze(e,"parentNode",n),freeze(e,"nextSibling",r.nextSibling);var o=n.insertBefore;n.insertBefore=function(r,i){o.call(n,r,i!==e?i:t)};var i=n.removeChild;n.removeChild=function(a){if(a===e){for(;t.nextSibling!==r;)e.removeChild(t.nextSibling);n.removeChild(t),n.removeChild(r),unfreeze(e,"parentNode"),n.insertBefore=o,n.removeChild=i}else i.call(n,a)}},render:function(e){var n=this,t=this.$slots.default;return t&&t.length&&t.forEach(function(e){return e.data=_objectSpread({},e.data,{attrs:_objectSpread({fragment:n.name},(e.data||{}).attrs)})}),e("div",{attrs:{fragment:this.name}},t)}};function ssr(e,n){ true&&console.warn("v-fragment SSR is not implemented yet.")}var Fragment=component,SSR=ssr,Plugin={install:function(e){e.component("fragment",component)}},index={Fragment:component,Plugin:Plugin,SSR:ssr};/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CustomMap.vue?vue&type=template&id=c7828660& ***!
@@ -95560,7 +95577,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("fragment", [
     _c("div", { staticClass: "row justify-content-center px-1 px-md-4" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c(
@@ -95839,7 +95856,17 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", { staticClass: "card rounded-0 border-0" }, [
-                _vm._m(0),
+                _c(
+                  "div",
+                  { staticClass: "card-header bg-custom-dark rounded-0" },
+                  [
+                    _c(
+                      "h4",
+                      { staticClass: "font-weight-bold text-white m-0" },
+                      [_vm._v("Filters")]
+                    )
+                  ]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c("div", { staticClass: "row" }, [
@@ -95896,7 +95923,24 @@ var render = function() {
           _c("div", { staticClass: "col-12 col-md-8" }, [
             _vm.loading
               ? _c("div", { staticClass: "row align-items-center" }, [
-                  _vm._m(1)
+                  _c(
+                    "div",
+                    { staticClass: "col-md-12 justify-content-center" },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "d-block spinner-border text-color-dark",
+                          attrs: { role: "status" }
+                        },
+                        [
+                          _c("span", { staticClass: "sr-only" }, [
+                            _vm._v("Loading...")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -95966,33 +96010,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header bg-custom-dark rounded-0" }, [
-      _c("h4", { staticClass: "font-weight-bold text-white m-0" }, [
-        _vm._v("Filters")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 justify-content-center" }, [
-      _c(
-        "div",
-        {
-          staticClass: "d-block spinner-border text-color-dark",
-          attrs: { role: "status" }
-        },
-        [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -121653,21 +121671,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Search */ "./resources/js/components/Search.vue");
 /* harmony import */ var _components_RangeFilter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/RangeFilter */ "./resources/js/components/RangeFilter.vue");
 /* harmony import */ var _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/CustomMap */ "./resources/js/components/CustomMap.vue");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
-/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var vue_fragment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-fragment */ "./node_modules/vue-fragment/dist/vue-fragment.esm.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
+/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-swal */ "./node_modules/vue-swal/dist/vue-swal.js");
+/* harmony import */ var vue_swal__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_swal__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_16__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -121696,8 +121715,9 @@ window.Swal = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___defau
 
 
 
-delete leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.prototype._getIconUrl;
-leaflet__WEBPACK_IMPORTED_MODULE_15__["Icon"].Default.mergeOptions({
+
+delete leaflet__WEBPACK_IMPORTED_MODULE_16__["Icon"].Default.prototype._getIconUrl;
+leaflet__WEBPACK_IMPORTED_MODULE_16__["Icon"].Default.mergeOptions({
   iconRetinaUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon-2x.png */ "./node_modules/leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: __webpack_require__(/*! leaflet/dist/images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png"),
   shadowUrl: __webpack_require__(/*! leaflet/dist/images/marker-shadow.png */ "./node_modules/leaflet/dist/images/marker-shadow.png")
@@ -121722,18 +121742,19 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('standardFormat', function (va
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('toMiles', function (value) {
   return parseInt(Math.round(value / 1609.344));
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_10___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_11___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_swal__WEBPACK_IMPORTED_MODULE_11___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_12___default.a, {
   position: 'top-right'
 }); // Installed vue packages
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMap"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTileLayer"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LMarker"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LTooltip"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_13__["LCircle"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_8___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_9___default.a); // Components required across the app
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('fragment', vue_fragment__WEBPACK_IMPORTED_MODULE_8__["Fragment"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-map', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LMap"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tile-layer', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LTileLayer"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-marker', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LMarker"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-tooltip', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LTooltip"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('l-circle', vue2_leaflet__WEBPACK_IMPORTED_MODULE_14__["LCircle"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_9___default.a);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_10___default.a); // Components required across the app
 
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('custom-map', _components_CustomMap__WEBPACK_IMPORTED_MODULE_7__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('search', _components_Search__WEBPACK_IMPORTED_MODULE_5__["default"]);

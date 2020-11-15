@@ -20,6 +20,7 @@ import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
 import CustomMap from "./components/CustomMap";
 
+import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
 import VueSwal from 'vue-swal';
@@ -63,6 +64,7 @@ Vue.use(VueToast, {
 });
 
 // Installed vue packages
+Vue.component('fragment', Fragment);
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
