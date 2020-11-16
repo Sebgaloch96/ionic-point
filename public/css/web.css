@@ -18968,6 +18968,20 @@ a {
   font-size: 3.75rem;
 }
 
+.contact-us-wrapper .form-control {
+  background-color: #ffffff;
+  color: #1b263b;
+}
+
+.contact-us-wrapper .form-control:hover,
+.contact-us-wrapper .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+}
+
+.contact-us-wrapper .form-control::-webkit-input-placeholder {
+  color: #1b263b;
+}
+
 form input[type=text],
 form input[type=email],
 form input[type=password] {
@@ -18975,11 +18989,16 @@ form input[type=password] {
 }
 
 form .form-control {
-  background-color: #778DA9;
+  background-color: #ffffff;
+  border: solid 1px #1b263b;
   border-radius: 0px;
-  border: none;
   font-size: 1rem;
   color: #1b263b;
+}
+
+form .form-control:hover,
+form .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(27, 38, 59, 0.5);
 }
 
 form .form-control::-webkit-input-placeholder {
@@ -18998,6 +19017,11 @@ form .btn-login {
 form .btn-login:hover,
 form .btn-login:focus {
   border: solid 2px #1b263b;
+}
+
+form .btn-submit:hover,
+form .btn-submit:focus {
+  border: solid 2px #ffffff;
 }
 
 .footer {

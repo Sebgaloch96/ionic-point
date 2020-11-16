@@ -287,6 +287,19 @@ a {
     h1 {
         font-size: $h1-font-size * 1.5;
     }
+
+    .form-control {
+        background-color: $brand-white;
+        color: $brand-primary;
+        
+        &:hover, &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($brand-white, 0.5);
+        }
+
+        &::-webkit-input-placeholder {
+            color: $brand-primary;
+        }
+    }
 }
 
 // form
@@ -296,11 +309,15 @@ form {
     }
 
     .form-control {
-        background-color: $brand-secondary;
+        background-color: $brand-white;
+        border: solid 1px $brand-primary;
         border-radius: 0px;
-        border: none;
         font-size: $font-size-base;
         color: $brand-primary;
+        
+        &:hover, &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($brand-primary, 0.5);
+        }
 
         &::-webkit-input-placeholder {
             color: $brand-primary;
@@ -322,6 +339,12 @@ form {
         padding-bottom: 10px;
         &:hover, &:focus {
             border: solid 2px $brand-primary;
+        }
+    }
+
+    .btn-submit {
+        &:hover, &:focus {
+            border: solid 2px $brand-white;
         }
     }
 }
