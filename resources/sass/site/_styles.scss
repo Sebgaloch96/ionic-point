@@ -392,3 +392,12 @@ form {
 .partner-section {
     border-bottom: solid 4px $brand-primary;
 }
+
+// login
+.login-wrapper {
+    margin-top: $spacer * 7;
+
+    @include media-breakpoint-down(sm) {
+        margin-top: 0;
+    }
+}

@@ -19069,3 +19069,13 @@ form .btn-submit:focus {
   border-bottom: solid 4px #1b263b;
 }
 
+.login-wrapper {
+  margin-top: 7rem;
+}
+
+@media (max-width: 767.98px) {
+  .login-wrapper {
+    margin-top: 0;
+  }
+}
+
