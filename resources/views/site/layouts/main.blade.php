@@ -45,9 +45,13 @@
                 @yield('content')
             </main>
 
+            @if(Request::segment(1) != 'login')
             <footer>
                 @include('site.includes.footer')
             </footer>
+            @else
+            
+            @endif
         
     </div>
 

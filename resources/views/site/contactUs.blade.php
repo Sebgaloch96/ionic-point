@@ -53,7 +53,7 @@
                         </div>
                         <div class="row text-right">
                             <div class="col-md-12">
-                                <a class="btn btn-primary" href="#">Submit</a>
+                                <a class="btn btn-primary btn-submit" href="#">Submit</a>
                             </div>
                         </div>
                     </form>
