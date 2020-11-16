@@ -1,5 +1,5 @@
 <template>
-    <div class="my-3" style="height: 400px; width: 100%">
+    <div class="mb-3" style="height: 400px; width: 100%">
         <l-map
             ref="myMap"
             :zoom="mapOptions.zoom"

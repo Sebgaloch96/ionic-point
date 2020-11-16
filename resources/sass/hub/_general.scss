@@ -140,3 +140,38 @@ form {
         }
     }
 }
+
+// job page
+.job-listings-wrapper {
+    height: 640px;
+    overflow-y: auto;
+
+    .card {
+       &:first-child {
+            margin-top: 0 !important;
+       }
+    }
+}
+
+// .custom-scrollbar {
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        // background: #f1f1f1;
+        background-color: darken($brand-secondary, 10%);
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $brand-primary;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba($brand-primary, 0.8);
+    }
+// }
