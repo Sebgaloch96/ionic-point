@@ -254,6 +254,7 @@ export default {
         },
 
         onRangeChange(bounds) {
+            console.log(bounds);
             this.rangeFilter = bounds;
         },
 

@@ -1,21 +1,26 @@
 <template>
     <fragment>
-        <form>
+        <form class="px-1 px-md-4">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" max="50" placeholder="Job title">
+                    <div class="input-with-counter">
+                        <input type="text" class="form-control" id="title" placeholder="Job title" 
+                            v-model="title.text"
+                            :maxlength="title.max">
+                        <div class="input-counter">{{ title.max - title.text.length }}</div>
+                    </div>
                     <small class="color-custom-dark">Maximum of 50 characters</small>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" placeholder="Job description" rows="1"></textarea>
+                    <textarea class="form-control" id="description" placeholder="Job description" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="start-date">Start Date</label>
                     <datepicker placeholder="dd/mm/yyyy" input-class="form-control bg-white" id="start-date" 
                         v-model="start_date">
@@ -52,7 +57,10 @@ export default {
 
     data() {
         return {
-            title: null,
+            title: {
+                text: '',
+                max: 50
+            },
             description: null,
             start_date: null,
             length_of_job: null,

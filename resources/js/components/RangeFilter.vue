@@ -44,7 +44,6 @@ export default {
             deep: true
         },
     },
-    
 
     methods: {
         onChange() {
@@ -55,7 +54,7 @@ export default {
                 this.rangeFilter.bounds = null;
             }
 
-            this.$emit('range-changed', bounds);
+            this.$emit('range-changed', this.rangeFilter.bounds);
         },
 
         getMilesAsMeters(miles) {
