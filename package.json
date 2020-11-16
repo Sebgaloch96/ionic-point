@@ -37,6 +37,7 @@
         "vue-select": "^3.10.8",
         "vue-swal": "^1.0.0",
         "vue-toast-notification": "^0.6.0",
-        "vue2-leaflet": "^2.6.0"
+        "vue2-leaflet": "^2.6.0",
+        "vuejs-datepicker": "^1.6.2"
     }
 }

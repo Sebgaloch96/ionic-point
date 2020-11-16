@@ -40,14 +40,14 @@ a, a:hover, a:focus {
     min-height: 100vh;
     color: #fff;
     transition: all 0.3s;
-    background-color: $custom-color-dark;
+    background-color: $brand-primary;
 
     &.active {
         margin-left: -250px;
     }
 
     .sidebar-header {
-        background: rgba($custom-color-light, 0.2);
+        background: rgba($brand-secondary, 0.2);
         max-height: 78px;
 
         h3 {
@@ -56,7 +56,7 @@ a, a:hover, a:focus {
     }
 
     ul {
-        background-color: $custom-color-dark;
+        background-color: $brand-primary;
 
         .components {
             padding: 20px 0;
@@ -91,7 +91,7 @@ a, a:hover, a:focus {
             }
 
             hr {
-                border-top: 1px solid rgba($custom-color-light, 0.5);
+                border-top: 1px solid rgba($brand-secondary, 0.5);
                 width: 80%;
             }
         }
@@ -106,21 +106,21 @@ a, a:hover, a:focus {
                     height: 5px;
                     display: inline-block;
                     position: absolute;
-                    background-color: $custom-color-light;
+                    background-color: $brand-secondary;
                     top: 18px;
                     left: $spacer * 3;
                 }
 
                 &:hover, &:focus {
                     &:before {
-                        background-color: $custom-color-dark;
+                        background-color: $brand-primary;
                     }
                 }
             }
             a {
                 font-size: $font-size-base * 0.9;
                 padding-left: $spacer * 4;
-                background: $custom-color-dark;
+                background: $brand-primary;
             }
         }
     }

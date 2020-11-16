@@ -48,7 +48,6 @@
             <footer>
                 @include('site.includes.footer')
             </footer>
-        
     </div>
 
     @yield('scripts')

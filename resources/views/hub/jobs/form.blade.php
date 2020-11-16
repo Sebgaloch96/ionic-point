@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    
+    <job-form></job-form>
 @endsection
