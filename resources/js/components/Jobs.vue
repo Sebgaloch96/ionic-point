@@ -117,10 +117,10 @@
                             <!-- Tab Content -->
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active job-listings-wrapper" :id="tabInfo.currentTab" role="tabpanel" :aria-labelledby="tabInfo.currentTab+'-tab'">                           
-                                    <job-item v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job-item>                          
-                                    <!-- Pagination -->
-                                    <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>
-                                </div>                 
+                                    <job-item v-for="job in jobs.data" :key="job.reference" v-bind="job" @bookmark-changed="getJobs"></job-item>
+                                </div>    
+                                <!-- Pagination -->
+                                <pagination class="mt-5" :data="jobs" :limit="4" align="center" size="large" @pagination-change-page="getJobs"></pagination>             
                             </div>
                         </div>
                         <div v-if="!loading && jobs.meta.total == 0" class="text-center mt-4">

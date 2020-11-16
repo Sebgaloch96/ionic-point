@@ -22,7 +22,6 @@ import JobForm from "./components/Jobs/JobForm";
 import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
 
-
 import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';

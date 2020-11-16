@@ -28,7 +28,14 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="length-of-job">Length of Job</label>
-                    <input type="number" class="form-control" id="length-of-job" placeholder="Enter number of days">
+                    <input type="number" class="form-control" id="length-of-job" min="1" placeholder="Enter number of days"
+                        v-model="length_of_job">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="end-date">End Date</label>
+                    <input type="text" class="form-control" v-model="endDate" id="end-date" disabled>  
                 </div>
             </div>
             <div class="row pt-5">
@@ -48,6 +55,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import Datepicker from 'vuejs-datepicker';
 
 export default {
@@ -63,7 +71,7 @@ export default {
             },
             description: null,
             start_date: null,
-            length_of_job: null,
+            length_of_job: 1,
             address: {
                 address_line_1: null,
                 address_line_2: null,
@@ -73,6 +81,17 @@ export default {
                 lat: null,
                 lng: null
             }
+        }
+    },
+
+    computed: {
+        endDate() {
+            if (this.start_date !== null) {
+                return moment(this.start_date)
+                    .add(this.length_of_job - 1, 'days')
+                    .format('DD/MM/YYYY');
+            }
+            return 'N/A';
         }
     }
 }
