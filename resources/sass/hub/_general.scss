@@ -1,18 +1,32 @@
 .bg-custom-dark {
-    background-color: $custom-color-dark !important;
+    background-color: $brand-primary !important;
 }
 .bg-custom-light {
-    background-color: $custom-color-light !important;
+    background-color: $brand-secondary !important;
 }
 .bg-white {
     background-color: #fafafa;
 }
 
 .text-custom-dark {
-    color: $custom-color-dark !important;
+    color: $brand-primary !important;
 }
 .text-custom-light {
-    color: $custom-color-light !important;
+    color: $brand-secondary !important;
+}
+
+.btn-primary {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: $brand-primary;
+    border-radius: 0%;
+    border: 2px solid $brand-primary;
+
+    &:hover, &:focus {
+        border: solid 2px $brand-primary;
+        background-color: $brand-white;
+        color: $brand-primary;
+    }
 }
 
 .badge-pill-top-right {
@@ -32,7 +46,7 @@
         border: 0;
 
         &.active {
-            background-color: $custom-color-dark;
+            background-color: $brand-primary;
             color: #f8f9fa;
         }
     }
@@ -41,7 +55,7 @@
 .card-filters {
     input {
         background-color: #e9ecef;
-        color: $custom-color-dark;
+        color: $brand-primary;
         outline: none;
         border: none;
         font-weight: 500;
@@ -62,14 +76,14 @@
     .page-item {
         &.active {
             .page-link {
-                background-color: $custom-color-dark;
-                border-color: $custom-color-dark; 
+                background-color: $brand-primary;
+                border-color: $brand-primary; 
                 color: white;
             }
         }
 
         .page-link {
-            color: $custom-color-dark;
+            color: $brand-primary;
 
             &:focus {
                 box-shadow: none;
@@ -90,6 +104,39 @@
             display: inline-block !important;
             position: static !important;
             transform: translateY(30%) !important;
+        }
+    }
+}
+
+form {
+    input[type='text'], input[type='email'], input[type='password'] {
+        height: 34px;
+    }
+
+    .form-control {
+        background-color: $brand-white;
+        border: 0;
+        border-radius: 0px;
+        font-size: $font-size-base;
+        color: $brand-primary;
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        &::-webkit-input-placeholder {
+            color: rgba($brand-primary, 0.5);
+        }
+
+        &:focus, &:hover {
+            box-shadow: 0 0 0 0.2rem rgba($brand-primary, 0.5);
+        }
+    }
+
+    textarea {
+        padding-top: 5px !important;
+
+        &.form-control {
+            max-width: 100%;
         }
     }
 }

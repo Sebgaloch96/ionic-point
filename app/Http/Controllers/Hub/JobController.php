@@ -27,6 +27,11 @@ class JobController extends Controller
         ]);
     }
 
+    public function manage()
+    {
+        return view('hub.jobs.manage');
+    }
+
     public function create() 
     {        
         return view('hub.jobs.form');

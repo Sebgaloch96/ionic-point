@@ -23,6 +23,7 @@ Route::prefix('/hub')->name('hub')->namespace('Hub')->group(function () {
 
     Route::prefix('/jobs')->name('.jobs')->group(function () {
         Route::get('/', 'JobController@index');
+        Route::get('/manage', 'JobController@manage')->name('.manage');
         Route::get('/create', 'JobController@create')->name('.create');
         Route::get('{job}/edit', 'JobController@edit')->name('.edit');
     });

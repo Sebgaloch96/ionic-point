@@ -19,7 +19,7 @@
                     <a href="{{ route('hub.jobs') }}">Find jobs</a>
                 </li>
                 <li>
-                    <a href="#">Manage jobs</a>
+                    <a href="{{ route('hub.jobs.manage') }}">Manage jobs</a>
                 </li>
             </ul>
         </li>   

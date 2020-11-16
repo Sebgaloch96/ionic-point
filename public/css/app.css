@@ -19063,6 +19063,21 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   color: #e9ecef !important;
 }
 
+.btn-primary {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #1b263b;
+  border-radius: 0%;
+  border: 2px solid #1b263b;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  border: solid 2px #1b263b;
+  background-color: #ffffff;
+  color: #1b263b;
+}
+
 .badge-pill-top-right {
   top: 0px;
   right: 5px;
@@ -19141,6 +19156,40 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   display: inline-block !important;
   position: static !important;
   transform: translateY(30%) !important;
+}
+
+form input[type=text],
+form input[type=email],
+form input[type=password] {
+  height: 34px;
+}
+
+form .form-control {
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 0px;
+  font-size: 1rem;
+  color: #1b263b;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+form .form-control::-webkit-input-placeholder {
+  color: rgba(27, 38, 59, 0.5);
+}
+
+form .form-control:focus,
+form .form-control:hover {
+  box-shadow: 0 0 0 0.2rem rgba(27, 38, 59, 0.5);
+}
+
+form textarea {
+  padding-top: 5px !important;
+}
+
+form textarea.form-control {
+  max-width: 100%;
 }
 
 .wrapper {

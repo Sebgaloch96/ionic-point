@@ -18,7 +18,7 @@ class Address extends Model
         'country',
         'postcode',
         'lat',
-        'lon'
+        'lng'
     ];
 
     public function addressable() 

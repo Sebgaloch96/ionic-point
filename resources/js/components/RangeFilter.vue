@@ -28,20 +28,23 @@ export default {
         }
     },
 
-    rangeFilter: {
-        handler(filterProps) {
-            if (filterProps.value <= this.getMilesAsMeters(100)) {
-                this.rangeFilter.step = this.getMilesAsMeters(1);
-            }
-            if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(500)) {
-                this.rangeFilter.step = this.getMilesAsMeters(25);
-            }
-            if (filterProps.value >= this.getMilesAsMeters(500) && filterProps.value <= this.getMilesAsMeters(1000)) {
-                this.rangeFilter.step = this.getMilesAsMeters(50);
-            }
+    watch: {
+        rangeFilter: {
+            handler(filterProps) {
+                if (filterProps.value < this.getMilesAsMeters(100)) {
+                    this.rangeFilter.step = this.getMilesAsMeters(1);
+                }
+                if (filterProps.value >= this.getMilesAsMeters(100) && filterProps.value <= this.getMilesAsMeters(500)) {
+                    this.rangeFilter.step = this.getMilesAsMeters(25);
+                }
+                if (filterProps.value >= this.getMilesAsMeters(500) && filterProps.value <= this.getMilesAsMeters(1000)) {
+                    this.rangeFilter.step = this.getMilesAsMeters(50);
+                }
+            },
+            deep: true
         },
-        deep: true
     },
+    
 
     methods: {
         onChange() {
