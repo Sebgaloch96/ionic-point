@@ -14,8 +14,10 @@
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 
 // Other packages
-@import 'sweetalert2/src/sweetalert2.scss';
 @import "vue-select/src/scss/vue-select.scss";
+
+// Package overrides
+@import 'hub/swal2-custom';
 
 // Custom stylesheets
 @import 'hub/general';

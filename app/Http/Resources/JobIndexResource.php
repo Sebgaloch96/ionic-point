@@ -21,7 +21,6 @@ class JobIndexResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
-            'length_of_job' => $this->length_of_job,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'address' => new AddressShowResource($this->address),

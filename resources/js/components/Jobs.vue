@@ -39,7 +39,7 @@
                                 <small class="text-light">Showing page {{ jobs.meta.current_page }} out of {{ jobs.meta.last_page }}</small>
                             </div>
                             <div class="col-md-6">                               
-                                <search ref="search" class="mx-2" @search="onJobSearch"></search>
+                                <search ref="search" :inputClasses="['px-2', 'py-4']" class="mx-2" @search="onJobSearch"></search>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,6 @@ export default {
         },
 
         onRangeChange(bounds) {
-            console.log(bounds);
             this.rangeFilter = bounds;
         },
 

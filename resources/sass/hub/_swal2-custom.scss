@@ -1,0 +1,33 @@
+.swal2-container {
+    .swal2-popup {
+        border-radius: 0px;
+    
+        .swal2-actions {     
+            button {
+                border-radius: 0px;
+                border: solid 2px $brand-primary;
+    
+                &.swal2-styled {
+                    &:hover {
+                        background-image: none;
+                    }
+    
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+    
+                &:hover {
+                    border: solid 2px $brand-primary;
+                    background-color: $brand-white;
+                    color: $brand-primary;
+                    box-shadow: none;
+                }
+            }
+    
+            .swal2-confirm {
+                background-color: $brand-primary;
+            }
+        }
+    }
+}
