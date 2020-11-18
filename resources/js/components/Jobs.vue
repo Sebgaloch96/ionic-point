@@ -101,10 +101,15 @@
                     </div>
 
                     <div class="col-12 col-md-8">
-                        <div v-if="loading" class="row align-items-center">
+                        <div v-if="loading" class="row align-items-center loading-wrapper">
                             <div class="col-md-12 justify-content-center">
-                                <div class="d-block spinner-border text-color-dark" role="status">
+                                <!-- <div class="d-block spinner-border text-color-dark" role="status">
                                     <span class="sr-only">Loading...</span>
+                                </div> -->
+                                <div class="spinner">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
                                 </div>
                             </div>
                         </div>
