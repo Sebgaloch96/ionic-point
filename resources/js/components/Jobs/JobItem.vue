@@ -27,7 +27,11 @@
             </div>
 
             <div class="card-body">
-                {{ description.substr(0, 120) + '...' }}
+                {{ description.substr(0, 120) + '...' }} <a :href="'#'+reference" data-toggle="collapse" aria-expanded="false" :aria-controls="reference">Read more</a>
+
+                <div class="collapse more-description" :id="reference">
+                    {{ description }}
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +43,7 @@ import Vue from 'vue';
 export default {
     props: {
         uuid: String,
+        reference: String,
         title: String,
         description: String,
         status: String,
