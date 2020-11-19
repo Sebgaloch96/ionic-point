@@ -15,6 +15,10 @@
     color: $brand-secondary !important;
 }
 
+i {
+    color: $brand-primary;
+}
+
 .btn {
     &:focus {
         box-shadow: none;
@@ -146,6 +150,11 @@
 form {
     input[type='text'], input[type='email'], input[type='password'] {
         height: 34px;
+    }
+
+    label {
+        color: $brand-primary;
+        font-weight: 600;
     }
 
     .form-control {

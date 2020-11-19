@@ -1,6 +1,14 @@
 <template>
-    <div>
-        <input class="form-control rounded-0" :class="inputClasses" type="text" :placeholder="placeholderText" v-model="keyword" @keyup="$emit('search', keyword)">
+    <div class="position-relative">
+        <input class="form-control rounded-0" type="text"
+            :class="inputClasses" 
+            :placeholder="placeholderText" 
+            v-model="keyword" 
+            @keyup="$emit('search', keyword)"
+        >
+        <i v-if="searchButton" class="fas fa-search search-button" 
+            @click="$emit('search-clicked', keyword)">
+        </i>
     </div>
 </template>
 
@@ -8,12 +16,14 @@
 export default {
     props: {
         inputClasses: Array,
-        placeholder: String
+        placeholder: String,
+        useButton: Boolean
     },
 
     data () {
         return {
             placeholderText: 'Search...',
+            searchButton: false,
             keyword: '',
         }
     },
@@ -22,6 +32,8 @@ export default {
         if (this.placeholder) {
             this.placeholderText = this.placeholder;
         }
+
+        this.searchButton = this.useButton;
     },
 
     methods: {
@@ -31,3 +43,12 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.search-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
+</style>
