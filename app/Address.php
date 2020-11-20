@@ -16,6 +16,7 @@ class Address extends Model
         'address_line_3',
         'city',
         'country',
+        'county',
         'postcode',
         'lat',
         'lng'

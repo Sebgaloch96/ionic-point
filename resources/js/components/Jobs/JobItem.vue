@@ -15,7 +15,6 @@
                     </div>
                     <div class="col-md-2">
                         <h6 class="m-0"><strong>Duration</strong></h6>
-                        <small class="d-block">{{ length_of_job }} days</small>
                         <small class="d-block">{{ start_date|standardFormat }} - {{ end_date|standardFormat }}</small>
                     </div>
                     <div class="col-md-3 text-right text-custom-dark align-self-center">
@@ -47,7 +46,6 @@ export default {
         title: String,
         description: String,
         status: String,
-        length_of_job: Number,
         start_date: String,
         end_date: String,
         created_at: String,

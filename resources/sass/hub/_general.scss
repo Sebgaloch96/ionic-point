@@ -15,6 +15,18 @@
     color: $brand-secondary !important;
 }
 
+i {
+    .search-button {
+        color: $brand-primary;
+    }
+}
+
+.btn {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
 .btn-primary {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -26,6 +38,7 @@
         border: solid 2px $brand-primary;
         background-color: $brand-white;
         color: $brand-primary;
+        box-shadow: none;
     }
 }
 
@@ -141,6 +154,11 @@ form {
         height: 34px;
     }
 
+    label {
+        color: $brand-primary;
+        font-weight: 600;
+    }
+
     .form-control {
         background-color: $brand-white;
         border: 0;
@@ -183,7 +201,7 @@ form {
 
 // job page
 .job-listings-wrapper {
-    height: 640px;
+    height: 54vh;
     overflow-y: auto;
 
     .card {
@@ -199,8 +217,14 @@ form {
         width: 70px;
         text-align: center;
     }
+
+    .btn-spinner {
+        margin: 0px auto 0;
+        width: 70px;
+        text-align: center;
+    }
       
-    .spinner > div {
+    .spinner > div, .btn-spinner > div {
         width: 18px;
         height: 18px;
         background-color: $brand-primary;
@@ -211,12 +235,12 @@ form {
         animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     }
     
-    .spinner .bounce1 {
+    .spinner .bounce1, .btn-spinner .bounce1 {
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
     }
     
-    .spinner .bounce2 {
+    .spinner .bounce2, .btn-spinner .bounce2 {
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
     }

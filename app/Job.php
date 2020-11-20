@@ -3,12 +3,13 @@
 namespace App;
 
 use App\Traits\HasUuid;
+use App\Traits\Fileable;
 use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    use HasUuid, Bookmarkable;
+    use HasUuid, Bookmarkable, Fileable;
 
     protected $table = 'jobs';
 
@@ -17,7 +18,7 @@ class Job extends Model
     ];
 
     protected $dates = [
-        'created_at', 'start_date'
+        'created_at', 'start_date', 'end_date'
     ];
 
     /**
@@ -101,11 +102,6 @@ class Job extends Model
         return $query->whereHas('bookmarks', function ($q) use ($user) {
             $q->where('user_id', $user->id);
         });
-    }
-
-    public function getEndDateAttribute()
-    {
-        return $this->start_date->addDays($this->length_of_job);
     }
 
     public function users() 

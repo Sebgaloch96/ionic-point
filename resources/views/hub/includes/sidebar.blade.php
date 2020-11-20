@@ -9,7 +9,7 @@
             <p class="mb-0">Welcome {{ Auth::user()->name }}!</p>
         </div>
         <li>
-            <a href="{{ route('hub.dashboard') }}"><i class="fas fa-columns"></i> <span class="px-1">Dashboard</span></a>
+            <a href="{{ route('hub.dashboard') }}"><i class="fas fa-home"></i> <span class="px-1">Dashboard</span></a>
         </li>
         <li class="{{ Request::segment(2) == "jobs" ? "active" : "" }}">
             <hr>

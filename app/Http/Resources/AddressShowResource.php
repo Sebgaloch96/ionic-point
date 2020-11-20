@@ -19,6 +19,7 @@ class AddressShowResource extends JsonResource
             'address_line_2' => $this->address_line_2, 
             'address_line_3' => $this->address_line_3,
             'country' => $this->country,
+            'county' => $this->county,
             'city' => $this->city,
             'postcode' => $this->postcode,
             'lat' => $this->lat,

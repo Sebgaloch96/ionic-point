@@ -22,5 +22,10 @@ Route::prefix('/hub')->namespace('Hub')->middleware(['ajax'])->group(function ()
         Route::post('{job}/bookmark', 'Api\JobController@bookmark');
         Route::post('/create', 'Api\JobController@create');
     });
+
+    Route::prefix('/files')->group(function () {
+        Route::get('{file}', 'Api\FileController@get');
+        Route::post('/upload', 'Api\FileController@upload');
+    });
 });
 

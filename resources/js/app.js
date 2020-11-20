@@ -9,9 +9,6 @@ require('datatables.net-bs4');
 require('datatables.net-responsive-bs4');
 
 import moment from "moment";
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-
-window.Swal = Swal;
 
 import Vue from 'vue';
 import Jobs from "./components/Jobs";
@@ -21,12 +18,13 @@ import JobForm from "./components/Jobs/JobForm";
 
 import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
-
+import FileUpload from "./components/FileUpload";
 
 import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
-import VueSwal from 'vue-swal';
+
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -65,7 +63,7 @@ Vue.filter('toMiles', value => {
     return parseInt(Math.round(value / 1609.344));
 });
 
-Vue.use(VueSwal);
+Vue.use(VueSweetalert2);
 Vue.use(VueToast, {
     position: 'top-right',
 });
@@ -85,6 +83,7 @@ Vue.component('pagination', Pagination);
 // Components required across the app
 Vue.component('search', Search);
 Vue.component('range-filter', RangeFilter);
+Vue.component('file-upload', FileUpload);
 
 // Jobs
 Vue.component('jobs', Jobs);

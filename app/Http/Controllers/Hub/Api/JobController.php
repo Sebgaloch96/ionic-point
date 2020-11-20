@@ -50,6 +50,10 @@ class JobController extends Controller
         if ($keyword = $request->input('search-filter')) {
             $jobs->search($keyword);
         }
+        if ($bounds = $request->input('range-filter')) {
+            $decodedBounds = json_decode($bounds);
+            $jobs->withinLatLngBounds($decodedBounds);
+        }
 
         // Sorting
         if ($sort = $request->input('sort')) {
@@ -66,6 +70,10 @@ class JobController extends Controller
         // Filters
         if ($keyword = $request->input('search-filter')) {
             $jobs->search($keyword);
+        }
+        if ($bounds = $request->input('range-filter')) {
+            $decodedBounds = json_decode($bounds);
+            $jobs->withinLatLngBounds($decodedBounds);
         }
 
         // Sorting
@@ -91,5 +99,20 @@ class JobController extends Controller
         }
         
         return response()->json($alert);
+    }
+
+    public function create(Request $request)
+    {
+        //dd($request->all());
+        return response()->json([
+            'alert' => [
+                'title' => 'Job Created!',
+                'text' => '',
+                'icon' => 'success'
+            ],
+            'errors' => [
+
+            ]
+        ]);
     }
 }
