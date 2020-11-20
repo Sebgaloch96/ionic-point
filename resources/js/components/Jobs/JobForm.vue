@@ -2,6 +2,12 @@
     <fragment>
         <form id="job-form" class="px-1 px-md-4" @submit.prevent="processJobForm">
             <!-- Job Details -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Job Details</h3>
+                    <hr>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="title">Title</label> 
@@ -31,7 +37,13 @@
                 </div>  
             </div>
 
-            <!-- Duration -->
+            <!-- Schedule -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="mt-4">Schedule</h3>
+                    <hr>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="start-date">Start Date</label>
@@ -47,7 +59,21 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="mt-4">Address</h3>
+                    <hr>
+                </div>
+            </div>
+
             <!-- Address -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Address Search</label>
+                    <search placeholder="Enter postcode" :use-button="true" @search-clicked="addressLookup"></search>
+                    <small v-if="postcodeError" class="text-danger">Invalid postcode</small>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="address-line-1">Address Line 1</label> 
@@ -85,24 +111,18 @@
                     <small v-if="form.address.country.length == 0" class="text-danger">Required</small>
                     <input type="text" id="country" class="form-control" v-model="form.address.country">
                 </div>  
-                <div class="form-group col-md-3">
-                    <label>Postcode</label>
-                    <small v-if="form.address.postcode.length == 0" class="text-danger">Required</small>
-                    <search placeholder="Enter postcode" :use-button="true" @search-clicked="getLatLng"></search>
-                    <small v-if="postcodeError" class="invalid-feedback">Invalid postcode</small>
-                </div>
             </div>
 
             <div class="row pt-5">
-                <div class="col-md-12">
-                    <a class="btn btn-primary" href="#">
-                        <i class="fas fa-arrow-left"></i>
-                        Back
-                    </a>
-                    <button type="submit" class="btn btn-primary">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-save"></i>
                         Save
                     </button>
+                    <a class="btn btn-primary btn-block" href="#">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </a>
                 </div>
             </div>
         </form>
@@ -138,41 +158,34 @@ export default {
                 },
             },
             postcodeError: false,
+            apiKey: 'ak_khqkltl9fMsSTuUrLMlj3yo9TcukK',
             titleOptions: {
                 max: 50
-            }, 
-            loading: false
+            }
         }
     },
 
     methods: {
-        getLatLng(postcode) {
+        addressLookup(term) {
             // Delete X-CSRF-TOKEN header for this particular request
             var request = axios.create();
             delete request.defaults.headers.common['X-CSRF-TOKEN'];
             delete request.defaults.headers.common['Authorization'];
 
-            request.get(`https://api.postcodes.io/postcodes/${postcode}`)
+            request.get(`https://api.ideal-postcodes.co.uk/v1/autocomplete/addresses?q=${term}&api_key=${this.apiKey}`)
             .then(response => {
-                if (response.data.status == 200) {
-                    this.form.address.postcode = postcode;
-                    this.form.address.lat = response.data.result.latitude;
-                    this.form.address.lng = response.data.result.longitude;
-                }
+                console.log(response);
             })
             .catch(err => {
-                this.postcodeError = true;
+                console.log(err);
             });
         },
 
         processJobForm() {
-            this.loading = true;
-
             axios.post('/api/hub/jobs/create', this.form)
             .then(response => {
                 this.$refs.fileDropzone.upload();
 
-                this.loading = false;
                 this.$swal(response.data.alert);
             })
             .catch(err => {

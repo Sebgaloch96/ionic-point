@@ -16,7 +16,9 @@
 }
 
 i {
-    color: $brand-primary;
+    .search-button {
+        color: $brand-primary;
+    }
 }
 
 .btn {
@@ -215,8 +217,14 @@ form {
         width: 70px;
         text-align: center;
     }
+
+    .btn-spinner {
+        margin: 0px auto 0;
+        width: 70px;
+        text-align: center;
+    }
       
-    .spinner > div {
+    .spinner > div, .btn-spinner > div {
         width: 18px;
         height: 18px;
         background-color: $brand-primary;
@@ -227,12 +235,12 @@ form {
         animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     }
     
-    .spinner .bounce1 {
+    .spinner .bounce1, .btn-spinner .bounce1 {
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
     }
     
-    .spinner .bounce2 {
+    .spinner .bounce2, .btn-spinner .bounce2 {
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
     }

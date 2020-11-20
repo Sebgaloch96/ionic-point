@@ -7,9 +7,23 @@
                     @foreach ($breadcrumbs as $breadcrumb)
                     
                         @if ($breadcrumb->url && !$loop->last)
-                            <li class="breadcrumb-item align-middle"><h4 class="font-weight-bolder"><a href="{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></h4></li>
+                            <li class="breadcrumb-item align-middle">
+                                <h4 class="font-weight-bolder">
+                                    <a href="{{ $breadcrumb->url }}">
+                                        @if ($breadcrumb->title == 'Dashboard')
+                                            <i class="fas fa-home"></i>
+                                        @else
+                                            {{ $breadcrumb->title }}
+                                        @endif
+                                    </a>
+                                </h4>
+                            </li>
                         @else
-                            <li class="breadcrumb-item align-middle active"><h4 class="font-weight-bolder">{{ $breadcrumb->title }}</h4></li>
+                            <li class="breadcrumb-item align-middle active">
+                                <h4 class="font-weight-bolder">
+                                    {{ $breadcrumb->title }}
+                                </h4>
+                            </li>
                         @endif
             
                     @endforeach
