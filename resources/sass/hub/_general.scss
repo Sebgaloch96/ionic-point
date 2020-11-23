@@ -47,6 +47,14 @@ i {
     right: 5px;
 }
 
+// breadcrumbs
+.breadcrumb-item + .breadcrumb-item {
+    &:before {
+        font-size: $font-size-base * 1.5;
+        line-height: 1.2;
+    }
+}
+
 .card-job {
     &:hover {
         box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) !important;
