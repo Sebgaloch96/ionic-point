@@ -19,6 +19,7 @@ import JobForm from "./components/Jobs/JobForm";
 import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
 import FileUpload from "./components/FileUpload";
+import AddressLookup from "./components/AddressLookup";
 
 import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
@@ -63,6 +64,25 @@ Vue.filter('toMiles', value => {
     return parseInt(Math.round(value / 1609.344));
 });
 
+// Vue mixins
+Vue.mixin({
+    methods: {
+        requestWithoutHeaders(headers) {
+            // Create a new request instance
+            var request = axios.create();
+
+            // Loop through the array of request headers
+            headers.forEach(header => {
+                // Delete each request header
+                delete request.defaults.headers.common[header];
+            });
+
+            // Return the request instance with the specificed headers deleted
+            return request;
+        }
+    }
+});
+
 Vue.use(VueSweetalert2);
 Vue.use(VueToast, {
     position: 'top-right',
@@ -84,6 +104,7 @@ Vue.component('pagination', Pagination);
 Vue.component('search', Search);
 Vue.component('range-filter', RangeFilter);
 Vue.component('file-upload', FileUpload);
+Vue.component('address-lookup', AddressLookup);
 
 // Jobs
 Vue.component('jobs', Jobs);

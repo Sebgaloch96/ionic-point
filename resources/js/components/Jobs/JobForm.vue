@@ -59,19 +59,16 @@
                 </div>
             </div>
 
+            <!-- Address -->
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="mt-4">Address</h3>
                     <hr>
                 </div>
             </div>
-
-            <!-- Address -->
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Address Search</label>
-                    <search placeholder="Enter postcode" :use-button="true" @search-clicked="addressLookup"></search>
-                    <small v-if="postcodeError" class="text-danger">Invalid postcode</small>
+                <div class="form-group col-md-12">
+                    <address-lookup @udprn-lookup="onAddressSearch"></address-lookup>
                 </div>
             </div>
             <div class="form-row">
@@ -111,9 +108,14 @@
                     <small v-if="form.address.country.length == 0" class="text-danger">Required</small>
                     <input type="text" id="country" class="form-control" v-model="form.address.country">
                 </div>  
+                <div class="form-group col-md-3">
+                    <label for="postcode">Postcode</label>
+                    <small v-if="form.address.postcode.length == 0" class="text-danger">Required</small>
+                    <input type="text" id="postcode" class="form-control" v-model="form.address.postcode">
+                </div>
             </div>
 
-            <div class="row pt-5">
+            <div class="form-row pt-5">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-save"></i>
@@ -157,30 +159,15 @@ export default {
                     lng: null
                 },
             },
-            postcodeError: false,
-            apiKey: 'ak_khqkltl9fMsSTuUrLMlj3yo9TcukK',
+            errors: [],
             titleOptions: {
                 max: 50
-            }
+            },
+            loading: false
         }
     },
 
     methods: {
-        addressLookup(term) {
-            // Delete X-CSRF-TOKEN header for this particular request
-            var request = axios.create();
-            delete request.defaults.headers.common['X-CSRF-TOKEN'];
-            delete request.defaults.headers.common['Authorization'];
-
-            request.get(`https://api.ideal-postcodes.co.uk/v1/autocomplete/addresses?q=${term}&api_key=${this.apiKey}`)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        },
-
         processJobForm() {
             axios.post('/api/hub/jobs/create', this.form)
             .then(response => {
@@ -189,8 +176,20 @@ export default {
                 this.$swal(response.data.alert);
             })
             .catch(err => {
-                console.log(err);
+                this.errors.push(err);
             });
+        },
+
+        onAddressSearch(address) {
+            this.form.address.address_line_1 = address.line_1;
+            this.form.address.address_line_2 = address.line_2;
+            this.form.address.address_line_3 = address.line_3;
+            this.form.address.city = address.district;
+            this.form.address.county = address.county;
+            this.form.address.country = address.country;
+            this.form.address.postcode = address.postcode;
+            this.form.address.lat = address.latitude;
+            this.form.address.lng = address.longitude;
         }
     }
 }

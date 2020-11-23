@@ -211,6 +211,17 @@ form {
     }
 }
 
+.spinner-border {
+    color: $brand-primary;
+
+    &.spinner-small {
+        height: 20px;
+        width: 20px;
+        border-width: 0.2em;
+        margin-top: 42px;
+    }
+}
+
 .loading-wrapper {
     .spinner {
         margin: 100px auto 0;

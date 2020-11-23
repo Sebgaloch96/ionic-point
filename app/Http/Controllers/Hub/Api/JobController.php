@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hub\Api;
 use App\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobSaveRequest;
 use App\Http\Resources\JobIndexResource;
 
 class JobController extends Controller
@@ -101,9 +102,9 @@ class JobController extends Controller
         return response()->json($alert);
     }
 
-    public function create(Request $request)
+    public function create(JobSaveRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
         return response()->json([
             'alert' => [
                 'title' => 'Job Created!',

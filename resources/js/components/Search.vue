@@ -1,6 +1,6 @@
 <template>
     <div class="position-relative">
-        <input class="form-control rounded-0" type="text"
+        <input class="form-control rounded-0" type="text" autocomplete="off"
             :class="inputClasses" 
             :placeholder="placeholderText" 
             v-model="keyword" 
