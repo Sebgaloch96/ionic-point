@@ -24,7 +24,7 @@ class JobSaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:50',
+            'title' => 'required|max:50',
             'description' => 'required',
             'start_date' => 'before:end_date',
             'end_date' => 'after:start_date',

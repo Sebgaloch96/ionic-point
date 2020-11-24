@@ -15,7 +15,7 @@ $factory->define(Address::class, function () {
         'address_line_3' => '',
         'city' => $faker->city,
         'country' => $faker->country,
-        'county' => $faker->state,
+        'county' => $faker->county,
         'postcode' => $faker->postcode,
         'lat' => $faker->latitude(51, 54),
         'lng' => $faker->longitude(-2, 0)
