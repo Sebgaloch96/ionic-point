@@ -1,12 +1,12 @@
 <template>
     <fragment>
         <div class="form-row">
-            <div class="col-md-6">
+            <div class="col-xl-6">
                 <label>Search For Address</label>
                 <search ref="address_lookup" placeholder="Enter postcode or street address" @search="onAddressLookup"></search>
                 <small v-if="error != ''" class="text-danger">{{ error }}</small>
             </div>
-            <div class="col-md-6">
+            <div class="col-xl-6">
                 <div v-if="loading" class="spinner-border spinner-small" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>

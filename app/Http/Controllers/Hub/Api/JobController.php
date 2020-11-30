@@ -112,7 +112,8 @@ class JobController extends Controller
             'description' => $request->description,
             'status' => 'Available',
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date
+            'end_date' => $request->end_date,
+            'public' => $request->public
         ]);
 
         $address = Address::create($request->address);

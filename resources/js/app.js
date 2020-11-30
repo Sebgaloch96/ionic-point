@@ -24,8 +24,8 @@ import AddressLookup from "./components/AddressLookup";
 import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
-
 import VueSweetalert2 from 'vue-sweetalert2';
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';

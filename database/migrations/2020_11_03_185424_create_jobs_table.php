@@ -22,6 +22,7 @@ class CreateJobsTable extends Migration
             $table->string('status')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
+            $table->tinyInteger('public')->default(1);
             $table->timestamps();
         });
 
