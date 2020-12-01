@@ -44,16 +44,12 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-xl-3">
-                    <label for="start-date">Start Date</label>
-                    <datepicker placeholder="dd/mm/yyyy" input-class="form-control bg-white" id="start-date" 
-                        v-model="form.start_date">
-                    </datepicker>
+                    <label for="start-date">Start</label>
+                    <input type="datetime-local" class="form-control" id="start_date" v-model="form.start_date">
                 </div>
                 <div class="form-group col-xl-3">
-                    <label for="end-date">End Date</label>
-                    <datepicker placeholder="dd/mm/yyyy" input-class="form-control bg-white" id="end-date" 
-                        v-model="form.end_date">
-                    </datepicker>  
+                    <label for="end-date">End</label>
+                    <input type="datetime-local" class="form-control" id="end_date" v-model="form.end_date">
                 </div>
             </div>
 
@@ -154,14 +150,14 @@
 
 <script>
 import moment from "moment";
-import Datepicker from 'vuejs-datepicker';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
+import AddressLookup from "../AddressLookup";
 
 export default {
     components: {
-        Datepicker,
-        ckeditor: CKEditor.component
+        ckeditor: CKEditor.component,
+        AddressLookup
     },
 
     data() {

@@ -22,12 +22,6 @@
                             <strong>Your Jobs</strong>
                         </a>
                     </li>
-                    <li v-if="userHasRoles(['Project Manager'])" class="nav-item" role="presentation">
-                        <a class="nav-link" id="your-job-listings-tab" data-toggle="pill" href="#your-job-listings" role="tab" aria-controls="your-job-listings" aria-selected="false"
-                        @click="onSwitchTabs" data-url="/api/hub/jobs/myJobs">
-                            <strong>Your Job Listings</strong>
-                        </a>
-                    </li>
                 </ul>
 
                 <!-- Filter Bar -->

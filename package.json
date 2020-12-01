@@ -35,12 +35,12 @@
         "laravel-vue-pagination": "^2.3.1",
         "leaflet": "^1.7.1",
         "moment": "^2.29.1",
+        "vue-bootstrap-datetimepicker": "^5.0.1",
         "vue-fragment": "^1.5.1",
         "vue-select": "^3.10.8",
         "vue-sweetalert2": "^4.1.1",
         "vue-toast-notification": "^0.6.0",
         "vue2-dropzone": "^3.6.0",
-        "vue2-leaflet": "^2.6.0",
-        "vuejs-datepicker": "^1.6.2"
+        "vue2-leaflet": "^2.6.0"
     }
 }

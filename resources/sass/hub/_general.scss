@@ -207,6 +207,20 @@ form {
     }
 }
 
+// table styling
+table {
+    text-align: center;
+
+    thead {
+        background-color: $brand-primary;
+        color: $brand-white;
+    }
+
+    tbody {
+        background-color: $brand-white;
+    }
+}
+
 // job page
 .job-listings-wrapper {
     height: 54vh;

@@ -6,15 +6,17 @@ use App\Traits\HasUuid;
 use App\Traits\Fileable;
 use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
+use Wildside\Userstamps\Userstamps;
 
 class Job extends Model
 {
-    use HasUuid, Bookmarkable, Fileable;
+    use HasUuid, Bookmarkable, Fileable, Userstamps;
 
     protected $table = 'jobs';
 
     protected $fillable = [
-        'reference', 'title', 'description', 'status'
+        'reference', 'title', 'description', 'status',
+        'start_date', 'end_date', 'public', 'created_by'
     ];
 
     protected $dates = [

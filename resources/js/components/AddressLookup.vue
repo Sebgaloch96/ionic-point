@@ -3,7 +3,7 @@
         <div class="form-row">
             <div class="col-xl-6">
                 <label>Search For Address</label>
-                <search ref="address_lookup" placeholder="Enter postcode or street address" @search="onAddressLookup"></search>
+                <search ref="address_lookup" placeholder="Enter postcode, street address or business name" @search="onAddressLookup"></search>
                 <small v-if="error != ''" class="text-danger">{{ error }}</small>
             </div>
             <div class="col-xl-6">
