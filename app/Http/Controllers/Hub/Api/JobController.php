@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JobSaveRequest;
 use App\Http\Resources\JobIndexResource;
 use Carbon\Carbon;
+use DataTables;
 class JobController extends Controller
 {
     /**
@@ -105,14 +106,14 @@ class JobController extends Controller
 
     public function create(JobSaveRequest $request)
     {
-        $job = Job::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => 'Available',
-            'start_date' => Carbon::parse($request->start_date),
-            'end_date' => Carbon::parse($request->end_date),
-            'public' => $request->public ? 1 : 0
-        ]);
+        $job = new Job();
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->status = 'Available';
+        $job->start_date = Carbon::parse($request->start_date);
+        $job->end_date = Carbon::parse($request->end_date);
+        $job->public = $request->public ? 1 : 0;
+        $job->save();
 
         $address = Address::create($request->address);
         $job->address()->save($address);
@@ -123,6 +124,28 @@ class JobController extends Controller
                 'text' => '',
                 'icon' => 'success'
             ]
+        ]);
+    }
+
+    /**
+     * DataTable functions
+     */
+
+    public function loadDatatable()
+    {
+        $model = Job::with(['address'])->orderBy('created_at', 'asc');
+
+        return DataTables::eloquent($model)
+            ->toJson();
+    }
+
+    public function togglePublic(Job $job) 
+    {   
+        $job->public = !$job->public;
+        $job->save();
+
+        return response()->json([
+            'type' => 'success'
         ]);
     }
 }

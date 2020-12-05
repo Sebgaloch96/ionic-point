@@ -134,7 +134,7 @@
 
             <div class="form-row py-5">
                 <div class="col-12">
-                    <a class="btn btn-primary" href="#">
+                    <a class="btn btn-primary" href="/hub/jobs/manage">
                         <i class="fas fa-arrow-left"></i>
                         Back
                     </a>

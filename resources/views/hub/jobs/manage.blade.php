@@ -22,9 +22,10 @@
                         <th>Title</th>
                         <th>Status</th>
                         <th>Start Date</th>
-                        <th>Est. Price</th>
+                        <th>Location</th>
                         <th>Interest</th>
                         <th>Public</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -21,6 +21,10 @@ Route::prefix('/hub')->namespace('Hub')->middleware(['ajax'])->group(function ()
 
         Route::post('{job}/bookmark', 'Api\JobController@bookmark');
         Route::post('/create', 'Api\JobController@create');
+
+        // DataTables
+        Route::get('/datatable', 'Api\JobController@loadDatatable');
+        Route::post('{job}/toggle-public', 'Api\JobController@togglePublic');
     });
 
     Route::prefix('/files')->group(function () {
