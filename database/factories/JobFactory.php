@@ -11,8 +11,8 @@ $factory->define(Job::class, function (Faker $faker) {
     $endDate = $faker->dateTimeBetween($startDate, Carbon::now()->addWeek());
 
     return [
-        'title' => $faker->sentence(),
-        'description' => $faker->text(),
+        'title' => ucfirst($faker->words($faker->numberBetween(1, 3), true)),
+        'description' => $faker->paragraphs($faker->numberBetween(1, 5), true),
         'status' => 'Available',
         'start_date' => $startDate,
         'end_date' => $endDate,

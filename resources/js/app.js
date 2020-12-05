@@ -19,13 +19,14 @@ import JobForm from "./components/Jobs/JobForm";
 import Search from "./components/Search";
 import RangeFilter from "./components/RangeFilter";
 import FileUpload from "./components/FileUpload";
-import AddressLookup from "./components/AddressLookup";
 
 import { Fragment } from 'vue-fragment';
 import vSelect from 'vue-select';
 import Pagination from 'laravel-vue-pagination';
-
 import VueSweetalert2 from 'vue-sweetalert2';
+
+import DateTimePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -99,12 +100,12 @@ Vue.component('l-icon', LIcon);
 Vue.component('l-popup', LPopup);
 Vue.component('v-select', vSelect);
 Vue.component('pagination', Pagination);
+Vue.component('datetime-picker', DateTimePicker);
 
 // Components required across the app
 Vue.component('search', Search);
 Vue.component('range-filter', RangeFilter);
 Vue.component('file-upload', FileUpload);
-Vue.component('address-lookup', AddressLookup);
 
 // Jobs
 Vue.component('jobs', Jobs);
@@ -124,3 +125,4 @@ const app = new Vue({
 
 // Custom JS Scripts
 require('./hub/main');
+require('./hub/manage-jobs');

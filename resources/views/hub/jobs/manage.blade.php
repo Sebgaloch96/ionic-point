@@ -13,4 +13,23 @@
             </a>
         </div>
     </div>
+
+    <div class="row px-1 px-md-4">
+        <div class="col-12">
+            <table class="table table-responsive-sm table-hover" id="manage_jobs_datatable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>Est. Price</th>
+                        <th>Interest</th>
+                        <th>Public</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

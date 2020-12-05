@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobSaveRequest;
 use App\Http\Resources\JobIndexResource;
-
+use Carbon\Carbon;
 class JobController extends Controller
 {
     /**
@@ -24,7 +24,7 @@ class JobController extends Controller
     public function listed(Request $request) 
     {
         $user = auth()->user();
-        $jobs = Job::with(['address']);
+        $jobs = Job::where('public', 1)->with(['address']);
         
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -46,7 +46,7 @@ class JobController extends Controller
     public function myJobs(Request $request) 
     {
         $user = auth()->user();
-        $jobs = $user->jobs()->with(['address']);
+        $jobs = $user->jobs()->with(['address'])->where('public', 1);
 
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -67,7 +67,7 @@ class JobController extends Controller
 
     public function myBookmarks(Request $request) 
     {
-        $jobs = Job::query()->bookmarkedByUser()->with(['address']);
+        $jobs = Job::where('public', 1)->bookmarkedByUser()->with(['address']);
 
         // Filters
         if ($keyword = $request->input('search-filter')) {
@@ -105,14 +105,13 @@ class JobController extends Controller
 
     public function create(JobSaveRequest $request)
     {
-        $user = auth()->user();
-
         $job = Job::create([
             'title' => $request->title,
             'description' => $request->description,
             'status' => 'Available',
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date
+            'start_date' => Carbon::parse($request->start_date),
+            'end_date' => Carbon::parse($request->end_date),
+            'public' => $request->public ? 1 : 0
         ]);
 
         $address = Address::create($request->address);

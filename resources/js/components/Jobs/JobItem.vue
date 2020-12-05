@@ -26,10 +26,9 @@
             </div>
 
             <div class="card-body">
-                {{ description.substr(0, 120) + '...' }} <a :href="'#'+reference" data-toggle="collapse" aria-expanded="false" :aria-controls="reference">Read more</a>
-
-                <div class="collapse more-description" :id="reference">
-                    {{ description }}
+                <span v-html="description.substr(0, 120) + '...'"></span> 
+                <a :href="'#'+reference" data-toggle="collapse" aria-expanded="false" :aria-controls="reference">Read more</a>
+                <div class="collapse more-description" :id="reference" v-html="description">
                 </div>
             </div>
         </div>
